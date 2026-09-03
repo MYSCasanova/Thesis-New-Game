@@ -120,7 +120,7 @@ public class S1_PlayerController : MonoBehaviour
                 int floorsSkipped = landedFloor - currentFloor;
 
                 // If we skipped at least 1 floor (e.g., Jumped from Floor 1 to 3)
-                if (floorsSkipped >= 1)  //For Debug use >= 1
+                if (floorsSkipped > 1)  //For Debug use >= 1
                 {
                     // Trigger the combo in our UI!
                     comboSystem.AddCombo(floorsSkipped);
