@@ -1,37 +1,8 @@
 using UnityEngine;
 
-public class S3_Platform : MonoBehaviour
+public class Platform : MonoBehaviour
 {
-    public enum MovementDirection
-    {
-        Static,
-        Horizontal,
-        Vertical
-    }
-    public int floorNumber;
-    public MovementDirection direction;
-
-    public float distance = 3f;
-    public float speed = 2f;
-
-    private Vector3 startPosition;
-
-    void Start()
-    {
-        startPosition = transform.position;
-    }
-
-    void Update()
-    {
-        float movement = Mathf.Sin(Time.time * speed) * distance;
-
-        if (direction == MovementDirection.Horizontal)
-        {
-            transform.position = startPosition + new Vector3(movement, 0, 0);
-        }
-        else if (direction == MovementDirection.Vertical)
-        {
-            transform.position = startPosition + new Vector3(0, movement, 0);
-        }
-    }
+    public int floorNumber; 
+    // In the Inspector, set your starting ground to 0. 
+    // Set the first platform to 1, the next to 2, etc.
 }
