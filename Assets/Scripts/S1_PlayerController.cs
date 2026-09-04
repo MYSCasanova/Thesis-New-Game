@@ -112,7 +112,7 @@ public class S1_PlayerController : MonoBehaviour
         // Check if the object we landed on has the "Platform" tag
         if (collision.gameObject.CompareTag("Platform"))
         {
-            Platform landedPlatform = collision.gameObject.GetComponent<Platform>();
+            S3_Platform landedPlatform = collision.gameObject.GetComponent<S3_Platform>();
             
             if (landedPlatform != null)
             {
