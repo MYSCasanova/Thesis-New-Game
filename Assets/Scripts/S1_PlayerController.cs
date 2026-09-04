@@ -68,6 +68,8 @@ public class S1_PlayerController : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * shortJumpMultiplier);
         }
+
+        Debug.Log("Grounded: " + isGrounded);
     }
 
     void FixedUpdate()
@@ -119,11 +121,18 @@ public class S1_PlayerController : MonoBehaviour
                 int landedFloor = landedPlatform.floorNumber;
                 int floorsSkipped = landedFloor - currentFloor;
 
+                transform.SetParent(collision.transform); // Make the player a child of the platform TEMPORARILY so it moves with the platform
+
                 // If we skipped at least 1 floor (e.g., Jumped from Floor 1 to 3)
                 if (floorsSkipped > 1)  //For Debug use >= 1
                 {
                     // Trigger the combo in our UI!
                     comboSystem.AddCombo(floorsSkipped);
+                }
+
+                if (landedFloor >= 3) //camera scrolls up when player jumps on platform 3
+                {
+                    Camera.main.GetComponent<CameraFollow>().Activate();
                 }
 
                 // Update our current floor so we can't farm combos by jumping in place
@@ -132,6 +141,14 @@ public class S1_PlayerController : MonoBehaviour
                     currentFloor = landedFloor;
                 }
             }
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D collision) // Detach player from platform when leaving
+    {
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            transform.SetParent(null);
         }
     }
 }
