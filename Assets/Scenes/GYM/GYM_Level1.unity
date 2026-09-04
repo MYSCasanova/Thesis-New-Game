@@ -270,7 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042fa3e712e38e743a6bcef41ca5a5ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S3_Platform
-  floorNumber: 0
+  floorNumber: 1
   direction: 0
   distance: 3
   speed: 2
@@ -3511,7 +3511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042fa3e712e38e743a6bcef41ca5a5ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S3_Platform
-  floorNumber: 0
+  floorNumber: 3
   direction: 0
   distance: 3
   speed: 2

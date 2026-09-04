@@ -68,8 +68,6 @@ public class S1_PlayerController : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * shortJumpMultiplier);
         }
-
-        Debug.Log("Grounded: " + isGrounded);
     }
 
     void FixedUpdate()
