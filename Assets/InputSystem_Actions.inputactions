@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "InputSystem_Actions",
     "maps": [
         {
@@ -402,7 +403,18 @@
                     "path": "<XRController>/secondaryButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "XR",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c257482b-3d07-4f3b-b178-007b7076c320",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
