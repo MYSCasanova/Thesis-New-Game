@@ -13,6 +13,7 @@ public class S1_PlayerController : MonoBehaviour
     public float edgeJumpMultiplier = 0.75f; // Lower jump on edges
     public float directionChangeBoost = 3f;  // Upward boost when switching directions in air
     public float momentumJumpBoost = 0.5f;   // Running faster makes you jump slightly higher
+    public float bounceMultiplier = 1.5f; // Multiplier for jump height when on a bouncy platform
     
     [Header("Auto-Bounce (Jump Chaining)")]
     public bool isAutoBouncing = false; // Toggle this in inspector for continuous bouncing
@@ -35,6 +36,7 @@ public class S1_PlayerController : MonoBehaviour
     private bool groundLeft;
     private bool groundRight;
     public bool isOnIcy = false; // Tracks if the player is currently on an icy platform
+    public bool isOnBouncy = false; // Tracks if the player is currently on a bouncy platform
 
     void Start()
     {
@@ -96,6 +98,11 @@ public class S1_PlayerController : MonoBehaviour
     {
         float currentJump = jumpForce;
 
+        if (isOnBouncy) // If the player is on a bouncy platform, increase jump height
+        {
+            currentJump *= bounceMultiplier; // Increase jump height by bounce multiplier if on a bouncy platform
+        }
+
         // 7. Momentum Boost (Running fast = higher jump)
         float speedBoost = Mathf.Abs(rb.linearVelocity.x) * momentumJumpBoost;
         currentJump += speedBoost;
@@ -120,8 +127,12 @@ public class S1_PlayerController : MonoBehaviour
                 int landedFloor = landedPlatform.floorNumber;
                 int floorsSkipped = landedFloor - currentFloor;
                 isOnIcy = landedPlatform.isIcy; // Update icy state based on the platform we landed on
-                
-                transform.SetParent(collision.transform); // Make the player a child of the platform TEMPORARILY so it moves with the platform
+                isOnBouncy = landedPlatform.isBouncy; // Update bouncy state based on the platform we landed on
+
+                if (landedPlatform.direction != S3_Platform.MovementDirection.Static) //Attach player to platform ONLY if it's moving
+                {
+                    transform.SetParent(collision.transform);
+                }
 
                 // If we skipped at least 1 floor (e.g., Jumped from Floor 1 to 3)
                 if (floorsSkipped > 1)  //For Debug use >= 1
