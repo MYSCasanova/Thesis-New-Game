@@ -4,7 +4,7 @@ public class S1_PlayerController : MonoBehaviour
 {
     [Header("Icy Tower Movement")]
     public float acceleration = 15f;
-    public float deceleration = 10f;
+    public float deceleration = 10f; // how long before player stops
     public float maxSpeed = 10f;
 
     [Header("Jumping Mechanics")]
@@ -34,6 +34,7 @@ public class S1_PlayerController : MonoBehaviour
     private bool isGrounded;
     private bool groundLeft;
     private bool groundRight;
+    public bool isOnIcy = false; // Tracks if the player is currently on an icy platform
 
     void Start()
     {
@@ -75,8 +76,8 @@ public class S1_PlayerController : MonoBehaviour
         // 5. Icy Tower Acceleration / Slippery Movement
         float targetSpeed = moveInput * maxSpeed;
         float speedDiff = targetSpeed - rb.linearVelocity.x;
-        float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : deceleration;
-        
+        float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : (isOnIcy ? 1f : deceleration); // If on icy platform, reduce deceleration to 1
+
         float movement = Mathf.Pow(Mathf.Abs(speedDiff) * accelRate, 0.9f) * Mathf.Sign(speedDiff);
         rb.AddForce(movement * Vector2.right);
 
@@ -118,7 +119,8 @@ public class S1_PlayerController : MonoBehaviour
             {
                 int landedFloor = landedPlatform.floorNumber;
                 int floorsSkipped = landedFloor - currentFloor;
-
+                isOnIcy = landedPlatform.isIcy; // Update icy state based on the platform we landed on
+                
                 transform.SetParent(collision.transform); // Make the player a child of the platform TEMPORARILY so it moves with the platform
 
                 // If we skipped at least 1 floor (e.g., Jumped from Floor 1 to 3)
@@ -147,6 +149,7 @@ public class S1_PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Platform"))
         {
             transform.SetParent(null);
+            isOnIcy = false; // Reset icy state when leaving the platform
         }
     }
 }

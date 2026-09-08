@@ -13,6 +13,7 @@ public class S3_Platform : MonoBehaviour
 
     public float distance = 3f;
     public float speed = 2f;
+    public bool isIcy; //If platform is icy, it will affect deceleration of player when on it
 
     private Vector3 startPosition;
 
