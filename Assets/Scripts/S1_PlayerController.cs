@@ -4,7 +4,7 @@ public class S1_PlayerController : MonoBehaviour
 {
     [Header("Icy Tower Movement")]
     public float acceleration = 15f;
-    public float deceleration = 10f;
+    public float deceleration = 10f; // how long before player stops
     public float maxSpeed = 10f;
 
     [Header("Jumping Mechanics")]
@@ -13,6 +13,7 @@ public class S1_PlayerController : MonoBehaviour
     public float edgeJumpMultiplier = 0.75f; // Lower jump on edges
     public float directionChangeBoost = 3f;  // Upward boost when switching directions in air
     public float momentumJumpBoost = 0.5f;   // Running faster makes you jump slightly higher
+    public float bounceMultiplier = 1.5f; // Multiplier for jump height when on a bouncy platform
     
     [Header("Auto-Bounce (Jump Chaining)")]
     public bool isAutoBouncing = false; // Toggle this in inspector for continuous bouncing
@@ -39,6 +40,8 @@ public class S1_PlayerController : MonoBehaviour
     private bool isGrounded;
     private bool groundLeft;
     private bool groundRight;
+    public bool isOnIcy = false; // Tracks if the player is currently on an icy platform
+    public bool isOnBouncy = false; // Tracks if the player is currently on a bouncy platform
 
     void Start()
     {
@@ -104,6 +107,11 @@ public class S1_PlayerController : MonoBehaviour
     private void PerformJump()
     {
         float currentJump = jumpForce;
+
+        if (isOnBouncy) // If the player is on a bouncy platform, increase jump height
+        {
+            currentJump *= bounceMultiplier; // Increase jump height by bounce multiplier if on a bouncy platform
+        }
 
         // 7. Momentum Boost (Running fast = higher jump)
         float speedBoost = Mathf.Abs(rb.linearVelocity.x) * momentumJumpBoost;
@@ -177,6 +185,7 @@ public class S1_PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Platform"))
         {
             transform.SetParent(null);
+            isOnIcy = false; // Reset icy state when leaving the platform
         }
     }
 }
