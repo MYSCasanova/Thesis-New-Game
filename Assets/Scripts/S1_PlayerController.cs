@@ -30,6 +30,11 @@ public class S1_PlayerController : MonoBehaviour
     public S2_ComboSystem comboSystem; // Drag your Canvas (with the ComboSystem script) here
     private int currentFloor = 0;
 
+    [Header("Landing Penalties")]
+    // DEBUGGING PUT BADLANDING PENALTY TO 0.5 AFTER
+    public float badLandingPenalty = 1f; // Cuts max speed and acceleration in half 
+    private float currentSpeedMultiplier = 1f; // 1 means normal speed
+
     private Rigidbody2D rb;
     private float moveInput;
     private bool isGrounded;
@@ -76,14 +81,19 @@ public class S1_PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         // 5. Icy Tower Acceleration / Slippery Movement
-        float targetSpeed = moveInput * maxSpeed;
+        float targetSpeed = moveInput * (maxSpeed * currentSpeedMultiplier);
         float speedDiff = targetSpeed - rb.linearVelocity.x;
-        float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : (isOnIcy ? 1f : deceleration); // If on icy platform, reduce deceleration to 1
 
+        // Apply the multiplier to acceleration as well so they feel sluggish
+        float activeAccel = acceleration * currentSpeedMultiplier;
+        float activeDecel = deceleration * currentSpeedMultiplier;
+        
+        float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? activeAccel : activeDecel;
+        
         float movement = Mathf.Pow(Mathf.Abs(speedDiff) * accelRate, 0.9f) * Mathf.Sign(speedDiff);
         rb.AddForce(movement * Vector2.right);
-
         // 6. Direction Change Boost in Air
+        
         if (!isGrounded && moveInput != 0)
         {
             // If pressing a direction opposite to current momentum
@@ -117,38 +127,53 @@ public class S1_PlayerController : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // Check if the object we landed on has the "Platform" tag
         if (collision.gameObject.CompareTag("Platform"))
         {
             S3_Platform landedPlatform = collision.gameObject.GetComponent<S3_Platform>();
             
             if (landedPlatform != null)
             {
+                // 1. Precision Landing Math
+                float playerX = transform.position.x;
+                float platformX = collision.collider.bounds.center.x;
+                float halfWidth = collision.collider.bounds.extents.x;
+                
+                // Gives a value from 0 (dead center) to 1 (extreme edge)
+                float landingAccuracy = Mathf.Abs(playerX - platformX) / halfWidth;
                 int landedFloor = landedPlatform.floorNumber;
-                int floorsSkipped = landedFloor - currentFloor;
-                isOnIcy = landedPlatform.isIcy; // Update icy state based on the platform we landed on
-                isOnBouncy = landedPlatform.isBouncy; // Update bouncy state based on the platform we landed on
 
-                if (landedPlatform.direction != S3_Platform.MovementDirection.Static) //Attach player to platform ONLY if it's moving
-                {
-                    transform.SetParent(collision.transform);
-                }
-
-                // If we skipped at least 1 floor (e.g., Jumped from Floor 1 to 3)
-                if (floorsSkipped > 1)  //For Debug use >= 1
-                {
-                    // Trigger the combo in our UI!
-                    comboSystem.AddCombo(floorsSkipped);
-                }
-
-                if (landedFloor >= 3) //camera scrolls up when player jumps on platform 3
-                {
-                    Camera.main.GetComponent<CameraFollow>().Activate();
-                }
-
-                // Update our current floor so we can't farm combos by jumping in place
+                // Only score/judge the landing if it's a new, higher platform
                 if (landedFloor > currentFloor)
                 {
+                    comboSystem.AddScore(2500); // Base Height Score
+
+                    // 2. Evaluate Landing Quality
+                    if (landingAccuracy <= 0.35f) 
+                    {
+                        Debug.Log("PERFECT Landing! Momentum restored.");
+                        currentSpeedMultiplier = 1f; // REMOVES THE PENALTY
+                        comboSystem.AddScore(800); 
+                    } 
+                    else if (landingAccuracy <= 0.75f) 
+                    {
+                        Debug.Log("GOOD Landing.");
+                        // Good landings do nothing to the penalty. You must get a Perfect to cure it!
+                    } 
+                    else 
+                    {
+                        Debug.Log("BAD Landing (Edge)! Speed halved until Perfect.");
+                        currentSpeedMultiplier = badLandingPenalty; // APPLIES THE PENALTY
+                    }
+
+                    // 3. Combo System Logic
+                    int floorsSkipped = landedFloor - currentFloor;
+                    if (floorsSkipped > 1) 
+                    {
+                        int comboPoints = floorsSkipped - 1;
+                        comboSystem.AddCombo(comboPoints);
+                        comboSystem.AddScore(1000 * comboPoints); // Combo Score
+                    }
+
                     currentFloor = landedFloor;
                 }
             }
