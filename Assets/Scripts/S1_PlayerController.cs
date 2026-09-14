@@ -141,6 +141,23 @@ public class S1_PlayerController : MonoBehaviour
         // Check if the object we landed on has the "Platform" tag
         if (collision.gameObject.CompareTag("Platform"))
         {
+            // Only count it as a landing if the player hits the TOP of the platform
+            bool landedOnTop = false;
+
+            foreach (ContactPoint2D contact in collision.contacts)
+            {
+                if (contact.normal.y > 0.5f)
+                {
+                    landedOnTop = true;
+                    break;
+                }
+            }
+
+            if (!landedOnTop)
+            {
+                return;
+            }
+            
             S3_Platform landedPlatform = collision.gameObject.GetComponent<S3_Platform>();
             
             if (landedPlatform != null)
