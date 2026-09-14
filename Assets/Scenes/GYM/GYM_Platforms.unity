@@ -765,6 +765,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   comboSystem: {fileID: 0}
+  badLandingPenalty: 1
   isOnIcy: 0
   isOnBouncy: 0
 --- !u!61 &1087515744
@@ -927,7 +928,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1527215680}
   m_Layer: 0
-  m_Name: Platforms
+  m_Name: --- PLATFORMS ---
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -963,7 +964,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1571863942}
   m_Layer: 0
-  m_Name: Walls
+  m_Name: --- GROUND ---
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

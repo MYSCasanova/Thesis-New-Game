@@ -271,7 +271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042fa3e712e38e743a6bcef41ca5a5ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S3_Platform
-  floorNumber: 0
+  floorNumber: 1
   distance: 3
   speed: 2
   direction: 0
@@ -940,7 +940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042fa3e712e38e743a6bcef41ca5a5ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S3_Platform
-  floorNumber: 0
+  floorNumber: 5
   distance: 3
   speed: 2
   direction: 0
@@ -1119,7 +1119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042fa3e712e38e743a6bcef41ca5a5ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S3_Platform
-  floorNumber: 0
+  floorNumber: 9
   distance: 3
   speed: 2
   direction: 0
@@ -1146,6 +1146,50 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
+--- !u!1 &328654585
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 328654586}
+  - component: {fileID: 328654587}
+  m_Layer: 0
+  m_Name: --- CHECKPOINT MANAGGER ---
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &328654586
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328654585}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.41553, y: 2.14553, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &328654587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328654585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8d06594af56146b5b19db6d99af5159, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::S6_Checkpoint
 --- !u!1 &342530036
 GameObject:
   m_ObjectHideFlags: 0
@@ -1298,7 +1342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042fa3e712e38e743a6bcef41ca5a5ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S3_Platform
-  floorNumber: 0
+  floorNumber: 10
   distance: 3
   speed: 2
   direction: 0
@@ -1693,7 +1737,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042fa3e712e38e743a6bcef41ca5a5ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S3_Platform
-  floorNumber: 0
+  floorNumber: 12
   distance: 3
   speed: 2
   direction: 0
@@ -1908,7 +1952,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042fa3e712e38e743a6bcef41ca5a5ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S3_Platform
-  floorNumber: 0
+  floorNumber: 6
   distance: 3
   speed: 2
   direction: 0
@@ -2138,7 +2182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042fa3e712e38e743a6bcef41ca5a5ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S3_Platform
-  floorNumber: 0
+  floorNumber: 17
   distance: 4
   speed: 2
   direction: 1
@@ -2403,7 +2447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042fa3e712e38e743a6bcef41ca5a5ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S3_Platform
-  floorNumber: 0
+  floorNumber: 11
   distance: 3
   speed: 2
   direction: 1
@@ -2582,7 +2626,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042fa3e712e38e743a6bcef41ca5a5ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S3_Platform
-  floorNumber: 0
+  floorNumber: 7
   distance: 3
   speed: 2
   direction: 0
@@ -2802,7 +2846,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042fa3e712e38e743a6bcef41ca5a5ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S3_Platform
-  floorNumber: 0
+  floorNumber: 16
   distance: 4
   speed: 2
   direction: 0
@@ -3012,7 +3056,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042fa3e712e38e743a6bcef41ca5a5ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S3_Platform
-  floorNumber: 0
+  floorNumber: 22
   distance: 4
   speed: 2
   direction: 0
@@ -3287,7 +3331,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1179840782}
   m_Layer: 0
-  m_Name: Walls
+  m_Name: --- WALLS ---
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3463,7 +3507,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042fa3e712e38e743a6bcef41ca5a5ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S3_Platform
-  floorNumber: 0
+  floorNumber: 15
   distance: 3
   speed: 2
   direction: 0
@@ -3763,7 +3807,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042fa3e712e38e743a6bcef41ca5a5ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S3_Platform
-  floorNumber: 0
+  floorNumber: 14
   distance: 2
   speed: 2
   direction: 2
@@ -4168,7 +4212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042fa3e712e38e743a6bcef41ca5a5ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S3_Platform
-  floorNumber: 0
+  floorNumber: 20
   distance: 5
   speed: 2
   direction: 1
@@ -4662,7 +4706,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042fa3e712e38e743a6bcef41ca5a5ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S3_Platform
-  floorNumber: 0
+  floorNumber: 8
   distance: 3
   speed: 2
   direction: 0
@@ -4841,7 +4885,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042fa3e712e38e743a6bcef41ca5a5ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S3_Platform
-  floorNumber: 0
+  floorNumber: 2
   distance: 3
   speed: 2
   direction: 0
@@ -4909,7 +4953,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1738588121}
   m_Layer: 0
-  m_Name: Platforms
+  m_Name: --- PLATFORMS ---
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4998,7 +5042,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042fa3e712e38e743a6bcef41ca5a5ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S3_Platform
-  floorNumber: 0
+  floorNumber: 19
   distance: 4
   speed: 2
   direction: 0
@@ -5177,7 +5221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042fa3e712e38e743a6bcef41ca5a5ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S3_Platform
-  floorNumber: 0
+  floorNumber: 18
   distance: 4
   speed: 2
   direction: 0
@@ -5356,7 +5400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042fa3e712e38e743a6bcef41ca5a5ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S3_Platform
-  floorNumber: 0
+  floorNumber: 23
   distance: 3
   speed: 2
   direction: 1
@@ -5535,7 +5579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042fa3e712e38e743a6bcef41ca5a5ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S3_Platform
-  floorNumber: 0
+  floorNumber: 21
   distance: 4
   speed: 2
   direction: 0
@@ -5889,7 +5933,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042fa3e712e38e743a6bcef41ca5a5ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S3_Platform
-  floorNumber: 0
+  floorNumber: 4
   distance: 3
   speed: 2
   direction: 0
@@ -6385,7 +6429,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042fa3e712e38e743a6bcef41ca5a5ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S3_Platform
-  floorNumber: 0
+  floorNumber: 13
   distance: 3
   speed: 2
   direction: 0
@@ -6421,3 +6465,4 @@ SceneRoots:
   - {fileID: 895798514}
   - {fileID: 1179840782}
   - {fileID: 1738588121}
+  - {fileID: 328654586}

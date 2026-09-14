@@ -157,7 +157,7 @@ public class S1_PlayerController : MonoBehaviour
             {
                 return;
             }
-            
+
             S3_Platform landedPlatform = collision.gameObject.GetComponent<S3_Platform>();
             
             if (landedPlatform != null)
@@ -223,6 +223,11 @@ public class S1_PlayerController : MonoBehaviour
                     }
                 
                     currentFloor = landedFloor;
+                }
+
+                if(landedFloor < currentFloor) // If player falls below the current floor, respawn at last checkpoint
+                {
+                    S6_Checkpoint.Instance.RespawnPlayer();
                 }
             }
         }

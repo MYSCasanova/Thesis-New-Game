@@ -32,4 +32,13 @@ public class CameraFollow : MonoBehaviour
     {
         activated = true;
     }
+
+    public void RespawnCamera(Vector3 checkpointPosition)
+    {
+        transform.position = new Vector3(
+            transform.position.x,
+            checkpointPosition.y,
+            transform.position.z
+        );
+    }
 }
