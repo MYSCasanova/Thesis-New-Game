@@ -30,13 +30,20 @@ public class S1_PlayerController : MonoBehaviour
     public S2_ComboSystem comboSystem; // Drag your Canvas (with the ComboSystem script) here
     private int currentFloor = 0;
 
+    [Header("Landing Penalties")]
+    // DEBUGGING PUT BADLANDING PENALTY TO 0.5 AFTER
+    public float badLandingPenalty = 1f; // Cuts max speed and acceleration in half 
+    private float currentSpeedMultiplier = 1f; // 1 means normal speed
+
+    [Header("Platform Types")]
+    public bool isOnIcy = false; // Tracks if the player is currently on an icy platform
+    public bool isOnBouncy = false; // Tracks if the player is currently on a bouncy platform
+
     private Rigidbody2D rb;
     private float moveInput;
     private bool isGrounded;
     private bool groundLeft;
     private bool groundRight;
-    public bool isOnIcy = false; // Tracks if the player is currently on an icy platform
-    public bool isOnBouncy = false; // Tracks if the player is currently on a bouncy platform
 
     void Start()
     {
@@ -76,11 +83,25 @@ public class S1_PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         // 5. Icy Tower Acceleration / Slippery Movement
-        float targetSpeed = moveInput * maxSpeed;
+        float targetSpeed = moveInput * (maxSpeed * currentSpeedMultiplier);
         float speedDiff = targetSpeed - rb.linearVelocity.x;
-        float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : (isOnIcy ? 1f : deceleration); // If on icy platform, reduce deceleration to 1
 
-        float movement = Mathf.Pow(Mathf.Abs(speedDiff) * accelRate, 0.9f) * Mathf.Sign(speedDiff);
+        //Icy Platforms have very low deceleration
+        float activeAccel = acceleration * currentSpeedMultiplier;
+        float activeDecel = deceleration * currentSpeedMultiplier;
+
+        float accelRate; 
+
+        if (Mathf.Abs(targetSpeed) > 0.01f) 
+        { 
+            accelRate = activeAccel; 
+        } 
+        else 
+        { 
+            accelRate = isOnIcy ? 1f : activeDecel; 
+        
+        }
+        float movement =Mathf.Pow(Mathf.Abs(speedDiff) * accelRate, 0.9f) * Mathf.Sign(speedDiff);
         rb.AddForce(movement * Vector2.right);
 
         // 6. Direction Change Boost in Air
@@ -149,6 +170,41 @@ public class S1_PlayerController : MonoBehaviour
                 // Update our current floor so we can't farm combos by jumping in place
                 if (landedFloor > currentFloor)
                 {
+                    // 1. Precision Landing Math
+                float playerX = transform.position.x;
+                float platformX = collision.collider.bounds.center.x;
+                float halfWidth = collision.collider.bounds.extents.x;
+                
+                // Gives a value from 0 (dead center) to 1 (extreme edge)
+                float landingAccuracy = Mathf.Abs(playerX - platformX) / halfWidth;
+                
+                comboSystem.AddScore(2500);
+
+                if (landingAccuracy <= 0.35f) 
+                    {
+                        Debug.Log("PERFECT Landing! Momentum restored.");
+                        currentSpeedMultiplier = 1f; // REMOVES THE PENALTY
+                        comboSystem.AddScore(800); 
+                    } 
+                    else if (landingAccuracy <= 0.75f) 
+                    {
+                        Debug.Log("GOOD Landing.");
+                        // Good landings do nothing to the penalty. You must get a Perfect to cure it!
+                    } 
+                    else 
+                    {
+                        Debug.Log("BAD Landing (Edge)! Speed halved until Perfect.");
+                        currentSpeedMultiplier = badLandingPenalty; // APPLIES THE PENALTY
+                    }
+
+                    // 3. Combo System Logic
+                    if (floorsSkipped > 1) 
+                    {
+                        int comboPoints = floorsSkipped - 1;
+                        comboSystem.AddCombo(comboPoints);
+                        comboSystem.AddScore(1000 * comboPoints); // Combo Score
+                    }
+                
                     currentFloor = landedFloor;
                 }
             }
