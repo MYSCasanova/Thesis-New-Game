@@ -37,10 +37,7 @@ public class S1_PlayerController : MonoBehaviour
 
     [Header("Platform Types")]
     public bool isOnIcy = false; // Tracks if the player is currently on an icy platform
-    public bool isOnBouncy = false; // Tracks if the player is currently on a bouncy platform
-
-    [Header("Fall Distance")]
-    public float fallDistance = 5f; // Distance below the camera at which the player will respawn
+    public bool isOnBouncy ; // Tracks if the player is currently on a bouncy platform
 
     private Rigidbody2D rb;
     private float moveInput;
@@ -89,8 +86,7 @@ public class S1_PlayerController : MonoBehaviour
         {
             isRespawning = true;
             Invoke(nameof(Respawn), 1f);
-            //Invoke(nameof(ResetRespawn), 1.1f);
-            Debug.Log("Player fell below the camera. Respawning at last checkpoint.");
+            GetComponent<S7_HealthSystem>().LoseLife();
         }
     }
 
@@ -240,15 +236,6 @@ public class S1_PlayerController : MonoBehaviour
                 }
             }
         }
-
-        if (collision.gameObject.CompareTag("Checkpoint"))
-        {
-            S6_Checkpoint checkpoint = collision.gameObject.GetComponent<S6_Checkpoint>();
-            if (checkpoint != null)
-            {
-                S6_Checkpoint.Instance.SetCheckpoint(checkpoint.transform.position);
-            }
-        }
     }
 
     void OnCollisionExit2D(Collision2D collision) // Detach player from platform when leaving
@@ -257,6 +244,18 @@ public class S1_PlayerController : MonoBehaviour
         {
             transform.SetParent(null);
             isOnIcy = false; // Reset icy state when leaving the platform
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Checkpoint"))
+        {
+            S6_Checkpoint checkpoint = collision.gameObject.GetComponent<S6_Checkpoint>();
+            if (checkpoint != null)
+            {
+                S6_Checkpoint.Instance.SetCheckpoint(checkpoint.transform.position);
+            }
         }
     }
 

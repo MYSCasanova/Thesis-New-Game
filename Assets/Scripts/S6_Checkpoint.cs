@@ -36,7 +36,7 @@ public class S6_Checkpoint : MonoBehaviour
             cameraCheckpoint = Camera.main.transform.position;
         }
 
-        Debug.Log("Checkpoint saved at " + checkpointPosition);
+        Debug.Log("Checkpoint saved");
     }
 
     public void RespawnPlayer()
@@ -50,14 +50,11 @@ public class S6_Checkpoint : MonoBehaviour
             {
                 rb.linearVelocity = Vector2.zero; // Reset velocity to avoid falling through platforms
             }
+        }
 
-            CameraFollow cameraFollow = Camera.main.GetComponent<CameraFollow>();
-
-            if (cameraFollow != null)
+        if (Camera.main != null)
             {
                 Camera.main.transform.position = cameraCheckpoint;
             }
-
-        }
     }
 }
