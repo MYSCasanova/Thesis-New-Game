@@ -88,8 +88,8 @@ public class S1_PlayerController : MonoBehaviour
         if (!isRespawning && rb.linearVelocity.y < 0 && transform.position.y < cameraBottomY)
         {
             isRespawning = true;
-            S6_Checkpoint.Instance.RespawnPlayer();
-            Invoke(nameof(ResetRespawn), 0.5f);
+            Invoke(nameof(Respawn), 1f);
+            //Invoke(nameof(ResetRespawn), 1.1f);
             Debug.Log("Player fell below the camera. Respawning at last checkpoint.");
         }
     }
@@ -260,8 +260,9 @@ public class S1_PlayerController : MonoBehaviour
         }
     }
 
-    private void ResetRespawn()
+    private void Respawn()
     {
+        S6_Checkpoint.Instance.RespawnPlayer();
         isRespawning = false;
     }
 }
