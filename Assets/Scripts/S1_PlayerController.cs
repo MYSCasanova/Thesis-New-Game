@@ -39,11 +39,15 @@ public class S1_PlayerController : MonoBehaviour
     public bool isOnIcy = false; // Tracks if the player is currently on an icy platform
     public bool isOnBouncy = false; // Tracks if the player is currently on a bouncy platform
 
+    [Header("Fall Distance")]
+    public float fallDistance = 5f; // Distance below the camera at which the player will respawn
+
     private Rigidbody2D rb;
     private float moveInput;
     private bool isGrounded;
     private bool groundLeft;
     private bool groundRight;
+    public bool isRespawning;
 
     void Start()
     {
@@ -77,6 +81,16 @@ public class S1_PlayerController : MonoBehaviour
         if (Input.GetButtonUp("Jump") && rb.linearVelocity.y > 0)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * shortJumpMultiplier);
+        }
+
+        // Checkpoint - checks if the player is below the screen
+        float cameraBottomY = Camera.main.transform.position.y - (Camera.main.orthographicSize);
+        if (!isRespawning && rb.linearVelocity.y < 0 && transform.position.y < cameraBottomY)
+        {
+            isRespawning = true;
+            S6_Checkpoint.Instance.RespawnPlayer();
+            Invoke(nameof(ResetRespawn), 0.5f);
+            Debug.Log("Player fell below the camera. Respawning at last checkpoint.");
         }
     }
 
@@ -224,11 +238,15 @@ public class S1_PlayerController : MonoBehaviour
                 
                     currentFloor = landedFloor;
                 }
+            }
+        }
 
-                if(landedFloor < currentFloor) // If player falls below the current floor, respawn at last checkpoint
-                {
-                    S6_Checkpoint.Instance.RespawnPlayer();
-                }
+        if (collision.gameObject.CompareTag("Checkpoint"))
+        {
+            S6_Checkpoint checkpoint = collision.gameObject.GetComponent<S6_Checkpoint>();
+            if (checkpoint != null)
+            {
+                S6_Checkpoint.Instance.SetCheckpoint(checkpoint.transform.position);
             }
         }
     }
@@ -240,5 +258,10 @@ public class S1_PlayerController : MonoBehaviour
             transform.SetParent(null);
             isOnIcy = false; // Reset icy state when leaving the platform
         }
+    }
+
+    private void ResetRespawn()
+    {
+        isRespawning = false;
     }
 }

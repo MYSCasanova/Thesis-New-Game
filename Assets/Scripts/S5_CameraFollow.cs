@@ -4,13 +4,11 @@ public class CameraFollow : MonoBehaviour
 {
     public Transform player;
     public float moveSpeed = 5f;
-
     private bool activated = false;
 
     void Update()
     {
-        if (!activated)
-            return;
+        if (!activated) return;
 
         if (player.position.y > transform.position.y)
         {
@@ -31,14 +29,5 @@ public class CameraFollow : MonoBehaviour
     public void Activate()
     {
         activated = true;
-    }
-
-    public void RespawnCamera(Vector3 checkpointPosition)
-    {
-        transform.position = new Vector3(
-            transform.position.x,
-            checkpointPosition.y,
-            transform.position.z
-        );
     }
 }
