@@ -125,7 +125,7 @@ public class S1_PlayerController : MonoBehaviour
     }
 
     private void PerformJump()
-    {
+    {        
         float currentJump = jumpForce;
 
         if (isOnBouncy) // If the player is on a bouncy platform, increase jump height
@@ -144,6 +144,7 @@ public class S1_PlayerController : MonoBehaviour
         }
 
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, currentJump);
+        transform.SetParent(null);
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -176,7 +177,8 @@ public class S1_PlayerController : MonoBehaviour
                 isOnIcy = landedPlatform.isIcy; // Update icy state based on the platform we landed on
                 isOnBouncy = landedPlatform.isBouncy; // Update bouncy state based on the platform we landed on
 
-                if (landedPlatform.direction != S3_Platform.MovementDirection.Static) //Attach player to platform ONLY if it's moving
+                if (landedPlatform.direction != S3_Platform.MovementDirection.Static &&
+                landedPlatform.direction != S3_Platform.MovementDirection.Falling) //Attach player to platform ONLY if it's moving
                 {
                     transform.SetParent(collision.transform);
                 }
