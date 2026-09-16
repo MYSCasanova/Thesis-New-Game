@@ -85,7 +85,6 @@ public class S1_PlayerController : MonoBehaviour
         if (!isRespawning && rb.linearVelocity.y < 0 && transform.position.y < cameraBottomY)
         {
             isRespawning = true;
-            Invoke(nameof(Respawn), 1f);
             GetComponent<S7_HealthSystem>().LoseLife();
         }
     }
@@ -257,11 +256,5 @@ public class S1_PlayerController : MonoBehaviour
                 S6_Checkpoint.Instance.SetCheckpoint(checkpoint.transform.position);
             }
         }
-    }
-
-    private void Respawn()
-    {
-        S6_Checkpoint.Instance.RespawnPlayer();
-        isRespawning = false;
     }
 }

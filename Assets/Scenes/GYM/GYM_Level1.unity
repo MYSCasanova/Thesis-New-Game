@@ -728,6 +728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S7_HealthSystem
   maxLives: 3
+  maxHealth: 5
 --- !u!1 &186455766
 GameObject:
   m_ObjectHideFlags: 0

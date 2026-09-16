@@ -39,22 +39,13 @@ public class S6_Checkpoint : MonoBehaviour
         Debug.Log("Checkpoint saved");
     }
 
-    public void RespawnPlayer()
+    public Vector3 GetCheckpointPosition()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
-        {
-            player.transform.position = checkpointPosition;
-            Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
-            if (rb != null)
-            {
-                rb.linearVelocity = Vector2.zero; // Reset velocity to avoid falling through platforms
-            }
-        }
+        return checkpointPosition;
+    }
 
-        if (Camera.main != null)
-            {
-                Camera.main.transform.position = cameraCheckpoint;
-            }
+    public Vector3 GetCameraCheckpoint()
+    {
+        return cameraCheckpoint;
     }
 }
