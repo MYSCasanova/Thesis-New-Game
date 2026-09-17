@@ -10,24 +10,18 @@ public class CameraFollow : MonoBehaviour
     {
         if (!activated) return;
 
-        if (player.position.y > transform.position.y)
-        {
-            Vector3 targetPosition = new Vector3(
-                transform.position.x,
-                player.position.y,
-                transform.position.z
-            );
+        transform.position += Vector3.up * moveSpeed * Time.deltaTime;
 
-            transform.position = Vector3.Lerp(
-                transform.position,
-                targetPosition,
-                moveSpeed * Time.deltaTime
-            );
-        }
     }
 
     public void Activate()
     {
         activated = true;
+    }
+
+    public void ResetCamera(Vector3 checkpointPosition)
+    {
+        transform.position = checkpointPosition;
+        activated = false;
     }
 }

@@ -56,7 +56,7 @@ public class S7_HealthSystem : MonoBehaviour
         if (Camera.main != null)
         {
             Vector3 cameraCheckpoint = S6_Checkpoint.Instance.GetCameraCheckpoint();
-            Camera.main.transform.position = cameraCheckpoint;
+            Camera.main.GetComponent<CameraFollow>().ResetCamera(cameraCheckpoint);
         }
 
         GetComponent<S1_PlayerController>().isRespawning = false;
