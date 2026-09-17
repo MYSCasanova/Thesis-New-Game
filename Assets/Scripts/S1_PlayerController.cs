@@ -110,8 +110,7 @@ public class S1_PlayerController : MonoBehaviour
         }
         else
         {
-            accelRate = isOnIcy ? 1f : activeDecel;
-        
+            accelRate = isOnIcy ? 0.2f : activeDecel;
         }
         float movement =Mathf.Pow(Mathf.Abs(speedDiff) * accelRate, 0.9f) * Mathf.Sign(speedDiff);
         rb.AddForce(movement * Vector2.right);

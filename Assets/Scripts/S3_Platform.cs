@@ -80,12 +80,20 @@ public class S3_Platform : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && isBreaking)
+        if (!collision.gameObject.CompareTag("Player")) return;
+
+        Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
+
+        if (playerRb == null) return;
+
+        if (playerRb.linearVelocity.y > 0.1f) return;
+
+        if (isBreaking)
         {
             isPlayerOnPlatform = true; // Start the timer when the player lands on the platform
             breakTimer = 0f; // Reset the timer when the player lands on the platform
         }
-        if (collision.gameObject.CompareTag("Player") && direction == MovementDirection.Falling)
+        if (direction == MovementDirection.Falling && !isFalling)
         {
             isFalling = true;
             rb.gravityScale = 1f; // Apply ggravity to falling platform when player steps on it
