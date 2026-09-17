@@ -37,7 +37,7 @@ public class S1_PlayerController : MonoBehaviour
 
    [Header("Landing Penalties")]
    // DEBUGGING PUT BADLANDING PENALTY TO 0.5 AFTER
-   public float badLandingPenalty = 1f; // Cuts max speed and acceleration in half
+   public float badLandingPenalty = 0.5f; // Cuts max speed and acceleration in half
    private float currentSpeedMultiplier = 1f; // 1 means normal speed
 
 
@@ -96,7 +96,7 @@ public class S1_PlayerController : MonoBehaviour
 
        // Checkpoint - checks if the player is below the screen
        float cameraBottomY = Camera.main.transform.position.y - (Camera.main.orthographicSize);
-       if (!isRespawning && rb.linearVelocity.y < 0 && transform.position.y < cameraBottomY)
+       if (!isRespawning && transform.position.y < cameraBottomY)
        {
            isRespawning = true;
            GetComponent<S7_HealthSystem>().LoseLife();
@@ -295,4 +295,3 @@ public class S1_PlayerController : MonoBehaviour
        }
    }
 }
-
