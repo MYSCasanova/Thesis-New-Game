@@ -153,13 +153,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S3_Platform
   floorNumber: 0
+  direction: 0
   distance: 3
   speed: 2
-  direction: 0
   isIcy: 0
+  isBouncy: 1
   isBreaking: 0
   breakDelay: 2
-  isBouncy: 1
+  fallSpeed: 5
+  destroyDelay: 3
 --- !u!251 &2211386208203558937
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -175,7 +177,7 @@ PlatformEffector2D:
   m_RotationalOffset: 0
   m_UseOneWay: 1
   m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
+  m_SurfaceArc: 150
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1

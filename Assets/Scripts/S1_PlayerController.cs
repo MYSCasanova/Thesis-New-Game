@@ -190,7 +190,7 @@ public class S1_PlayerController : MonoBehaviour
                     comboSystem.AddCombo(floorsSkipped);
                 }
 
-                if (landedFloor >= 3) //camera scrolls up when player jumps on platform 3
+                if (landedFloor >= 1) //camera scrolls up when player jumps on platform 3
                 {
                     Camera.main.GetComponent<CameraFollow>().Activate();
                 }
