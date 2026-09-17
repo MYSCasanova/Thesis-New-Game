@@ -112,8 +112,8 @@ public class S1_PlayerController : MonoBehaviour
         }
         float movement =Mathf.Pow(Mathf.Abs(speedDiff) * accelRate, 0.9f) * Mathf.Sign(speedDiff);
         rb.AddForce(movement * Vector2.right);
-
         // 6. Direction Change Boost in Air
+        
         if (!isGrounded && moveInput != 0)
         {
             // If pressing a direction opposite to current momentum
@@ -148,7 +148,6 @@ public class S1_PlayerController : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // Check if the object we landed on has the "Platform" tag
         if (collision.gameObject.CompareTag("Platform"))
         {
             // Only count it as a landing if the player hits the TOP of the platform
@@ -172,6 +171,13 @@ public class S1_PlayerController : MonoBehaviour
             
             if (landedPlatform != null)
             {
+                // 1. Precision Landing Math
+                float playerX = transform.position.x;
+                float platformX = collision.collider.bounds.center.x;
+                float halfWidth = collision.collider.bounds.extents.x;
+                
+                // Gives a value from 0 (dead center) to 1 (extreme edge)
+                float landingAccuracy = Mathf.Abs(playerX - platformX) / halfWidth;
                 int landedFloor = landedPlatform.floorNumber;
                 int floorsSkipped = landedFloor - currentFloor;
                 isOnIcy = landedPlatform.isIcy; // Update icy state based on the platform we landed on
@@ -195,7 +201,7 @@ public class S1_PlayerController : MonoBehaviour
                     Camera.main.GetComponent<CameraFollow>().Activate();
                 }
 
-                // Update our current floor so we can't farm combos by jumping in place
+                // Only score/judge the landing if it's a new, higher platform
                 if (landedFloor > currentFloor)
                 {
                     // 1. Precision Landing Math
