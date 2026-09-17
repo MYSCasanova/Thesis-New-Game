@@ -44,7 +44,7 @@ public class S1_PlayerController : MonoBehaviour
     private bool isGrounded;
     private bool groundLeft;
     private bool groundRight;
-    public bool isRespawning;
+    private bool isRespawning;
 
     void Start()
     {
@@ -99,20 +99,10 @@ public class S1_PlayerController : MonoBehaviour
         float targetSpeed = moveInput * (maxSpeed * currentSpeedMultiplier);
         float speedDiff = targetSpeed - rb.linearVelocity.x;
 
-
-
-
         //Icy Platforms have very low deceleration
         float activeAccel = acceleration * currentSpeedMultiplier;
         float activeDecel = deceleration * currentSpeedMultiplier;
-
-
-
-
         float accelRate;
-
-
-
 
         if (Mathf.Abs(targetSpeed) > 0.01f)
         {
@@ -126,9 +116,6 @@ public class S1_PlayerController : MonoBehaviour
         float movement =Mathf.Pow(Mathf.Abs(speedDiff) * accelRate, 0.9f) * Mathf.Sign(speedDiff);
         rb.AddForce(movement * Vector2.right);
 
-
-
-
         // 6. Direction Change Boost in Air
         if (!isGrounded && moveInput != 0)
         {
@@ -140,30 +127,18 @@ public class S1_PlayerController : MonoBehaviour
         }
     }
 
-
-
-
     private void PerformJump()
     {      
         float currentJump = jumpForce;
-
-
-
 
         if (isOnBouncy) // If the player is on a bouncy platform, increase jump height
         {
             currentJump *= bounceMultiplier; // Increase jump height by bounce multiplier if on a bouncy platform
         }
 
-
-
-
         // 7. Momentum Boost (Running fast = higher jump)
         float speedBoost = Mathf.Abs(rb.linearVelocity.x) * momentumJumpBoost;
         currentJump += speedBoost;
-
-
-
 
         // 8. Edge Jump Logic (Only one foot is on the ground)
         if (groundLeft != groundRight)
@@ -171,12 +146,10 @@ public class S1_PlayerController : MonoBehaviour
             currentJump *= edgeJumpMultiplier; // Lower jump height
         }
 
-
-
-
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, currentJump);
         transform.SetParent(null);
     }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         // Check if the object we landed on has the "Platform" tag
@@ -184,9 +157,6 @@ public class S1_PlayerController : MonoBehaviour
         {
             // Only count it as a landing if the player hits the TOP of the platform
             bool landedOnTop = false;
-
-
-
 
             foreach (ContactPoint2D contact in collision.contacts)
             {
@@ -197,16 +167,10 @@ public class S1_PlayerController : MonoBehaviour
                 }
             }
 
-
-
-
             if (!landedOnTop)
             {
                 return;
             }
-
-
-
 
             S3_Platform landedPlatform = collision.gameObject.GetComponent<S3_Platform>();
             
@@ -217,17 +181,11 @@ public class S1_PlayerController : MonoBehaviour
                 isOnIcy = landedPlatform.isIcy; // Update icy state based on the platform we landed on
                 isOnBouncy = landedPlatform.isBouncy; // Update bouncy state based on the platform we landed on
 
-
-
-
                 if (landedPlatform.direction != S3_Platform.MovementDirection.Static &&
                 landedPlatform.direction != S3_Platform.MovementDirection.Falling) //Attach player to platform ONLY if it's moving
                 {
                     transform.SetParent(collision.transform);
                 }
-
-
-
 
                 // If we skipped at least 1 floor (e.g., Jumped from Floor 1 to 3)
                 if (floorsSkipped > 1)  //For Debug use >= 1
@@ -236,16 +194,10 @@ public class S1_PlayerController : MonoBehaviour
                     comboSystem.AddCombo(floorsSkipped);
                 }
 
-
-
-
                 if (landedFloor >= 3) //camera scrolls up when player jumps on platform 3
                 {
                     Camera.main.GetComponent<CameraFollow>().Activate();
                 }
-
-
-
 
                 // Update our current floor so we can't farm combos by jumping in place
                 if (landedFloor > currentFloor)
@@ -259,9 +211,6 @@ public class S1_PlayerController : MonoBehaviour
                 float landingAccuracy = Mathf.Abs(playerX - platformX) / halfWidth;
                 
                 comboSystem.AddScore(2500);
-
-
-
 
                 if (landingAccuracy <= 0.35f)
                     {
@@ -279,9 +228,6 @@ public class S1_PlayerController : MonoBehaviour
                         Debug.Log("BAD Landing (Edge)! Speed halved until Perfect.");
                         currentSpeedMultiplier = badLandingPenalty; // APPLIES THE PENALTY
                     }
-
-
-
 
                     // 3. Combo System Logic
                     if (floorsSkipped > 1)
@@ -316,5 +262,15 @@ public class S1_PlayerController : MonoBehaviour
                 S6_Checkpoint.Instance.SetCheckpoint(checkpoint.transform.position);
             }
         }
+    }
+
+    public void ResetMultiplier()
+    {
+        currentSpeedMultiplier = 1f;
+    }
+
+    public void StopRespawning()
+    {
+        isRespawning = false;
     }
 }

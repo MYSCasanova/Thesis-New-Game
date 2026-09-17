@@ -210,6 +210,12 @@ MonoBehaviour:
   direction: 0
   distance: 3
   speed: 2
+  isIcy: 0
+  isBouncy: 0
+  isBreaking: 0
+  breakDelay: 2
+  fallSpeed: 5
+  destroyDelay: 3
 --- !u!61 &471686954
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -554,6 +560,12 @@ MonoBehaviour:
   direction: 0
   distance: 3
   speed: 2
+  isIcy: 0
+  isBouncy: 0
+  isBreaking: 0
+  breakDelay: 2
+  fallSpeed: 5
+  destroyDelay: 3
 --- !u!1 &735041955
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,6 +649,12 @@ MonoBehaviour:
   direction: 0
   distance: 3
   speed: 2
+  isIcy: 0
+  isBouncy: 0
+  isBreaking: 0
+  breakDelay: 2
+  fallSpeed: 5
+  destroyDelay: 3
 --- !u!61 &794598680
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -803,6 +821,12 @@ MonoBehaviour:
   direction: 0
   distance: 3
   speed: 2
+  isIcy: 0
+  isBouncy: 0
+  isBreaking: 0
+  breakDelay: 2
+  fallSpeed: 5
+  destroyDelay: 3
 --- !u!61 &1034196946
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -958,6 +982,12 @@ MonoBehaviour:
   direction: 0
   distance: 3
   speed: 2
+  isIcy: 0
+  isBouncy: 0
+  isBreaking: 0
+  breakDelay: 2
+  fallSpeed: 5
+  destroyDelay: 3
 --- !u!61 &1176818053
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1113,6 +1143,12 @@ MonoBehaviour:
   direction: 0
   distance: 3
   speed: 2
+  isIcy: 0
+  isBouncy: 0
+  isBreaking: 0
+  breakDelay: 2
+  fallSpeed: 5
+  destroyDelay: 3
 --- !u!61 &1224208989
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1406,6 +1442,12 @@ MonoBehaviour:
   direction: 0
   distance: 3
   speed: 2
+  isIcy: 0
+  isBouncy: 0
+  isBreaking: 0
+  breakDelay: 2
+  fallSpeed: 5
+  destroyDelay: 3
 --- !u!61 &1517310785
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1561,6 +1603,12 @@ MonoBehaviour:
   direction: 0
   distance: 3
   speed: 2
+  isIcy: 0
+  isBouncy: 0
+  isBreaking: 0
+  breakDelay: 2
+  fallSpeed: 5
+  destroyDelay: 3
 --- !u!61 &1605374176
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1821,6 +1869,12 @@ MonoBehaviour:
   direction: 0
   distance: 3
   speed: 2
+  isIcy: 0
+  isBouncy: 0
+  isBreaking: 0
+  breakDelay: 2
+  fallSpeed: 5
+  destroyDelay: 3
 --- !u!114 &1895928145 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6606860122960175346, guid: fba9a0a5dc463dd4186be9b64c7a3904, type: 3}
@@ -1882,6 +1936,12 @@ MonoBehaviour:
   direction: 0
   distance: 3
   speed: 2
+  isIcy: 0
+  isBouncy: 0
+  isBreaking: 0
+  breakDelay: 2
+  fallSpeed: 5
+  destroyDelay: 3
 --- !u!61 &2012070502
 BoxCollider2D:
   m_ObjectHideFlags: 0
