@@ -80,9 +80,6 @@ public class S1_PlayerController : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * shortJumpMultiplier);
         }
 
-
-
-
         // Checkpoint - checks if the player is below the screen
         float cameraBottomY = Camera.main.transform.position.y - (Camera.main.orthographicSize);
         if (!isRespawning && transform.position.y < cameraBottomY)
@@ -240,6 +237,15 @@ public class S1_PlayerController : MonoBehaviour
                 }
             }
         }
+
+        if (collision.gameObject.CompareTag("Checkpoint"))
+        {
+            S6_Checkpoint checkpoint = collision.gameObject.GetComponent<S6_Checkpoint>();
+            if (checkpoint != null)
+            {
+                S6_Checkpoint.Instance.SetCheckpoint(checkpoint.transform.position);
+            }
+        }
     }
 
     void OnCollisionExit2D(Collision2D collision) // Detach player from platform when leaving
@@ -248,18 +254,6 @@ public class S1_PlayerController : MonoBehaviour
         {
             transform.SetParent(null);
             isOnIcy = false; // Reset icy state when leaving the platform
-        }
-    }
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Checkpoint"))
-        {
-            S6_Checkpoint checkpoint = collision.gameObject.GetComponent<S6_Checkpoint>();
-            if (checkpoint != null)
-            {
-                S6_Checkpoint.Instance.SetCheckpoint(checkpoint.transform.position);
-            }
         }
     }
 
