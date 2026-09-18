@@ -1,33 +1,22 @@
+// UPDATED 9/18 5PM
+// REMOVED TakeDamage() METHOD
+// CHANGED public void LoseLife() to public int LoseLife(int damage)
+
 using UnityEngine;
 
 public class S7_HealthSystem : MonoBehaviour
 {
     public int maxLives;
-    public int maxHealth;
     private int currentLives;
-    private int currentHealth;
 
     void Start()
     {
         currentLives = maxLives;
-        currentHealth = maxHealth;
     }
 
-    public void TakeDamage(int damage)
+    public int LoseLife(int damage)
     {
-        currentHealth -= damage;
-
-        Debug.Log("Player took damage. Current health: " + currentHealth);
-
-        if(currentHealth <= 0)
-        {
-            LoseLife();
-        }
-    }
-
-    public void LoseLife()
-    {
-        currentLives--;
+        currentLives -= damage;
 
         Debug.Log("Lost a life. Current lives: " + currentLives);
 
@@ -37,9 +26,10 @@ public class S7_HealthSystem : MonoBehaviour
         }
         else
         {
-            currentHealth = maxHealth;
             RespawnPlayer();
         }
+
+        return currentLives;
     }
 
     public void RespawnPlayer()
