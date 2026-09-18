@@ -59,7 +59,9 @@ public class S7_HealthSystem : MonoBehaviour
             Camera.main.GetComponent<CameraFollow>().ResetCamera(cameraCheckpoint);
         }
 
-        GetComponent<S1_PlayerController>().isRespawning = false;
+        GetComponent<S1_PlayerController>().StopRespawning();
+
+        GetComponent<S1_PlayerController>().ResetMultiplier();
 
     }
     

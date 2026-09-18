@@ -157,6 +157,11 @@ MonoBehaviour:
   distance: 3
   speed: 2
   isIcy: 0
+  isBouncy: 0
+  isBreaking: 0
+  breakDelay: 2
+  fallSpeed: 5
+  destroyDelay: 3
 --- !u!251 &888028100973476014
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -172,7 +177,7 @@ PlatformEffector2D:
   m_RotationalOffset: 0
   m_UseOneWay: 1
   m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
+  m_SurfaceArc: 150
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1

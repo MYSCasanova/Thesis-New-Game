@@ -42,6 +42,12 @@ public class S4_Hazards : MonoBehaviour
 
         if (health == null) return;
 
+        Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
+
+        if (playerRb == null) return;
+
+        if (playerRb.linearVelocity.y > 0.1f) return;
+
         switch (hazardType)
         {
             //SPIKES
