@@ -14,7 +14,7 @@ public class S1_PlayerController : MonoBehaviour
     public float directionChangeBoost = 3f;  // Upward boost when switching directions in air
     public float momentumJumpBoost = 0.5f;   // Running faster makes you jump slightly higher
     public float bounceMultiplier = 1.5f; // Multiplier for jump height when on a bouncy platform
-    
+
     [Header("Auto-Bounce (Jump Chaining)")]
     public bool isAutoBouncing = false; // Toggle this in inspector for continuous bouncing
     public float jumpBufferTime = 0.2f; // Allows jumping just before hitting the ground
@@ -45,6 +45,7 @@ public class S1_PlayerController : MonoBehaviour
     private bool groundLeft;
     private bool groundRight;
     private bool isRespawning;
+    private S6_Checkpoint pendingCheckpoint;
 
     void Start()
     {
@@ -85,10 +86,9 @@ public class S1_PlayerController : MonoBehaviour
         if (!isRespawning && transform.position.y < cameraBottomY)
         {
             isRespawning = true;
-            GetComponent<S7_HealthSystem>().LoseLife();
+            GetComponent<S7_HealthSystem>().LoseLife(1);
         }
     }
-
 
     void FixedUpdate()
     {
@@ -124,7 +124,7 @@ public class S1_PlayerController : MonoBehaviour
     }
 
     private void PerformJump()
-    {      
+    {    
         float currentJump = jumpForce;
 
         if (isOnBouncy) // If the player is on a bouncy platform, increase jump height
@@ -183,13 +183,6 @@ public class S1_PlayerController : MonoBehaviour
                     transform.SetParent(collision.transform);
                 }
 
-                // If we skipped at least 1 floor (e.g., Jumped from Floor 1 to 3)
-                if (floorsSkipped > 1)  //For Debug use >= 1
-                {
-                    // Trigger the combo in our UI!
-                    comboSystem.AddCombo(floorsSkipped);
-                }
-
                 if (landedFloor >= 3) //camera scrolls up when player jumps on platform 3
                 {
                     Camera.main.GetComponent<CameraFollow>().Activate();
@@ -238,12 +231,14 @@ public class S1_PlayerController : MonoBehaviour
             }
         }
 
-        if (collision.gameObject.CompareTag("Checkpoint"))
+        if(collision.gameObject.CompareTag("Checkpoint"))
         {
-            S6_Checkpoint checkpoint = collision.gameObject.GetComponent<S6_Checkpoint>();
-            if (checkpoint != null)
+            // Save checkpoint only after landing on a platform
+            if (pendingCheckpoint != null)
             {
-                S6_Checkpoint.Instance.SetCheckpoint(checkpoint.transform.position);
+                S6_Checkpoint.Instance.SetCheckpoint(pendingCheckpoint.transform.position);
+
+                pendingCheckpoint = null;
             }
         }
     }
@@ -254,6 +249,27 @@ public class S1_PlayerController : MonoBehaviour
         {
             transform.SetParent(null);
             isOnIcy = false; // Reset icy state when leaving the platform
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Checkpoint"))
+        {
+            pendingCheckpoint = collision.GetComponent<S6_Checkpoint>();
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Checkpoint"))
+        {
+            S6_Checkpoint checkpoint = collision.GetComponent<S6_Checkpoint>();
+
+            if (checkpoint == pendingCheckpoint)
+            {
+                pendingCheckpoint = null;
+            }
         }
     }
 

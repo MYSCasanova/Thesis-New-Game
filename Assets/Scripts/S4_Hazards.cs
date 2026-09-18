@@ -1,4 +1,7 @@
-using UnityEngine;
+// UPDATED 9/18 5PM
+// CHANGED health.TakeDamage(damage) to health.LoseLife(damage)
+
+using UnityEngine;      
 
 public class S4_Hazards : MonoBehaviour
 {
@@ -48,26 +51,26 @@ public class S4_Hazards : MonoBehaviour
 
         if (playerRb.linearVelocity.y > 0.1f) return;
 
-        switch (hazardType)
+        switch (hazardType) 
         {
             //SPIKES
             case HazardType.Spike:
-            health.TakeDamage(damage);
+            health.LoseLife(damage);
             break;
 
             //FALLING OBJECT
             case HazardType.FallingObject:
-            health.TakeDamage(damage);
+            health.LoseLife(damage);
             break;
 
             //MOVING BLADE
             case HazardType.MovingBlade:
-            health.TakeDamage(damage);
+            health.LoseLife(damage);
             break;
 
             //FALLING PLATFORM
             case HazardType.FallingPlatform:
-            health.TakeDamage(damage);
+            health.LoseLife(damage);
             break;
 
         }
