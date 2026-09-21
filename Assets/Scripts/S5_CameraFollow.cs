@@ -14,6 +14,12 @@ public class CameraFollow : MonoBehaviour
     {
         if (!activated) return;
 
+        if (player == null)
+        {
+            FindPlayer();
+            if (player == null) return;
+        }
+
          // Normal continuous upward scrolling
         float newY = transform.position.y + moveSpeed * Time.deltaTime;
 
@@ -41,6 +47,17 @@ public class CameraFollow : MonoBehaviour
     public void Activate()
     {
         activated = true;
+    }
+
+    private void FindPlayer()
+    {
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+
+        if (playerObject != null)
+        {
+            player = playerObject.transform;
+            Debug.Log("Camera found Player: " + player.name);
+        }
     }
 
     public void ResetCamera(Vector3 checkpointPosition)

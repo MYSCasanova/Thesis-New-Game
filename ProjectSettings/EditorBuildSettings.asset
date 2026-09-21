@@ -6,8 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/GYM/GYM_ComboBoost.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+    path: Assets/Scenes/GYM/PersistentGameplay.unity
+    guid: b9f84b8fc4b9949e5a1632daa9881015
+  - enabled: 1
+    path: Assets/Scenes/GYM/GYM_Level1.unity
+    guid: 9deb99826eb7043b9820188f79cb1fda
+  - enabled: 1
+    path: Assets/Scenes/GYM/GYM_Level2.unity
+    guid: b06432892a4f24f619cf42d496ed7647
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
