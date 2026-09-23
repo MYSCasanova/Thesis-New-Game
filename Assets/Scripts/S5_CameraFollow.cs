@@ -5,20 +5,16 @@ public class CameraFollow : MonoBehaviour
     [Header("Vertical Camera Follow")]
     public Transform player;
     public float topPadding = 5f;
+    public float bottomPadding = 2f;
     public float moveSpeed = 8f;
     public float smoothTime = 0.2f;
+    public int currentLevel;
     private bool activated = false;
     private float smoothVelocity = 0f;
 
     void Update()
     {
         if (!activated) return;
-
-        if (player == null)
-        {
-            FindPlayer();
-            if (player == null) return;
-        }
 
          // Normal continuous upward scrolling
         float newY = transform.position.y + moveSpeed * Time.deltaTime;
@@ -49,20 +45,22 @@ public class CameraFollow : MonoBehaviour
         activated = true;
     }
 
-    private void FindPlayer()
-    {
-        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-
-        if (playerObject != null)
-        {
-            player = playerObject.transform;
-            Debug.Log("Camera found Player: " + player.name);
-        }
-    }
-
     public void ResetCamera(Vector3 checkpointPosition)
     {
-        transform.position = checkpointPosition;
+        Debug.Log("CAMERA CURRENT LEVEL: " + currentLevel);
+
+        if (currentLevel == 1)
+        {
+            transform.position = checkpointPosition;
+        }
+        else
+        {
+        // Put the player near the bottom of the screen
+        float cameraY = checkpointPosition.y + Camera.main.orthographicSize + bottomPadding;
+
+        transform.position = new Vector3(transform.position.x, cameraY, transform.position.z);
+        }
+
         activated = false;
         smoothVelocity = 0f;
     }

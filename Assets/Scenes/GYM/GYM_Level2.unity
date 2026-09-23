@@ -1423,7 +1423,7 @@ GameObject:
   m_Component:
   - component: {fileID: 573186595}
   m_Layer: 0
-  m_Name: Checkpoint4
+  m_Name: SceneLoader
   m_TagString: Checkpoint
   m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -2239,7 +2239,7 @@ GameObject:
   - component: {fileID: 1150529206}
   - component: {fileID: 1150529209}
   - component: {fileID: 1150529208}
-  - component: {fileID: 1150529207}
+  - component: {fileID: 1150529210}
   m_Layer: 3
   m_Name: Trigger
   m_TagString: Checkpoint
@@ -2262,18 +2262,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 958406171}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1150529207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1150529205}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8d06594af56146b5b19db6d99af5159, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::S6_Checkpoint
 --- !u!61 &1150529208
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2379,6 +2367,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1150529210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1150529205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8d06594af56146b5b19db6d99af5159, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::S6_Checkpoint
 --- !u!1 &1179840781
 GameObject:
   m_ObjectHideFlags: 0
@@ -4119,6 +4119,51 @@ Transform:
   - {fileID: 852760953}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1771446328
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1771446330}
+  - component: {fileID: 1771446329}
+  m_Layer: 0
+  m_Name: LevelSetup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1771446329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771446328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c298a32f0e8b04f45b51e81e1b4a733a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelSetup
+  levelNumber: 2
+--- !u!4 &1771446330
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771446328}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.35, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1781384953 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3546694068126414711, guid: 092762b3291a24a4fbff64081eb2ca15, type: 3}
@@ -5045,3 +5090,4 @@ SceneRoots:
   - {fileID: 1179840782}
   - {fileID: 1704683546}
   - {fileID: 1738588121}
+  - {fileID: 1771446330}

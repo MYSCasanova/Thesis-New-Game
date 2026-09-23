@@ -7,14 +7,9 @@ public class S9_SceneLoader : MonoBehaviour
     [SerializeField] private SceneField currentScene;
     [SerializeField] private SceneField sceneToLoad;
 
-    private bool isLoading = false;
-
     public void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
-        if (isLoading) return;
-
-        isLoading = true;
 
         Debug.Log("Loading Next Room");
 
@@ -22,7 +17,7 @@ public class S9_SceneLoader : MonoBehaviour
 
         SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Additive);
 
-       // SceneManager.UnloadSceneAsync(currentScene);
+        SceneManager.UnloadSceneAsync(currentScene);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)

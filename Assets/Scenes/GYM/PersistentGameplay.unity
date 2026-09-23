@@ -419,14 +419,14 @@ Transform:
   m_GameObject: {fileID: 180503752}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -7.2, z: 10}
+  m_LocalPosition: {x: 0, y: -7.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1676548090}
   - {fileID: 1008017164}
   - {fileID: 175245714}
-  m_Father: {fileID: 1146978026}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &180503758
 MonoBehaviour:
@@ -619,8 +619,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 180503757}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1146978027
@@ -680,9 +679,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraFollow
   player: {fileID: 180503757}
-  topPadding: 2
+  topPadding: 7
+  bottomPadding: 5.5
   moveSpeed: 1
-  smoothTime: 0.2
+  smoothTime: 1.5
+  currentLevel: 0
 --- !u!1 &1676548089
 GameObject:
   m_ObjectHideFlags: 0
@@ -824,4 +825,5 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1146978026}
+  - {fileID: 180503757}
   - {fileID: 1864444930}

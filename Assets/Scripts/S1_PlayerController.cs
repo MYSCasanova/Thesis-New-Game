@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class S1_PlayerController : MonoBehaviour
 {
@@ -143,7 +144,7 @@ public class S1_PlayerController : MonoBehaviour
         }
 
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, currentJump);
-        transform.SetParent(null);
+        MovePlayerToPersistentScene();
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -236,7 +237,7 @@ public class S1_PlayerController : MonoBehaviour
             // Save checkpoint only after landing on a platform
             if (pendingCheckpoint != null)
             {
-                S6_Checkpoint.Instance.SetCheckpoint(pendingCheckpoint.transform.position);
+                S6_Checkpoint.Instance.SetCheckpoint(transform.position);
 
                 pendingCheckpoint = null;
             }
@@ -247,7 +248,7 @@ public class S1_PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Platform"))
         {
-            transform.SetParent(null);
+            MovePlayerToPersistentScene();
             isOnIcy = false; // Reset icy state when leaving the platform
         }
     }
@@ -281,5 +282,13 @@ public class S1_PlayerController : MonoBehaviour
     public void StopRespawning()
     {
         isRespawning = false;
+    }
+
+    private void MovePlayerToPersistentScene()
+    {
+        transform.SetParent(null);
+
+        SceneManager.MoveGameObjectToScene(gameObject, SceneManager.GetSceneByName("PersistentGameplay"));
+        
     }
 }
