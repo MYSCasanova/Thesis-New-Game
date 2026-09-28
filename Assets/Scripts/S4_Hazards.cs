@@ -14,6 +14,15 @@ public class S4_Hazards : MonoBehaviour
     }
 
     public HazardType hazardType;
+    
+    public enum MovementDirection
+    {
+        Horizontal,
+        Vertical
+    }
+
+    public MovementDirection movementDirection;
+    
     public int damage;
 
     [Header("Moving Blade")]
@@ -33,7 +42,14 @@ public class S4_Hazards : MonoBehaviour
         {
             float movement = Mathf.Sin(Time.time * moveSpeed) * moveDistance;
 
-            transform.position = startPosition + Vector3.right * movement;
+            if (movementDirection == MovementDirection.Horizontal)
+            {
+                transform.position = startPosition + Vector3.right * movement;
+            }
+            else if (movementDirection == MovementDirection.Vertical)
+            {
+                transform.position = startPosition + Vector3.up * movement;
+            }
         }
     }
 

@@ -45,20 +45,17 @@ public class CameraFollow : MonoBehaviour
         activated = true;
     }
 
-    public void ResetCamera(Vector3 checkpointPosition)
-    {
-        Debug.Log("CAMERA CURRENT LEVEL: " + currentLevel);
-
+    public void ResetCamera(Vector3 cameraCheckpoint)
+    {        
         if (currentLevel == 1)
         {
-            transform.position = checkpointPosition;
+            transform.position = cameraCheckpoint;
         }
         else
         {
-        // Put the player near the bottom of the screen
-        float cameraY = checkpointPosition.y + Camera.main.orthographicSize + bottomPadding;
+            float cameraY = cameraCheckpoint.y + bottomPadding;
 
-        transform.position = new Vector3(transform.position.x, cameraY, transform.position.z);
+            transform.position = new Vector3(cameraCheckpoint.x, cameraY, cameraCheckpoint.z);
         }
 
         activated = false;
