@@ -8,6 +8,7 @@ public class S7_HealthSystem : MonoBehaviour
 {
     public int maxLives;
     private int currentLives;
+    [SerializeField] GameObject gameOverCanvas;
 
     void Start()
     {
@@ -54,15 +55,21 @@ public class S7_HealthSystem : MonoBehaviour
         GetComponent<S1_PlayerController>().ResetMultiplier();
 
     }
+
+    public void ResetLives()
+    {
+        currentLives = maxLives;
+        
+    }
     
     public void Die()
     {
-        //make sure to add death logic
+        gameOverCanvas.SetActive(true);
         Debug.Log("Game Over");
     }
 
     public int GetCurrentLives()
     {
         return currentLives;
-    }
+    } 
 }
