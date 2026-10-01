@@ -5,7 +5,7 @@ public class CameraFollow : MonoBehaviour
     [Header("Vertical Camera Follow")]
     public Transform player;
     public float topPadding = 5f;
-    public float bottomPadding = 2f;
+    //public float bottomPadding = 2f;
     public float moveSpeed = 8f;
     public float smoothTime = 0.2f;
     public int currentLevel;
@@ -47,17 +47,7 @@ public class CameraFollow : MonoBehaviour
 
     public void ResetCamera(Vector3 cameraCheckpoint)
     {        
-        if (currentLevel == 1)
-        {
-            transform.position = cameraCheckpoint;
-        }
-        else
-        {
-            float cameraY = cameraCheckpoint.y + bottomPadding;
-
-            transform.position = new Vector3(cameraCheckpoint.x, cameraY, cameraCheckpoint.z);
-        }
-
+        transform.position = cameraCheckpoint;
         activated = false;
         smoothVelocity = 0f;
     }

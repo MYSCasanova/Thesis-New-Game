@@ -59,7 +59,6 @@ public class S7_HealthSystem : MonoBehaviour
     public void ResetLives()
     {
         currentLives = maxLives;
-        
     }
     
     public void Die()

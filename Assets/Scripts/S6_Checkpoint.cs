@@ -10,8 +10,6 @@ public class S6_Checkpoint : MonoBehaviour
     private static Vector3 initialPlayerCheckpoint;
     private static Vector3 initialCameraCheckpoint;
 
-    private static bool initialCheckpointSaved = false;
-
     void Awake()
     {
         Instance = this;
@@ -19,29 +17,22 @@ public class S6_Checkpoint : MonoBehaviour
 
     void Start()
     {
-        // Save the starting position of Level 1 only once
-        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "GYM_Level1" && !initialCheckpointSaved)
-        {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
 
             if (player != null)
             {
                 initialPlayerCheckpoint = player.transform.position;
-                checkpointPosition = player.transform.position;
+                checkpointPosition = initialPlayerCheckpoint;
             }
 
             if (Camera.main != null)
             {
                 initialCameraCheckpoint = Camera.main.transform.position;
-                cameraCheckpoint = Camera.main.transform.position;
+                cameraCheckpoint = initialCameraCheckpoint;
             }
 
-            initialCheckpointSaved = true;
-
-            Debug.Log("LEVEL 1 START SAVED");
-            Debug.Log("PLAYER START: " + initialPlayerCheckpoint);
-            Debug.Log("CAMERA START: " + initialCameraCheckpoint);
-        }
+            Debug.Log("Initial Player Checkpoint: " + initialPlayerCheckpoint);
+            Debug.Log("Initial Camera Checkpoint: " + initialCameraCheckpoint);
     }
 
     public void SetCheckpoint(Vector3 newPosition)
