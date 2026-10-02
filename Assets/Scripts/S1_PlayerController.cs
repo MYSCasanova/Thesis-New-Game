@@ -279,6 +279,13 @@ public class S1_PlayerController : MonoBehaviour
         currentSpeedMultiplier = 1f;
     }
 
+    public void ResetRun()
+    {
+        currentFloor = 0;
+        currentSpeedMultiplier = 1f;
+        isRespawning = false;
+    }
+
     public void StopRespawning()
     {
         isRespawning = false;

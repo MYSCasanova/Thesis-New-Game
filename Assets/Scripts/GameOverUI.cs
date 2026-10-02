@@ -22,6 +22,14 @@ public class GameOverUI : MonoBehaviour
                 healthSystem.ResetLives();
             }
 
+            // Reset Score
+            S2_ComboSystem comboSystem = FindFirstObjectByType<S2_ComboSystem>();
+
+            if (comboSystem != null)
+            {
+                comboSystem.ResetScore();
+            }
+
             // Reset Player position to the checkpoint
             player.transform.position = startPosition;
 
@@ -39,6 +47,7 @@ public class GameOverUI : MonoBehaviour
             {
                 playerController.StopRespawning();
                 playerController.ResetMultiplier();
+                playerController.ResetRun();
             }
 
             // Reset camera position to the checkpoint
