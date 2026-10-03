@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5007257362037611703}
+  - component: {fileID: 7850517112070613722}
   - component: {fileID: 4107077137671049013}
   - component: {fileID: 3386839089161964230}
   - component: {fileID: 6265277642830756446}
-  - component: {fileID: 7850517112070613722}
   m_Layer: 0
   m_Name: Rock
   m_TagString: Untagged
@@ -35,6 +35,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7850517112070613722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2531598068844722438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae4aee54e2f1047c6bbdd55dc52a2c87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::S4_Hazards
+  hazardType: 1
+  movementDirection: 0
+  damage: 1
+  moveDistance: 0
+  moveSpeed: 0
 --- !u!212 &4107077137671049013
 SpriteRenderer:
   serializedVersion: 2
@@ -157,19 +174,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &7850517112070613722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2531598068844722438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae4aee54e2f1047c6bbdd55dc52a2c87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::S4_Hazards
-  hazardType: 1
-  damage: 1
-  moveDistance: 0
-  moveSpeed: 0

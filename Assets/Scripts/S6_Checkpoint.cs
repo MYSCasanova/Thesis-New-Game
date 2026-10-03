@@ -3,8 +3,12 @@ using UnityEngine;
 public class S6_Checkpoint : MonoBehaviour
 {
     public static S6_Checkpoint Instance;
-    private Vector3 checkpointPosition;
-    private Vector3 cameraCheckpoint;
+
+    private static Vector3 checkpointPosition;
+    private static Vector3 cameraCheckpoint;
+
+    private static Vector3 initialPlayerCheckpoint;
+    private static Vector3 initialCameraCheckpoint;
 
     void Awake()
     {
@@ -13,30 +17,32 @@ public class S6_Checkpoint : MonoBehaviour
 
     void Start()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
-        {
-            checkpointPosition = player.transform.position; // Set initial checkpoint at the player's starting position
-        }
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
 
-        // Save the camera's starting position
-        if(Camera.main != null)
-        {
-            cameraCheckpoint = Camera.main.transform.position;
-        }
+            if (player != null)
+            {
+                initialPlayerCheckpoint = player.transform.position;
+                checkpointPosition = initialPlayerCheckpoint;
+            }
+
+            if (Camera.main != null)
+            {
+                initialCameraCheckpoint = Camera.main.transform.position;
+                cameraCheckpoint = initialCameraCheckpoint;
+            }
+
+            Debug.Log("Initial Player Checkpoint: " + initialPlayerCheckpoint);
+            Debug.Log("Initial Camera Checkpoint: " + initialCameraCheckpoint);
     }
 
     public void SetCheckpoint(Vector3 newPosition)
     {
         checkpointPosition = newPosition;
 
-        // Save the camera's starting position
-        if(Camera.main != null)
+        if (Camera.main != null)
         {
             cameraCheckpoint = Camera.main.transform.position;
         }
-
-        Debug.Log("Checkpoint saved");
     }
 
     public Vector3 GetCheckpointPosition()
@@ -47,5 +53,23 @@ public class S6_Checkpoint : MonoBehaviour
     public Vector3 GetCameraCheckpoint()
     {
         return cameraCheckpoint;
+    }
+
+    public Vector3 GetInitialPlayerCheckpoint()
+    {
+        return initialPlayerCheckpoint;
+    }
+
+    public Vector3 GetInitialCameraCheckpoint()
+    {
+        return initialCameraCheckpoint;
+    }
+
+    public void ResetToInitialCheckpoint()
+    {
+        checkpointPosition = initialPlayerCheckpoint;
+        cameraCheckpoint = initialCameraCheckpoint;
+
+        Debug.Log("CHECKPOINT RESET TO LEVEL 1 START");
     }
 }

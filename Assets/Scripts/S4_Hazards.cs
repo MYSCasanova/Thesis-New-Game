@@ -1,4 +1,7 @@
-using UnityEngine;
+// UPDATED 9/18 5PM
+// CHANGED health.TakeDamage(damage) to health.LoseLife(damage)
+
+using UnityEngine;      
 
 public class S4_Hazards : MonoBehaviour
 {
@@ -11,6 +14,15 @@ public class S4_Hazards : MonoBehaviour
     }
 
     public HazardType hazardType;
+    
+    public enum MovementDirection
+    {
+        Horizontal,
+        Vertical
+    }
+
+    public MovementDirection movementDirection;
+    
     public int damage;
 
     [Header("Moving Blade")]
@@ -30,7 +42,14 @@ public class S4_Hazards : MonoBehaviour
         {
             float movement = Mathf.Sin(Time.time * moveSpeed) * moveDistance;
 
-            transform.position = startPosition + Vector3.right * movement;
+            if (movementDirection == MovementDirection.Horizontal)
+            {
+                transform.position = startPosition + Vector3.right * movement;
+            }
+            else if (movementDirection == MovementDirection.Vertical)
+            {
+                transform.position = startPosition + Vector3.up * movement;
+            }
         }
     }
 
@@ -48,26 +67,26 @@ public class S4_Hazards : MonoBehaviour
 
         if (playerRb.linearVelocity.y > 0.1f) return;
 
-        switch (hazardType)
+        switch (hazardType) 
         {
             //SPIKES
             case HazardType.Spike:
-            health.TakeDamage(damage);
+            health.LoseLife(damage);
             break;
 
             //FALLING OBJECT
             case HazardType.FallingObject:
-            health.TakeDamage(damage);
+            health.LoseLife(damage);
             break;
 
             //MOVING BLADE
             case HazardType.MovingBlade:
-            health.TakeDamage(damage);
+            health.LoseLife(damage);
             break;
 
             //FALLING PLATFORM
             case HazardType.FallingPlatform:
-            health.TakeDamage(damage);
+            health.LoseLife(damage);
             break;
 
         }
