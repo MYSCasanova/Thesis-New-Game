@@ -397,7 +397,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.1429847, g: 0.6075471, b: 0, a: 1}
@@ -472,7 +472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04aaa4727d9ed4016943099c7b47d597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S7_HealthSystem
-  maxLives: 1
+  maxLives: 3
   gameOverCanvas: {fileID: 1124863587}
 --- !u!114 &428447208 stripped
 MonoBehaviour:
