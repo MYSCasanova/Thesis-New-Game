@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5681907118362344085}
+  - component: {fileID: 3527666794975780769}
   - component: {fileID: 6659512611018475306}
   - component: {fileID: 4304212772358599622}
-  - component: {fileID: 3527666794975780769}
   - component: {fileID: 2211386208203558937}
   m_Layer: 3
   m_Name: BouncyPlatform
@@ -35,6 +35,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3527666794975780769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5836717231442320765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 042fa3e712e38e743a6bcef41ca5a5ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::S3_Platform
+  floorNumber: 0
+  direction: 0
+  distance: 3
+  speed: 2
+  isIcy: 0
+  isBouncy: 1
+  isBreaking: 0
+  breakDelay: 2
+  fallSpeed: 5
+  destroyDelay: 3
 --- !u!212 &6659512611018475306
 SpriteRenderer:
   serializedVersion: 2
@@ -140,28 +162,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &3527666794975780769
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5836717231442320765}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 042fa3e712e38e743a6bcef41ca5a5ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::S3_Platform
-  floorNumber: 0
-  direction: 0
-  distance: 3
-  speed: 2
-  isIcy: 0
-  isBouncy: 1
-  isBreaking: 0
-  breakDelay: 2
-  fallSpeed: 5
-  destroyDelay: 3
 --- !u!251 &2211386208203558937
 PlatformEffector2D:
   m_ObjectHideFlags: 0

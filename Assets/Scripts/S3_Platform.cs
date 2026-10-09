@@ -88,6 +88,13 @@ public class S3_Platform : MonoBehaviour
 
         if (playerRb.linearVelocity.y > 0.1f) return;
 
+        S9_TutorialManager tutorialManager = FindFirstObjectByType<S9_TutorialManager>();
+        
+        if(tutorialManager != null)
+        {
+            tutorialManager.PlatformLanded(floorNumber);
+        }
+
         if (isBreaking)
         {
             isPlayerOnPlatform = true; // Start the timer when the player lands on the platform

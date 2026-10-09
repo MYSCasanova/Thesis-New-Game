@@ -56,8 +56,18 @@ public class S2_ComboSystem : MonoBehaviour
 
     public void AddScore(int points)
     {
+        Debug.Log("AddScore called: " + points);
         // Applies your chain multiplier to every score you get
         totalScore += (points * scoreMultiplier);
+        UpdateUI();
+    }
+
+    public void ResetScore()
+    {
+        totalScore = 0;
+        currentCombo = 0;
+        scoreMultiplier = 1;
+
         UpdateUI();
     }
 

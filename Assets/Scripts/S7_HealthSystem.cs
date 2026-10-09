@@ -1,33 +1,23 @@
+// UPDATED 9/18 5PM
+// REMOVED TakeDamage() METHOD
+// CHANGED public void LoseLife() to public int LoseLife(int damage)
+
 using UnityEngine;
 
 public class S7_HealthSystem : MonoBehaviour
 {
     public int maxLives;
-    public int maxHealth;
     private int currentLives;
-    private int currentHealth;
+    [SerializeField] GameObject gameOverCanvas;
 
     void Start()
     {
         currentLives = maxLives;
-        currentHealth = maxHealth;
     }
 
-    public void TakeDamage(int damage)
+    public int LoseLife(int damage)
     {
-        currentHealth -= damage;
-
-        Debug.Log("Player took damage. Current health: " + currentHealth);
-
-        if(currentHealth <= 0)
-        {
-            LoseLife();
-        }
-    }
-
-    public void LoseLife()
-    {
-        currentLives--;
+        currentLives -= damage;
 
         Debug.Log("Lost a life. Current lives: " + currentLives);
 
@@ -37,9 +27,10 @@ public class S7_HealthSystem : MonoBehaviour
         }
         else
         {
-            currentHealth = maxHealth;
             RespawnPlayer();
         }
+
+        return currentLives;
     }
 
     public void RespawnPlayer()
@@ -64,15 +55,20 @@ public class S7_HealthSystem : MonoBehaviour
         GetComponent<S1_PlayerController>().ResetMultiplier();
 
     }
+
+    public void ResetLives()
+    {
+        currentLives = maxLives;
+    }
     
     public void Die()
     {
-        //make sure to add death logic
+        gameOverCanvas.SetActive(true);
         Debug.Log("Game Over");
     }
 
     public int GetCurrentLives()
     {
         return currentLives;
-    }
+    } 
 }
