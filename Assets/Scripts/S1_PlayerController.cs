@@ -46,7 +46,7 @@ public class S1_PlayerController : MonoBehaviour
     private bool groundLeft;
     private bool groundRight;
     private bool isRespawning;
-    private S6_Checkpoint pendingCheckpoint;
+    private S11_CheckpointTrigger pendingCheckpoint;
 
     void Start()
     {
@@ -82,7 +82,7 @@ public class S1_PlayerController : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * shortJumpMultiplier);
         }
 
-        // Checkpoint - checks if the player is below the screen
+        // If the player is below the camera's bottom edge, trigger respawn logic
         float cameraBottomY = Camera.main.transform.position.y - (Camera.main.orthographicSize);
         if (!isRespawning && transform.position.y < cameraBottomY)
         {
@@ -232,16 +232,6 @@ public class S1_PlayerController : MonoBehaviour
             }
         }
 
-        if(collision.gameObject.CompareTag("Checkpoint"))
-        {
-            // Save checkpoint only after landing on a platform
-            if (pendingCheckpoint != null)
-            {
-                S6_Checkpoint.Instance.SetCheckpoint(transform.position);
-
-                pendingCheckpoint = null;
-            }
-        }
     }
 
     void OnCollisionExit2D(Collision2D collision) // Detach player from platform when leaving
@@ -250,27 +240,6 @@ public class S1_PlayerController : MonoBehaviour
         {
             MovePlayerToPersistentScene();
             isOnIcy = false; // Reset icy state when leaving the platform
-        }
-    }
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Checkpoint"))
-        {
-            pendingCheckpoint = collision.GetComponent<S6_Checkpoint>();
-        }
-    }
-
-    void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Checkpoint"))
-        {
-            S6_Checkpoint checkpoint = collision.GetComponent<S6_Checkpoint>();
-
-            if (checkpoint == pendingCheckpoint)
-            {
-                pendingCheckpoint = null;
-            }
         }
     }
 
@@ -284,6 +253,16 @@ public class S1_PlayerController : MonoBehaviour
         currentFloor = 0;
         currentSpeedMultiplier = 1f;
         isRespawning = false;
+        jumpBufferCounter = 0f;
+        isOnIcy = false;
+        isOnBouncy = false;
+
+        if (comboSystem != null)
+        {
+            comboSystem.currentCombo = 0;
+            comboSystem.totalScore = 0;
+            comboSystem.scoreMultiplier = 1;
+        }
     }
 
     public void StopRespawning()
