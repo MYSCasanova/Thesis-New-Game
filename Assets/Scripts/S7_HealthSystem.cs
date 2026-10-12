@@ -7,7 +7,7 @@ using UnityEngine;
 public class S7_HealthSystem : MonoBehaviour
 {
     public int maxLives;
-    private int currentLives;
+    public int currentLives; //Set to public so that it can be accessed by other scripts
     [SerializeField] GameObject gameOverCanvas;
 
     void Start()

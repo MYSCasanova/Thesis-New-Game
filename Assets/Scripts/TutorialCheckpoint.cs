@@ -4,16 +4,17 @@ public class TutorialCheckpoint : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.gameObject.CompareTag("Player"))
+        if (!collision.CompareTag("Player"))
             return;
 
-        S6_Checkpoint checkpoint = FindFirstObjectByType<S6_Checkpoint>();
-
-        if (checkpoint != null)
+        if (S6_Checkpoint.Instance == null)
         {
-            checkpoint.SetCheckpoint(collision.transform.position);
-
-            Debug.Log("Tutorial checkpoint saved at: " + gameObject.name);
+            Debug.LogError("Checkpoint Manager not found!");
+            return;
         }
+
+        S6_Checkpoint.Instance.SetCheckpoint(collision.transform.position);
+
+        Debug.Log("Tutorial checkpoint saved: " + gameObject.name);
     }
 }

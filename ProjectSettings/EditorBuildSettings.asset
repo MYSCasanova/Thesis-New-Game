@@ -17,6 +17,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GYM/GYM_Level3.unity
     guid: 3b4b3207b2bec4cb69a2a6be6464f181
+  - enabled: 1
+    path: Assets/Scenes/GYM/GYM_TutorialLevel.unity
+    guid: f072271c962e54ae7ad44cf923f65d02
+  - enabled: 1
+    path: Assets/Scenes/GYM/GYM_BetaGame.unity
+    guid: 8ecdd207e94394e8386fe5d7a0f0d1a5
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
