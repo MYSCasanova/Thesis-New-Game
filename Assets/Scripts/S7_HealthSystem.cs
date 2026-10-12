@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Collections;
 
 public class S7_HealthSystem : MonoBehaviour
 {
@@ -13,6 +14,12 @@ public class S7_HealthSystem : MonoBehaviour
 
     [Header("Score Reference")]
     public S2_ComboSystem comboSystem; // Reference to the ComboSystem script
+
+    [Header("Hurt Animation")]
+    public Animator animator;   
+
+    [Header("Respawn Settings")]
+    public float respawnDelay = 0.3f;
 
     void Start()
     {
@@ -36,6 +43,11 @@ public class S7_HealthSystem : MonoBehaviour
         // Beta Game: Lose lives normally
         currentLives -= damage;
 
+        if (currentLives > 0 && animator != null)
+        {
+            animator.SetTrigger("Hurt");
+        }
+
         Debug.Log("Lost a life. Current lives: " + currentLives);
 
         if(currentLives <= 0)
@@ -44,7 +56,7 @@ public class S7_HealthSystem : MonoBehaviour
         }
         else
         {
-            RespawnPlayer();
+            StartCoroutine(RespawnAfterDelay());
         }
 
         return currentLives;
@@ -87,6 +99,12 @@ public class S7_HealthSystem : MonoBehaviour
             playerController.ResetMultiplier();
         }
     }
+
+    private IEnumerator RespawnAfterDelay()
+{
+    yield return new WaitForSeconds(respawnDelay);
+    RespawnPlayer();
+}
 
     public void ResetLives()
     {

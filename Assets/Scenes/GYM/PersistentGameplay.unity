@@ -314,6 +314,7 @@ GameObject:
   - component: {fileID: 180503754}
   - component: {fileID: 180503758}
   - component: {fileID: 180503759}
+  - component: {fileID: 180503760}
   m_Layer: 0
   m_Name: --- PLAYER ---
   m_TagString: Player
@@ -359,7 +360,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1.2857143, y: 1.3571428}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -443,8 +444,8 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.1429847, g: 0.6075471, b: 0, a: 1}
+  m_Sprite: {fileID: 665600900730542134, guid: e5c6737e175ea4ee0b0a6c3a41570dc4, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -504,6 +505,9 @@ MonoBehaviour:
   badLandingPenalty: 1
   isOnIcy: 0
   isOnBouncy: 0
+  animator: {fileID: 180503760}
+  spriteRenderer: {fileID: 180503756}
+  animationMovementThreshold: 0.1
 --- !u!114 &180503759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -518,8 +522,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::S7_HealthSystem
   maxLives: 3
   currentLives: 0
-  tutorialGameOverPanel: {fileID: 0}
   betaGameOverPanel: {fileID: 0}
+  scoreText: {fileID: 0}
+  comboSystem: {fileID: 0}
+  animator: {fileID: 180503760}
+  respawnDelay: 0.5
+--- !u!95 &180503760
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 180503752}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1f5c29d3b26cd40ee8e3e6e0f22b1e37, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &513597720
 GameObject:
   m_ObjectHideFlags: 0
