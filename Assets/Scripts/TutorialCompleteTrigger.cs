@@ -4,7 +4,6 @@ public class TutorialCompleteTrigger : MonoBehaviour
 {
     public GameObject instructionText;
     public GameObject tutorialCompletePanel;
-
     private bool triggered = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -17,11 +16,14 @@ public class TutorialCompleteTrigger : MonoBehaviour
         instructionText.SetActive(false);
         tutorialCompletePanel.SetActive(true);
 
-        CameraFollow cameraFollowScript = FindFirstObjectByType<CameraFollow>();
-
-        if (cameraFollowScript != null)
+        // Disable the CameraFollow script to stop camera movement when the panel appears
+        if (Camera.main != null)
         {
-            cameraFollowScript.enabled = false; // Disable the camera follow script
+            CameraFollow cameraFollow = Camera.main.GetComponent<CameraFollow>();
+            if (cameraFollow != null)
+            {
+                cameraFollow.enabled = false;
+            }
         }
 
         Debug.Log("Tutorial completed!");
