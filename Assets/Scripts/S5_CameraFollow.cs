@@ -11,6 +11,12 @@ public class CameraFollow : MonoBehaviour
     public int currentLevel;
     private bool activated = false;
     private float smoothVelocity = 0f;
+    private Vector3 initialCameraPosition;
+
+    void Start()
+    {
+        initialCameraPosition = transform.position;
+    }
 
     void Update()
     {
@@ -43,6 +49,11 @@ public class CameraFollow : MonoBehaviour
     public void Activate()
     {
         activated = true;
+    }
+
+    public Vector3 GetInitialPosition()
+    {
+        return initialCameraPosition;
     }
 
     public void ResetCamera(Vector3 cameraCheckpoint)

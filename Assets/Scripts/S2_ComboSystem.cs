@@ -14,7 +14,7 @@ public class S2_ComboSystem : MonoBehaviour
     [Header("Combo Settings")]
     public int currentCombo = 0;
     public int totalScore = 0; // NEW: Tracks your points
-    private int scoreMultiplier = 1; // NEW: Current multiplier
+    public int scoreMultiplier = 1; // NEW: Current multiplier; Set to public
     public int comboRequiredForBoost = 10;
     public float boostDuration = 5f;
 
