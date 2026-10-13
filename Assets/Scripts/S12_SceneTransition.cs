@@ -4,6 +4,33 @@ using System.Collections;
 
 public class SceneTransition : MonoBehaviour
 {
+    private void Start()
+    {
+        // Only start the flow from PersistentGameplay.
+        if (gameObject.scene.name == "PersistentGameplay")
+        {
+            StartBetaFlow();
+        }
+    }
+
+    public void StartBetaFlow()
+    {
+        bool tutorialCompleted = PlayerPrefs.GetInt("tutorialCompleted", 0) == 1;
+
+        Debug.Log("Tutorial Completed: " + tutorialCompleted);
+
+        if (tutorialCompleted)
+        {
+            // Returning player: go straight to Beta Game.
+            LoadBetaGame();
+        }
+        else
+        {
+            // First-time player: load the tutorial.
+            StartCoroutine(LoadTutorial());
+        }
+    }
+
     public void LoadBetaGame()
     {
         StartCoroutine(TransitionToBetaGame());
@@ -173,6 +200,29 @@ public class SceneTransition : MonoBehaviour
             yield return SceneManager.UnloadSceneAsync(tutorialScene);
 
         Debug.Log("Transition to BetaGame complete.");
+    }
+
+    private IEnumerator LoadTutorial()
+    {
+        Scene tutorial = SceneManager.GetSceneByName("GYM_TutorialLevel");
+
+        if (!tutorial.isLoaded)
+        {
+            AsyncOperation operation = SceneManager.LoadSceneAsync("GYM_TutorialLevel",LoadSceneMode.Additive);
+
+            yield return operation;
+
+            tutorial = SceneManager.GetSceneByName("GYM_TutorialLevel");
+        }
+
+        SceneManager.SetActiveScene(tutorial);
+
+        Debug.Log("Tutorial loaded and set as active scene.");
+    }
+
+    public void ReturnToMainMenu()
+    {
+        SceneManager.LoadScene("GYM_MainMenu", LoadSceneMode.Single);
     }
 
     public void QuitGame()

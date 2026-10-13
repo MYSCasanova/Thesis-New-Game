@@ -26,6 +26,12 @@ public class TutorialCompleteTrigger : MonoBehaviour
             }
         }
 
+        // Set the PlayerPrefs value to indicate that the tutorial has been completed
+        PlayerPrefs.SetInt("tutorialCompleted", 1);
+        PlayerPrefs.Save();
+
+        Debug.Log(PlayerPrefs.GetInt("tutorialCompleted", 0) == 1);
+
         Debug.Log("Tutorial completed!");
     }
 }
