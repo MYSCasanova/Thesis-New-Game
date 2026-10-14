@@ -584,7 +584,7 @@ GameObject:
   m_Layer: 0
   m_Name: HazardSpawner
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -615,7 +615,7 @@ Transform:
   m_GameObject: {fileID: 308168498}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.9202499, y: 15.41092, z: 0}
+  m_LocalPosition: {x: 5, y: 15.41092, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1270,6 +1270,9 @@ MonoBehaviour:
   badLandingPenalty: 1
   isOnIcy: 0
   isOnBouncy: 0
+  animator: {fileID: 0}
+  spriteRenderer: {fileID: 0}
+  animationMovementThreshold: 0.1
 --- !u!61 &1761476346
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1433,6 +1436,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S7_HealthSystem
   maxLives: 2
+  currentLives: 0
+  betaGameOverPanel: {fileID: 0}
+  scoreText: {fileID: 0}
+  comboSystem: {fileID: 0}
+  animator: {fileID: 0}
+  respawnDelay: 0.3
 --- !u!1 &1977820177
 GameObject:
   m_ObjectHideFlags: 0
@@ -1764,6 +1773,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S4_Hazards
   hazardType: 2
+  movementDirection: 0
   damage: 1
   moveDistance: 1
   moveSpeed: 2

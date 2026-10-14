@@ -1,10 +1,36 @@
-
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class SceneTransition : MonoBehaviour
 {
+    private void Start()
+    {
+        // Only start the flow from PersistentGameplay.
+        if (gameObject.scene.name == "PersistentGameplay")
+        {
+            StartBetaFlow();
+        }
+    }
+
+    public void StartBetaFlow()
+    {
+        bool tutorialCompleted = PlayerPrefs.GetInt("tutorialCompleted", 0) == 1;
+
+        Debug.Log("Tutorial Completed: " + tutorialCompleted);
+
+        if (tutorialCompleted)
+        {
+            // Returning player: go straight to Beta Game.
+            LoadBetaGame();
+        }
+        else
+        {
+            // First-time player: load the tutorial.
+            StartCoroutine(LoadTutorial());
+        }
+    }
+
     public void LoadBetaGame()
     {
         StartCoroutine(TransitionToBetaGame());
@@ -21,6 +47,7 @@ public class SceneTransition : MonoBehaviour
             betaScene = SceneManager.GetSceneByName("GYM_BetaGame");
         }
 
+        // Find the level spawn point in the BetaGame scene
         GameObject spawnPoint = GameObject.Find("Level1Spawn");
 
         if (spawnPoint == null)
@@ -29,7 +56,7 @@ public class SceneTransition : MonoBehaviour
             yield break;
         }
 
-
+        // FInd the PersistentGameplay scene and get the player and camera
         Scene persistentScene = SceneManager.GetSceneByName("PersistentGameplay");
 
         if (!persistentScene.isLoaded)
@@ -39,7 +66,6 @@ public class SceneTransition : MonoBehaviour
         }
 
         GameObject player = null;
-        GameObject gameUI = null;
         CameraFollow cameraFollow = null;
 
         foreach (GameObject root in persistentScene.GetRootGameObjects())
@@ -47,33 +73,62 @@ public class SceneTransition : MonoBehaviour
             if (root.name == "--- PLAYER ---")
                 player = root;
 
-            if (root.name == "--- GAME UI ---")
-                gameUI = root;
+            S2_ComboSystem foundComboSystem = root.GetComponentInChildren<S2_ComboSystem>(true);
 
             if (root.name == "Main Camera")
                 cameraFollow = root.GetComponent<CameraFollow>();
         }
 
-        if (player == null || gameUI == null || cameraFollow == null)
+        // Find the Game UI and ComboSystem in the BetaGame scene
+        GameObject gameUI = null;
+        S2_ComboSystem comboSystem = null;
+        LivesUI livesUI = null;
+        GameObject gameOverPanel = null;
+
+        foreach (GameObject root in betaScene.GetRootGameObjects())
         {
-            Debug.LogError("Could not find Player, Game UI, or CameraFollow on Main Camera in PersistentGameplay.");
+            if (root.name == "--- GAME UI ---")
+            {
+                gameUI = root;
+                comboSystem = root.GetComponent<S2_ComboSystem>();
+                livesUI = root.GetComponent<LivesUI>();
+                gameOverPanel = root.transform.Find("GameOverPanel")?.gameObject;
+            }
+        }
+
+        if (player == null || cameraFollow == null || gameUI == null || comboSystem == null || livesUI == null || gameOverPanel == null)
+        {
+            Debug.LogError(
+                "Missing reference. Player: " + (player != null) +
+                ", CameraFollow: " + (cameraFollow != null) +
+                ", Game UI: " + (gameUI != null) +
+                ", ComboSystem: " + (comboSystem != null) +
+                ", LivesUI: " + (livesUI != null) +
+                ", GameOverPanel: " + (gameOverPanel != null)
+                );
+
             yield break;
         }
 
-        SceneManager.SetActiveScene(betaScene);
+        SceneManager.SetActiveScene(betaScene); // Set the active scene to BetaGame
 
-        player.transform.position = spawnPoint.transform.position;
+        player.transform.SetParent(null); // Detach player from any parent
+        player.transform.position = spawnPoint.transform.position; // Set player position to spawn point
 
+        // Reset player stats
         S1_PlayerController playerController = player.GetComponent<S1_PlayerController>();
 
         if (playerController != null)
         {
-            playerController.ResetRun();
+            playerController.comboSystem = comboSystem; // Assign the combo system to the player
+            playerController.ResetRun(); // Reset the player's stats
         }
         else
         {
             Debug.LogError("S1_PlayerController not found on Player!");
         }
+
+        comboSystem.player = playerController; // Assign the player controller to the combo system
 
         Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
         
@@ -91,35 +146,47 @@ public class SceneTransition : MonoBehaviour
             Debug.LogError("Checkpoint Manager not found!");
         }
 
+        // Reset the camera to follow the player
         cameraFollow.enabled = true;
         cameraFollow.player = player.transform;
         Vector3 cameraStartPosition = cameraFollow.transform.position;
-        cameraStartPosition.y = spawnPoint.transform.position.y  + 5f;
+        cameraStartPosition.y = spawnPoint.transform.position.y + 5f;
         cameraFollow.ResetCamera(cameraStartPosition);
 
         // Reset the score and lives before showing the UI
-        S2_ComboSystem comboSystem = gameUI.GetComponentInChildren<S2_ComboSystem>(true);
-
-        if (comboSystem != null)
-        {
-            comboSystem.totalScore = 0;
-            comboSystem.currentCombo = 0;
-            comboSystem.scoreMultiplier = 1;
-
-            comboSystem.scoreText.text = "Score: 0";
-            comboSystem.comboText.text = "Combo: 0";
-        }
-        else
-        {
-            Debug.LogError("S2_ComboSystem not found in Game UI!");
-        }
+        comboSystem.scoreText.text = "Score: 0";
+        comboSystem.comboText.text = "Combo: 0";
 
         S7_HealthSystem healthSystem = player.GetComponent<S7_HealthSystem>();
 
         if (healthSystem != null)
         {
             healthSystem.currentLives = healthSystem.maxLives;
+            healthSystem.comboSystem = comboSystem; // Assign the combo system to the health system
+            livesUI.healthSystem = healthSystem; // Assign the health system to the LivesUI
+
+
+                if (gameOverPanel != null)
+                {
+                    Transform panelTransform = gameOverPanel.transform;
+                    Transform scoreTransform = panelTransform.Find("Score");
+
+                    if (scoreTransform != null)
+                    {
+                        healthSystem.scoreText = scoreTransform.GetComponent<TMPro.TMP_Text>();
+                    }
+                    else
+                    {
+                        Debug.LogError("FinalScoreText not found!");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("GameOverPanel not found!");
+                }
         }
+
+        
         else
         {
             Debug.LogError("S7_HealthSystem not found on Player!");
@@ -133,6 +200,29 @@ public class SceneTransition : MonoBehaviour
             yield return SceneManager.UnloadSceneAsync(tutorialScene);
 
         Debug.Log("Transition to BetaGame complete.");
+    }
+
+    private IEnumerator LoadTutorial()
+    {
+        Scene tutorial = SceneManager.GetSceneByName("GYM_TutorialLevel");
+
+        if (!tutorial.isLoaded)
+        {
+            AsyncOperation operation = SceneManager.LoadSceneAsync("GYM_TutorialLevel",LoadSceneMode.Additive);
+
+            yield return operation;
+
+            tutorial = SceneManager.GetSceneByName("GYM_TutorialLevel");
+        }
+
+        SceneManager.SetActiveScene(tutorial);
+
+        Debug.Log("Tutorial loaded and set as active scene.");
+    }
+
+    public void ReturnToMainMenu()
+    {
+        SceneManager.LoadScene("GYM_MainMenu", LoadSceneMode.Single);
     }
 
     public void QuitGame()

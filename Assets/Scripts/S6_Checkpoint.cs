@@ -30,9 +30,6 @@ public class S6_Checkpoint : MonoBehaviour
                 initialCameraCheckpoint = Camera.main.transform.position;
                 cameraCheckpoint = initialCameraCheckpoint;
             }
-
-            // Debug.Log("Initial Player Checkpoint: " + initialPlayerCheckpoint);
-            // Debug.Log("Initial Camera Checkpoint: " + initialCameraCheckpoint);
     }
 
     public void SetCheckpoint(Vector3 newPosition)
@@ -44,7 +41,6 @@ public class S6_Checkpoint : MonoBehaviour
             cameraCheckpoint = Camera.main.transform.position;
         }
 
-        Debug.Log("LATEST CHECKPOINT UPDATED: " + checkpointPosition);
     }
 
     public Vector3 GetCheckpointPosition()
