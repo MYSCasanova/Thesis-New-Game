@@ -26,6 +26,9 @@ public class TutorialCompleteTrigger : MonoBehaviour
             }
         }
 
+        // Freeze the game by setting timeScale to 0
+        Time.timeScale = 0f;
+
         // Set the PlayerPrefs value to indicate that the tutorial has been completed
         PlayerPrefs.SetInt("tutorialCompleted", 1);
         PlayerPrefs.Save();
@@ -36,6 +39,9 @@ public class TutorialCompleteTrigger : MonoBehaviour
     // Link this method to your "Done" Button's OnClick event in the Inspector
     public void OnDoneButtonClicked()
     {
+        // Unfreeze the game before loading the next scene
+        Time.timeScale = 1f;
+
         // Find the SceneTransition script in the scene
         SceneTransition transition = FindObjectOfType<SceneTransition>();
         

@@ -124,4 +124,8 @@ public class TutorialGalleryManager : MonoBehaviour
             comingSoonLabel.SetActive(true);
         }
     }
+    public void ReturnToMainMenu()
+    {
+        SceneManager.LoadScene("GYM_MainMenu", LoadSceneMode.Single);
+    }
 }

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement; 
 
 public class S13_ManualSettingsUI : MonoBehaviour
 {
@@ -297,5 +298,9 @@ public class S13_ManualSettingsUI : MonoBehaviour
     {
         float dbVolume = Mathf.Log10(Mathf.Clamp(volume, 0.0001f, 1f)) * 20f;
         audioMixer.SetFloat("SFXVolume", dbVolume);
+    }
+    public void ReturnToMainMenu()
+    {
+        SceneManager.LoadScene("GYM_MainMenu", LoadSceneMode.Single);
     }
 }
