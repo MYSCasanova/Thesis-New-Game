@@ -43,7 +43,7 @@ public class TutorialCompleteTrigger : MonoBehaviour
         Time.timeScale = 1f;
 
         // Find the SceneTransition script in the scene
-        SceneTransition transition = FindObjectOfType<SceneTransition>();
+        SceneTransition transition = FindFirstObjectByType<SceneTransition>();
         
         if (transition != null)
         {
