@@ -96,6 +96,16 @@ public class S1_PlayerController : MonoBehaviour
         else if (!isRespawning && transform.position.y < cameraBottomY)
         {
             isRespawning = true;
+
+            // Increment error count in S17_GameplayData
+            S17_GameplayData gameplayData = FindFirstObjectByType<S17_GameplayData>();
+
+            if(gameplayData != null)
+            {
+                gameplayData.errorCount++;
+                Debug.Log($"Error Count: {gameplayData.errorCount}");
+            }
+
             GetComponent<S7_HealthSystem>().LoseLife(1);
         }
 
@@ -211,6 +221,17 @@ public class S1_PlayerController : MonoBehaviour
                 isOnIcy = landedPlatform.isIcy; // Update icy state based on the platform we landed on
                 isOnBouncy = landedPlatform.isBouncy; // Update bouncy state based on the platform we landed on
 
+                // Start the completion timer when landing on floor 1
+                if (landedFloor == 1)
+                {
+                    S17_GameplayData gameplayData = FindFirstObjectByType<S17_GameplayData>();
+
+                    if (gameplayData != null)
+                    {
+                        gameplayData.StartGameTimer();
+                    }
+                }
+
                 if (landedPlatform.direction != S3_Platform.MovementDirection.Static &&
                 landedPlatform.direction != S3_Platform.MovementDirection.Falling) //Attach player to platform ONLY if it's moving
                 {
@@ -257,6 +278,15 @@ public class S1_PlayerController : MonoBehaviour
                     {
                         Debug.Log("BAD Landing (Edge)! Speed halved until Perfect.");
                         currentSpeedMultiplier = badLandingPenalty; // APPLIES THE PENALTY
+
+                        // Increment error count in S17_GameplayData
+                        S17_GameplayData gameplayData = FindFirstObjectByType<S17_GameplayData>();
+
+                        if(gameplayData != null)
+                        {
+                            gameplayData.errorCount++;
+                            Debug.Log($"Error Count: {gameplayData.errorCount}");
+                        }
                     }
 
                     // 3. Combo System Logic
@@ -318,8 +348,13 @@ public class S1_PlayerController : MonoBehaviour
     private void MovePlayerToPersistentScene()
     {
         transform.SetParent(null);
+        
+        Scene persistentScene = SceneManager.GetSceneByName("PersistentGameplay");
 
-        SceneManager.MoveGameObjectToScene(gameObject, SceneManager.GetSceneByName("PersistentGameplay"));
+        if (persistentScene.IsValid() && persistentScene.isLoaded)
+        {
+            SceneManager.MoveGameObjectToScene(gameObject, persistentScene);
+        }
         
     }
 }

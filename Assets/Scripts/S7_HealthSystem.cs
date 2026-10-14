@@ -21,6 +21,9 @@ public class S7_HealthSystem : MonoBehaviour
     [Header("Respawn Settings")]
     public float respawnDelay = 0.3f;
 
+    [Header("GameOver check")]
+    public bool isGameOver = false; // Flag to indicate if the game is in progress
+
     void Start()
     {
         currentLives = maxLives;
@@ -30,10 +33,10 @@ public class S7_HealthSystem : MonoBehaviour
     {
         Debug.Log("LoseLife called! Lives before damage: " + currentLives);
 
+        // If the current scene is the tutorial, respawn the player without losing lives
         bool isTutorial = SceneManager.GetSceneByName("GYM_TutorialLevel").isLoaded;
         Debug.Log("Is Tutorial: " + isTutorial);      
 
-        // If the current scene is the tutorial, respawn the player without losing lives
         if (isTutorial)
         {
             RespawnPlayer();
@@ -109,6 +112,7 @@ public class S7_HealthSystem : MonoBehaviour
     public void ResetLives()
     {
         currentLives = maxLives;
+        isGameOver = false;
     }
 
     public void SetGameOverPanel(string sceneName, GameObject panel)
@@ -121,6 +125,8 @@ public class S7_HealthSystem : MonoBehaviour
     
     public void Die()
     {
+        isGameOver = true; // Set the game over flag to true
+
         Scene betaScene = SceneManager.GetSceneByName("GYM_BetaGame");
 
         // If the Beta Game is loaded, show its Game Over panel.
