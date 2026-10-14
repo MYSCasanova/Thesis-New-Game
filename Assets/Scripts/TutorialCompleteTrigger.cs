@@ -30,8 +30,22 @@ public class TutorialCompleteTrigger : MonoBehaviour
         PlayerPrefs.SetInt("tutorialCompleted", 1);
         PlayerPrefs.Save();
 
-        Debug.Log(PlayerPrefs.GetInt("tutorialCompleted", 0) == 1);
-
         Debug.Log("Tutorial completed!");
+    }
+
+    // Link this method to your "Done" Button's OnClick event in the Inspector
+    public void OnDoneButtonClicked()
+    {
+        // Find the SceneTransition script in the scene
+        SceneTransition transition = FindObjectOfType<SceneTransition>();
+        
+        if (transition != null)
+        {
+            transition.FinishTutorialFlow();
+        }
+        else
+        {
+            Debug.LogError("SceneTransition script not found in the scene!");
+        }
     }
 }

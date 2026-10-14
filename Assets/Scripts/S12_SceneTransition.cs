@@ -4,6 +4,9 @@ using System.Collections;
 
 public class SceneTransition : MonoBehaviour
 {
+    // Flag to check if we loaded the tutorial from the gallery
+    public static bool isFromGallery = false;
+
     private void Start()
     {
         // Only start the flow from PersistentGameplay.
@@ -19,17 +22,38 @@ public class SceneTransition : MonoBehaviour
 
         Debug.Log("Tutorial Completed: " + tutorialCompleted);
 
-        if (tutorialCompleted)
+        // Check if tutorial is done AND we are NOT coming from the gallery
+        if (tutorialCompleted && !isFromGallery)
         {
             // Returning player: go straight to Beta Game.
             LoadBetaGame();
         }
         else
         {
-            // First-time player: load the tutorial.
+            // First-time player or loaded from gallery: load the tutorial.
             StartCoroutine(LoadTutorial());
         }
     }
+
+    // Call this method when the "Done" button is clicked in the tutorial panel
+    public void FinishTutorialFlow()
+    {
+        if (isFromGallery)
+        {
+            // Reset the flag
+            isFromGallery = false;
+
+            // Load the Main Menu or Tutorial Gallery scene. 
+            // (Change "GYM_MainMenu" to your exact Gallery Scene name if different)
+            SceneManager.LoadScene("GYM_MainMenu", LoadSceneMode.Single);
+        }
+        else
+        {
+            // If playing the game normally, proceed to Beta Game
+            LoadBetaGame();
+        }
+    }
+
 
     public void LoadBetaGame()
     {
