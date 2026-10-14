@@ -312,10 +312,17 @@ public class S1_PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Platform"))
         {
+            // Safety check: Do not execute if the player or the platform is being deactivated
+            if (!gameObject.activeInHierarchy || !collision.gameObject.activeInHierarchy)
+            {
+                return;
+            }
+
             MovePlayerToPersistentScene();
             isOnIcy = false; // Reset icy state when leaving the platform
         }
     }
+
 
     public void ResetMultiplier()
     {
@@ -347,7 +354,13 @@ public class S1_PlayerController : MonoBehaviour
 
     private void MovePlayerToPersistentScene()
     {
-        transform.SetParent(null);
+        // Extra safety check before changing hierarchy
+        if (!gameObject.activeInHierarchy) return;
+
+        if (transform.parent != null)
+        {
+            transform.SetParent(null);
+        }
         
         Scene persistentScene = SceneManager.GetSceneByName("PersistentGameplay");
 
@@ -355,6 +368,5 @@ public class S1_PlayerController : MonoBehaviour
         {
             SceneManager.MoveGameObjectToScene(gameObject, persistentScene);
         }
-        
     }
 }

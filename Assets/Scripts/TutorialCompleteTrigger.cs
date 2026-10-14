@@ -37,7 +37,7 @@ public class TutorialCompleteTrigger : MonoBehaviour
     public void OnDoneButtonClicked()
     {
         // Find the SceneTransition script in the scene
-        SceneTransition transition = FindObjectOfType<SceneTransition>();
+        SceneTransition transition = FindFirstObjectByType<SceneTransition>();
         
         if (transition != null)
         {
