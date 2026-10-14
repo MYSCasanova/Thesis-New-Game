@@ -5,22 +5,22 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GYM/PersistentGameplay.unity
     guid: b9f84b8fc4b9949e5a1632daa9881015
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GYM/GYM_Level1.unity
     guid: 9deb99826eb7043b9820188f79cb1fda
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GYM/GYM_Level2.unity
     guid: b06432892a4f24f619cf42d496ed7647
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GYM/GYM_Level3.unity
     guid: 3b4b3207b2bec4cb69a2a6be6464f181
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GYM/GYM_TutorialLevel.unity
     guid: f072271c962e54ae7ad44cf923f65d02
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GYM/GYM_BetaGame.unity
     guid: 8ecdd207e94394e8386fe5d7a0f0d1a5
   - enabled: 1
