@@ -1,6 +1,3 @@
-// UPDATED 9/18 5PM
-// CHANGED health.TakeDamage(damage) to health.LoseLife(damage)
-
 using UnityEngine;      
 
 public class S4_Hazards : MonoBehaviour
@@ -60,6 +57,7 @@ public class S4_Hazards : MonoBehaviour
         S7_HealthSystem health = collision.gameObject.GetComponent<S7_HealthSystem>();
 
         if (health == null) return;
+        if (health.isGameOver) return;
 
         Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
 
@@ -71,16 +69,19 @@ public class S4_Hazards : MonoBehaviour
         {
             //SPIKES
             case HazardType.Spike:
+            CountError();
             health.LoseLife(damage);
             break;
 
             //FALLING OBJECT
             case HazardType.FallingObject:
+            CountError();
             health.LoseLife(damage);
             break;
 
             //MOVING BLADE
             case HazardType.MovingBlade:
+            CountError();
             health.LoseLife(damage);
             break;
 
@@ -91,5 +92,17 @@ public class S4_Hazards : MonoBehaviour
 
         }
         
+    }
+
+    public void CountError()
+    {
+        // Increment error count in S17_GameplayData
+        S17_GameplayData gameplayData = FindFirstObjectByType<S17_GameplayData>();
+
+        if(gameplayData != null)
+        {
+            gameplayData.errorCount++;
+            Debug.Log($"Error Count: {gameplayData.errorCount}");
+        }
     }
 }

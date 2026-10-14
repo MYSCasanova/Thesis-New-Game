@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: abfc3f617f6794ac38aa73770a5cf40e
+guid: f0dc0eb8462754e5b9a519fea7401ded
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7392022142761170320
-    second: BG_Ver2_0
+      213: 6709020808608084769
+    second: Level1BG_0
   - first:
-      213: 2597860097901401593
-    second: BG_Ver2_1
+      213: 5948522875502608360
+    second: Level1BG_1
   - first:
-      213: -8945470242975586670
-    second: BG_Ver2_2
+      213: -4505126168139869791
+    second: Level1BG_2
   - first:
-      213: -6984048496883095106
-    second: BG_Ver2_3
+      213: -4564665479336652322
+    second: Level1BG_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -109,13 +109,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BG_Ver2_0
+      name: Level1BG_0
       rect:
         serializedVersion: 2
-        x: 226
-        y: 476
-        width: 436
-        height: 3915
+        x: 276
+        y: 385
+        width: 309
+        height: 4974
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 07a06e896034a6990800000000000000
-      internalID: -7392022142761170320
+      spriteID: 123f9c721ea3b1d50800000000000000
+      internalID: 6709020808608084769
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BG_Ver2_1
+      name: Level1BG_1
       rect:
         serializedVersion: 2
-        x: 992
-        y: 1079
-        width: 3074
-        height: 3798
+        x: 1144
+        y: 1245
+        width: 3548
+        height: 4382
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -146,20 +146,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9f51397bef37d0420800000000000000
-      internalID: 2597860097901401593
+      spriteID: 8ef3e94e9066d8250800000000000000
+      internalID: 5948522875502608360
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BG_Ver2_2
+      name: Level1BG_2
       rect:
         serializedVersion: 2
-        x: 4390
-        y: 476
-        width: 436
-        height: 3915
+        x: 5132
+        y: 345
+        width: 309
+        height: 5058
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -168,20 +168,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 296ec9a853e4bd380800000000000000
-      internalID: -8945470242975586670
+      spriteID: 1a1d4b78e939a71c0800000000000000
+      internalID: -4505126168139869791
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BG_Ver2_3
+      name: Level1BG_3
       rect:
         serializedVersion: 2
-        x: 869
-        y: 148
-        width: 3311
-        height: 860
+        x: 936
+        y: 174
+        width: 3888
+        height: 1000
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -190,8 +190,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: eb9ae2925eca31f90800000000000000
-      internalID: -6984048496883095106
+      spriteID: ed196a16eec07a0c0800000000000000
+      internalID: -4564665479336652322
       vertices: []
       indices: 
       edges: []
@@ -210,10 +210,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      BG_Ver2_0: -7392022142761170320
-      BG_Ver2_1: 2597860097901401593
-      BG_Ver2_2: -8945470242975586670
-      BG_Ver2_3: -6984048496883095106
+      Level1BG_0: 6709020808608084769
+      Level1BG_1: 5948522875502608360
+      Level1BG_2: -4505126168139869791
+      Level1BG_3: -4564665479336652322
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
