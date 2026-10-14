@@ -2,7 +2,23 @@ using UnityEngine;
 
 public class GameOverUI : MonoBehaviour
 {
-    [SerializeField] GameObject gameOverCanvas;
+    [SerializeField] GameObject gameOverPanel;
+
+    // ADDED: Register this scene's Game Over panel with the player
+    void Start()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        if (player != null)
+        {
+            S7_HealthSystem healthSystem = player.GetComponent<S7_HealthSystem>();
+
+            if (healthSystem != null)
+            {
+                healthSystem.SetGameOverPanel(gameObject.scene.name, gameOverPanel);
+            }
+        }
+    }
 
     public void TryAgain()
     {
@@ -56,12 +72,13 @@ public class GameOverUI : MonoBehaviour
                 CameraFollow cameraFollow = Camera.main.GetComponent<CameraFollow>();
                 if (cameraFollow != null)
                 {
+                    cameraFollow.enabled = true;
                     cameraFollow.ResetCamera(cameraCheckpoint);
                 }
             }
 
             // Hide Game Over UI
-            gameOverCanvas.SetActive(false);
+            gameOverPanel.SetActive(false);
         }
     }
 }

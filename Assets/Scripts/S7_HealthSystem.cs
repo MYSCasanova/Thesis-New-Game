@@ -1,14 +1,25 @@
-// UPDATED 9/18 5PM
-// REMOVED TakeDamage() METHOD
-// CHANGED public void LoseLife() to public int LoseLife(int damage)
-
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using TMPro;
+using System.Collections;
 
 public class S7_HealthSystem : MonoBehaviour
 {
     public int maxLives;
     public int currentLives; //Set to public so that it can be accessed by other scripts
-    [SerializeField] GameObject gameOverCanvas;
+
+    [Header("Game Over Panel")]
+    public GameObject betaGameOverPanel;
+    public TMP_Text scoreText; // Reference to the TMP_Text component for displaying lives
+
+    [Header("Score Reference")]
+    public S2_ComboSystem comboSystem; // Reference to the ComboSystem script
+
+    [Header("Hurt Animation")]
+    public Animator animator;   
+
+    [Header("Respawn Settings")]
+    public float respawnDelay = 0.3f;
 
     void Start()
     {
@@ -17,7 +28,25 @@ public class S7_HealthSystem : MonoBehaviour
 
     public int LoseLife(int damage)
     {
+        Debug.Log("LoseLife called! Lives before damage: " + currentLives);
+
+        bool isTutorial = SceneManager.GetSceneByName("GYM_TutorialLevel").isLoaded;
+        Debug.Log("Is Tutorial: " + isTutorial);      
+
+        // If the current scene is the tutorial, respawn the player without losing lives
+        if (isTutorial)
+        {
+            RespawnPlayer();
+            return currentLives;
+        }
+        
+        // Beta Game: Lose lives normally
         currentLives -= damage;
+
+        if (currentLives > 0 && animator != null)
+        {
+            animator.SetTrigger("Hurt");
+        }
 
         Debug.Log("Lost a life. Current lives: " + currentLives);
 
@@ -27,7 +56,7 @@ public class S7_HealthSystem : MonoBehaviour
         }
         else
         {
-            RespawnPlayer();
+            StartCoroutine(RespawnAfterDelay());
         }
 
         return currentLives;
@@ -35,6 +64,12 @@ public class S7_HealthSystem : MonoBehaviour
 
     public void RespawnPlayer()
     {
+        if (S6_Checkpoint.Instance == null)
+        {
+            Debug.LogError("Checkpoint Manager not found!");
+            return;
+        }
+
         Vector3 checkpointPosition = S6_Checkpoint.Instance.GetCheckpointPosition();
         transform.position = checkpointPosition;
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
@@ -46,25 +81,80 @@ public class S7_HealthSystem : MonoBehaviour
 
         if (Camera.main != null)
         {
-            Vector3 cameraCheckpoint = S6_Checkpoint.Instance.GetCameraCheckpoint();
-            Camera.main.GetComponent<CameraFollow>().ResetCamera(cameraCheckpoint);
+            CameraFollow cameraFollow = Camera.main.GetComponent<CameraFollow>();
+
+            if (cameraFollow != null)
+            {
+                Vector3 cameraCheckpoint = S6_Checkpoint.Instance.GetCameraCheckpoint();
+                cameraFollow.enabled = true;
+                cameraFollow.ResetCamera(cameraCheckpoint);
+            }
         }
 
-        GetComponent<S1_PlayerController>().StopRespawning();
+        S1_PlayerController playerController = GetComponent<S1_PlayerController>();
 
-        GetComponent<S1_PlayerController>().ResetMultiplier();
-
+        if (playerController != null)
+        {
+            playerController.StopRespawning();
+            playerController.ResetMultiplier();
+        }
     }
+
+    private IEnumerator RespawnAfterDelay()
+{
+    yield return new WaitForSeconds(respawnDelay);
+    RespawnPlayer();
+}
 
     public void ResetLives()
     {
         currentLives = maxLives;
     }
+
+    public void SetGameOverPanel(string sceneName, GameObject panel)
+    {
+        if (sceneName == "GYM_BetaGame")
+        {
+            betaGameOverPanel = panel;
+        }
+    }
     
     public void Die()
     {
-        gameOverCanvas.SetActive(true);
-        Debug.Log("Game Over");
+        Scene betaScene = SceneManager.GetSceneByName("GYM_BetaGame");
+
+        // If the Beta Game is loaded, show its Game Over panel.
+        if (betaScene.isLoaded)
+        {
+            // Disable the CameraFollow script to stop camera movement when the panel appears
+            if (Camera.main != null)
+            {
+                CameraFollow cameraFollow = Camera.main.GetComponent<CameraFollow>();
+                if (cameraFollow != null)
+                {
+                    cameraFollow.enabled = false;
+                }
+            }
+
+            // Show the Beta Game Over panel and display the final score
+            if (betaGameOverPanel != null)
+            {
+                betaGameOverPanel.SetActive(true);
+
+                if(comboSystem != null && scoreText != null)
+                {
+                    scoreText.text = "Score: " + comboSystem.totalScore;
+                }
+                else
+                {
+                    Debug.LogError("ComboSystem or ScoreText is not assigned!");
+                }
+            }
+            else
+            {
+                Debug.LogError("Beta Game Over panel has not been registered!");
+            }
+        }
     }
 
     public int GetCurrentLives()

@@ -40,13 +40,18 @@ public class S1_PlayerController : MonoBehaviour
     public bool isOnIcy = false; // Tracks if the player is currently on an icy platform
     public bool isOnBouncy ; // Tracks if the player is currently on a bouncy platform
 
+    [Header("Player Animation")]
+    public Animator animator;
+    public SpriteRenderer spriteRenderer;
+    public float animationMovementThreshold = 0.1f;
+
     private Rigidbody2D rb;
     private float moveInput;
     private bool isGrounded;
     private bool groundLeft;
     private bool groundRight;
     private bool isRespawning;
-    private S11_CheckpointTrigger pendingCheckpoint;
+    private float fallDetectionDelay;
 
     void Start()
     {
@@ -84,11 +89,17 @@ public class S1_PlayerController : MonoBehaviour
 
         // If the player is below the camera's bottom edge, trigger respawn logic
         float cameraBottomY = Camera.main.transform.position.y - (Camera.main.orthographicSize);
-        if (!isRespawning && transform.position.y < cameraBottomY)
+        if (fallDetectionDelay > 0f)
+        {
+            fallDetectionDelay -= Time.deltaTime;
+        }
+        else if (!isRespawning && transform.position.y < cameraBottomY)
         {
             isRespawning = true;
             GetComponent<S7_HealthSystem>().LoseLife(1);
         }
+
+        UpdateAnimation();
     }
 
     void FixedUpdate()
@@ -121,6 +132,28 @@ public class S1_PlayerController : MonoBehaviour
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y + directionChangeBoost * Time.fixedDeltaTime);
             }
+        }
+    }
+
+    private void UpdateAnimation()
+    {
+        if (animator == null || spriteRenderer == null || rb == null)
+            return;
+
+        float horizontalSpeed = rb.linearVelocity.x;
+
+        // Walk while actually moving; idle when nearly stopped
+        bool isWalking = Mathf.Abs(horizontalSpeed) > animationMovementThreshold;
+        animator.SetBool("IsWalking", isWalking);
+
+        // Face the direction of movement
+        if (horizontalSpeed > animationMovementThreshold)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if (horizontalSpeed < -animationMovementThreshold)
+        {
+            spriteRenderer.flipX = true;
         }
     }
 
@@ -200,13 +233,20 @@ public class S1_PlayerController : MonoBehaviour
                 // Gives a value from 0 (dead center) to 1 (extreme edge)
                 float landingAccuracy = Mathf.Abs(playerX - platformX) / halfWidth;
                 
-                comboSystem.AddScore(2500);
-
+                if (comboSystem != null)
+                    {
+                        comboSystem.AddScore(2500);
+                    }
+                    
                 if (landingAccuracy <= 0.35f)
                     {
                         Debug.Log("PERFECT Landing! Momentum restored.");
                         currentSpeedMultiplier = 1f; // REMOVES THE PENALTY
-                        comboSystem.AddScore(800);
+
+                        if (comboSystem != null)
+                        {
+                            comboSystem.AddScore(800);
+                        }
                     }
                     else if (landingAccuracy <= 0.75f)
                     {
@@ -223,8 +263,12 @@ public class S1_PlayerController : MonoBehaviour
                     if (floorsSkipped > 1)
                     {
                         int comboPoints = floorsSkipped - 1;
-                        comboSystem.AddCombo(comboPoints);
+
+                        if (comboSystem != null)
+                        {
+                            comboSystem.AddCombo(comboPoints);
                         comboSystem.AddScore(1000 * comboPoints); // Combo Score
+                        }
                     }
                 
                     currentFloor = landedFloor;
@@ -256,6 +300,7 @@ public class S1_PlayerController : MonoBehaviour
         jumpBufferCounter = 0f;
         isOnIcy = false;
         isOnBouncy = false;
+        fallDetectionDelay = 1f;
 
         if (comboSystem != null)
         {
