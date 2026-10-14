@@ -1288,7 +1288,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &262488538
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7704,6 +7704,9 @@ MonoBehaviour:
   badLandingPenalty: 0.5
   isOnIcy: 0
   isOnBouncy: 0
+  animator: {fileID: 0}
+  spriteRenderer: {fileID: 0}
+  animationMovementThreshold: 0.1
 --- !u!114 &6606860123115535667
 MonoBehaviour:
   m_ObjectHideFlags: 0
