@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro; // Make sure using TMP for your text
+using TMPro; 
 
 public class S14_CategoryUI : MonoBehaviour
 {
@@ -9,6 +9,9 @@ public class S14_CategoryUI : MonoBehaviour
     public TextMeshProUGUI headerText;
     public GameObject slidersPanel;
 
+    [Header("Mode Selection")]
+    public TMP_Dropdown modeDropdown; // Reference to the Default/Custom dropdown
+
     [Header("Sliders")]
     public Slider brightnessSlider;
     public Slider contrastSlider;
@@ -16,10 +19,10 @@ public class S14_CategoryUI : MonoBehaviour
 
     private void Start()
     {
-        // Kapag pinindot ang header, magto-toggle ang panel
+        // Toggle the panel visibility when the header button is clicked
         headerButton.onClick.AddListener(TogglePanel);
         
-        // I-hide agad pagka-start para malinis
+        // Hide the sliders panel initially for a cleaner look
         slidersPanel.SetActive(false); 
     }
 
@@ -27,7 +30,7 @@ public class S14_CategoryUI : MonoBehaviour
     {
         slidersPanel.SetActive(!slidersPanel.activeSelf);
         
-        // Ito yung nagfi-fix ng spacing sa layout group kapag nag-expand
+        // Forces the layout group to update spacing when expanding/collapsing
         LayoutRebuilder.ForceRebuildLayoutImmediate(transform.parent.GetComponent<RectTransform>());
     }
 }
