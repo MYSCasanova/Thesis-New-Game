@@ -9,6 +9,9 @@ public class SceneTransition : MonoBehaviour
 
     private void Start()
     {
+        // TEMPORARY: Uncomment this line to reset the tutorial state for testing!
+        PlayerPrefs.DeleteKey("tutorialCompleted");
+        
         // Only start the flow from PersistentGameplay.
         if (gameObject.scene.name == "PersistentGameplay")
         {
@@ -36,20 +39,20 @@ public class SceneTransition : MonoBehaviour
     }
 
     // Call this method when the "Done" button is clicked in the tutorial panel
+    // Call this method when the "Done" button is clicked in the tutorial panel
     public void FinishTutorialFlow()
     {
         if (isFromGallery)
         {
-            // Reset the flag
+            // Reset the flag so it does not affect standard gameplay later
             isFromGallery = false;
 
-            // Load the Main Menu or Tutorial Gallery scene. 
-            // (Change "GYM_MainMenu" to your exact Gallery Scene name if different)
-            SceneManager.LoadScene("GYM_MainMenu", LoadSceneMode.Single);
+            // Load the Tutorial Gallery scene instead of the Main Menu
+            SceneManager.LoadScene("GYM_TutorialGallery", LoadSceneMode.Single);
         }
         else
         {
-            // If playing the game normally, proceed to Beta Game
+            // If playing the game normally (from Play Beta), proceed to Beta Game
             LoadBetaGame();
         }
     }
