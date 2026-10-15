@@ -24,11 +24,19 @@ public class S7_HealthSystem : MonoBehaviour
     [Header("GameOver check")]
     public bool isGameOver = false; // Flag to indicate if the game is in progress
 
+    [Header("Lives UI")]
+    public LivesUI livesUI;
+
     public bool isTakingDamage = false;
 
     void Start()
     {
         currentLives = maxLives;
+        
+        if (livesUI != null)
+        {
+            livesUI.UpdateHearts(currentLives);
+        }
     }
 
     public int LoseLife(int damage)
@@ -51,6 +59,7 @@ public class S7_HealthSystem : MonoBehaviour
         
         // Beta Game: Lose lives normally
         currentLives -= damage;
+        livesUI.UpdateHearts(currentLives);
 
         if (currentLives > 0 && animator != null)
         {
@@ -73,8 +82,6 @@ public class S7_HealthSystem : MonoBehaviour
 
     public void RespawnPlayer()
     {
-        isTakingDamage = false;
-        
         if (S6_Checkpoint.Instance == null)
         {
             Debug.LogError("Checkpoint Manager not found!");
@@ -106,9 +113,12 @@ public class S7_HealthSystem : MonoBehaviour
 
         if (playerController != null)
         {
+            playerController.enabled = true;
             playerController.StopRespawning();
             playerController.ResetMultiplier();
         }
+
+        isTakingDamage = false;
     }
 
     private IEnumerator RespawnAfterDelay()
@@ -121,6 +131,12 @@ public class S7_HealthSystem : MonoBehaviour
     {
         currentLives = maxLives;
         isGameOver = false;
+        isTakingDamage = false;
+
+        if (livesUI != null)
+        {
+            livesUI.UpdateHearts(currentLives);
+        }
     }
 
     public void SetGameOverPanel(string sceneName, GameObject panel)
@@ -172,7 +188,7 @@ public class S7_HealthSystem : MonoBehaviour
 
                 if(comboSystem != null && scoreText != null)
                 {
-                    scoreText.text = "Score: " + comboSystem.totalScore;
+                    scoreText.text = comboSystem.totalScore.ToString();
                 }
                 else
                 {
