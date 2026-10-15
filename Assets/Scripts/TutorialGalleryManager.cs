@@ -21,10 +21,6 @@ public class TutorialGalleryManager : MonoBehaviour
     public Button jumpTypesBtn;
     public Button platformTypesBtn;
 
-    [Header("Coming Soon Labels")]
-    public GameObject jumpComingSoonLabel;
-    public GameObject platformComingSoonLabel;
-
     private int currentPage = 0;
     private int totalPages = 3;
     private bool isSliding = false;
@@ -38,9 +34,9 @@ public class TutorialGalleryManager : MonoBehaviour
         // Hook up the center image clicks
         basicTutorialBtn.onClick.AddListener(OnBasicTutorialClicked);
         
-        // Use lambda expressions to pass the specific button and label
-        jumpTypesBtn.onClick.AddListener(() => OnUnavailableClicked(jumpTypesBtn, jumpComingSoonLabel));
-        platformTypesBtn.onClick.AddListener(() => OnUnavailableClicked(platformTypesBtn, platformComingSoonLabel));
+        // // Use lambda expressions to pass the specific button and label
+        // jumpTypesBtn.onClick.AddListener(() => OnUnavailableClicked(jumpTypesBtn, jumpComingSoonLabel));
+        // platformTypesBtn.onClick.AddListener(() => OnUnavailableClicked(platformTypesBtn, platformComingSoonLabel));
 
         UpdateUI();
     }
@@ -111,18 +107,6 @@ public class TutorialGalleryManager : MonoBehaviour
 
         SceneManager.LoadScene("PersistentGameplay");
         SceneManager.LoadScene("GYM_TutorialLevel", LoadSceneMode.Additive);
-    }
-
-    void OnUnavailableClicked(Button clickedBtn, GameObject comingSoonLabel)
-    {
-        // Setting interactable to false will automatically gray out the button 
-        // (based on the "Disabled Color" setting in the Button component)
-        clickedBtn.interactable = false;
-        
-        if (comingSoonLabel != null)
-        {
-            comingSoonLabel.SetActive(true);
-        }
     }
     public void ReturnToMainMenu()
     {

@@ -169,7 +169,7 @@ public class S1_PlayerController : MonoBehaviour
     }
 
     private void PerformJump()
-    {    
+    {   
         float currentJump = jumpForce;
 
         if (isOnBouncy) // If the player is on a bouncy platform, increase jump height
@@ -186,7 +186,7 @@ public class S1_PlayerController : MonoBehaviour
         {
             currentJump *= edgeJumpMultiplier; // Lower jump height
         }
-
+        S16_AudioManager.instance.PlaySFX("Jump");
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, currentJump);
         MovePlayerToPersistentScene();
     }

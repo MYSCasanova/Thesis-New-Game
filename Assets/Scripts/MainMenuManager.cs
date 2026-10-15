@@ -40,25 +40,15 @@ public class MainMenuManager : MonoBehaviour
 
     public void OpenSettings()
     {
-        // Save the current scene's name before leaving
-        previousSceneName = SceneManager.GetActiveScene().name;
-        
-        // Load the Settings scene in Single mode (automatically unloads the current scene)
-        SceneManager.LoadScene("GYM_ManualSettings", LoadSceneMode.Single);
+        // Unpause the game
+        Time.timeScale = 0f;
+        SceneManager.LoadScene("GYM_ManualSettings", LoadSceneMode.Additive);
     }
 
     public void CloseSettings()
     {
-        // Check if we have a saved previous scene
-        if (!string.IsNullOrEmpty(previousSceneName))
-        {
-            // Load the previous scene back
-            SceneManager.LoadScene(previousSceneName, LoadSceneMode.Single);
-        }
-        else
-        {
-            // Fallback in case the game started directly in the settings scene for testing
-            SceneManager.LoadScene("GYM_MainMenu", LoadSceneMode.Single);
-        }
+        // Unpause the game
+        Time.timeScale = 1f;
+        SceneManager.UnloadSceneAsync("GYM_ManualSettings");
     }
 }
