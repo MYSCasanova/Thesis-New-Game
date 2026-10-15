@@ -4,6 +4,16 @@ using System.Collections;
 
 public class MainMenuManager : MonoBehaviour
 {
+    // Reset key for testing purposes
+    // Uncomment when resetting
+    
+    // private void Start()
+    // {
+    //     PlayerPrefs.DeleteKey("tutorialCompleted");
+    //     PlayerPrefs.Save();
+
+    //     Debug.Log("Tutorial completion reset for testing.");
+    // }
 
     // Beta Button
     public void PlayBeta()

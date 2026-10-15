@@ -24,6 +24,8 @@ public class S7_HealthSystem : MonoBehaviour
     [Header("GameOver check")]
     public bool isGameOver = false; // Flag to indicate if the game is in progress
 
+    private bool isTakingDamage = false;
+
     void Start()
     {
         currentLives = maxLives;
@@ -31,7 +33,11 @@ public class S7_HealthSystem : MonoBehaviour
 
     public int LoseLife(int damage)
     {
-        Debug.Log("LoseLife called! Lives before damage: " + currentLives);
+
+        if (isGameOver || isTakingDamage)
+            return currentLives;
+
+        isTakingDamage = true;
 
         // If the current scene is the tutorial, respawn the player without losing lives
         bool isTutorial = SceneManager.GetSceneByName("GYM_TutorialLevel").isLoaded;
@@ -67,6 +73,8 @@ public class S7_HealthSystem : MonoBehaviour
 
     public void RespawnPlayer()
     {
+        isTakingDamage = false;
+        
         if (S6_Checkpoint.Instance == null)
         {
             Debug.LogError("Checkpoint Manager not found!");
