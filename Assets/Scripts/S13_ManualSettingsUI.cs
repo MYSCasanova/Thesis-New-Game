@@ -39,7 +39,7 @@ public class S13_ManualSettingsUI : MonoBehaviour
 
         // Generate graphics categories
         GenerateCategory("Adjust Background Visual", "Background", settingsData.backgroundSettings);
-        GenerateCategory("Adjust Hazard Visual", "Hazard", settingsData.hazardSettings);
+        GenerateCategory("Adjust Obstacle Visual", "Obstacle", settingsData.obstacleSettings);
         GenerateCategory("Adjust Platform Visual", "Platform", settingsData.platformSettings);
         GenerateCategory("Adjust Player Visual", "Player", settingsData.playerSettings);
 

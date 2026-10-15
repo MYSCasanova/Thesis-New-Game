@@ -8,21 +8,24 @@ public class VisualSettingsSO : ScriptableObject
     public class CategorySettings
     {
         [Range(0f, 2f)] public float brightness = 1f;
-        [Range(0f, 2f)] public float contrast = 1f;
+        [Range(0f, 2f)] public float contrast = 1f; 
         [Range(0f, 1f)] public float color = 0.5f; // Assuming a 0-1 slider for hue or color tint
     }
 
     // Explicit fields match your future CSV export format perfectly
-    public CategorySettings backgroundSettings = new CategorySettings();
-    public CategorySettings hazardSettings = new CategorySettings();
-    public CategorySettings platformSettings = new CategorySettings();
-    public CategorySettings playerSettings = new CategorySettings();
+    public CategorySettings backgroundSettings = new CategorySettings(); 
+    
+    // CHANGED: Renamed hazardSettings to obstacleSettings to match other scripts
+    public CategorySettings obstacleSettings = new CategorySettings(); 
+    
+    public CategorySettings platformSettings = new CategorySettings(); 
+    public CategorySettings playerSettings = new CategorySettings(); 
 
-    // Event triggered whenever any setting changes
-    public event Action OnSettingsChanged;
+    // Event triggered whenever any setting changes    
+    public event Action OnSettingsChanged; 
 
-    public void ApplyChanges()
+    public void ApplyChanges() 
     {
-        OnSettingsChanged?.Invoke();
+        OnSettingsChanged?.Invoke(); 
     }
 }
