@@ -4,8 +4,16 @@ using System.Collections;
 
 public class MainMenuManager : MonoBehaviour
 {
-    // Static variable to remember where we came from across different scenes
-    public static string previousSceneName;
+    // Reset key for testing purposes
+    // Uncomment when resetting
+    
+    // private void Start()
+    // {
+    //     PlayerPrefs.DeleteKey("tutorialCompleted");
+    //     PlayerPrefs.Save();
+
+    //     Debug.Log("Tutorial completion reset for testing.");
+    // }
 
     public void PlayBeta()
     {
