@@ -1,0 +1,559 @@
+fileFormatVersion: 2
+guid: 5f69becc81997488a96e51a654da7824
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6502486340211345692
+    second: BreakablePlatform_0
+  - first:
+      213: 8846697015507728850
+    second: BreakablePlatform_1
+  - first:
+      213: 4812631009229882045
+    second: BreakablePlatform_2
+  - first:
+      213: 331966579329042427
+    second: BreakablePlatform_3
+  - first:
+      213: 4483247596868601115
+    second: BreakablePlatform_4
+  - first:
+      213: 8574327936927977239
+    second: BreakablePlatform_5
+  - first:
+      213: -6554625099248606943
+    second: BreakablePlatform_6
+  - first:
+      213: 8291141729075391027
+    second: BreakablePlatform_7
+  - first:
+      213: 6044545404264365264
+    second: BreakablePlatform_8
+  - first:
+      213: -5906430866457179028
+    second: BreakablePlatform_9
+  - first:
+      213: 964172540297034531
+    second: BreakablePlatform_10
+  - first:
+      213: 4726814148173846199
+    second: BreakablePlatform_11
+  - first:
+      213: -9181122318694370996
+    second: BreakablePlatform_12
+  - first:
+      213: 2501367411030981423
+    second: BreakablePlatform_13
+  - first:
+      213: 4432710940033369338
+    second: BreakablePlatform_14
+  - first:
+      213: 5170880475701612577
+    second: BreakablePlatform_15
+  - first:
+      213: -6415011320878895907
+    second: BreakablePlatform_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: BreakablePlatform_0
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 3119
+        width: 4130
+        height: 746
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e67fde002782c5a0800000000000000
+      internalID: -6502486340211345692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BreakablePlatform_1
+      rect:
+        serializedVersion: 2
+        x: 3087
+        y: 2935
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d9b8d45018c5ca70800000000000000
+      internalID: 8846697015507728850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BreakablePlatform_2
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 1622
+        width: 4130
+        height: 1195
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db24d2c8766e9c240800000000000000
+      internalID: 4812631009229882045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BreakablePlatform_3
+      rect:
+        serializedVersion: 2
+        x: 1527
+        y: 1927
+        width: 146
+        height: 122
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf7853658d16b9400800000000000000
+      internalID: 331966579329042427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BreakablePlatform_4
+      rect:
+        serializedVersion: 2
+        x: 2271
+        y: 1903
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b150a73afe1b73e30800000000000000
+      internalID: 4483247596868601115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BreakablePlatform_5
+      rect:
+        serializedVersion: 2
+        x: 2103
+        y: 1831
+        width: 98
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71fcc4474d12ef670800000000000000
+      internalID: 8574327936927977239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BreakablePlatform_6
+      rect:
+        serializedVersion: 2
+        x: 2391
+        y: 1623
+        width: 74
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1216d6b333b4905a0800000000000000
+      internalID: -6554625099248606943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BreakablePlatform_7
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 159
+        width: 4314
+        height: 1298
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33ae4f7697d001370800000000000000
+      internalID: 8291141729075391027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BreakablePlatform_8
+      rect:
+        serializedVersion: 2
+        x: 2295
+        y: 519
+        width: 98
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0dcb5e1150a82e350800000000000000
+      internalID: 6044545404264365264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BreakablePlatform_9
+      rect:
+        serializedVersion: 2
+        x: 2967
+        y: 399
+        width: 194
+        height: 218
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6cca6aab64280ea0800000000000000
+      internalID: -5906430866457179028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BreakablePlatform_10
+      rect:
+        serializedVersion: 2
+        x: 1335
+        y: 471
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32b379621dd616d00800000000000000
+      internalID: 964172540297034531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BreakablePlatform_11
+      rect:
+        serializedVersion: 2
+        x: 1623
+        y: 471
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b6513d8c64099140800000000000000
+      internalID: 4726814148173846199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BreakablePlatform_12
+      rect:
+        serializedVersion: 2
+        x: 2127
+        y: 255
+        width: 314
+        height: 266
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c41bfc215e9169080800000000000000
+      internalID: -9181122318694370996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BreakablePlatform_13
+      rect:
+        serializedVersion: 2
+        x: 3231
+        y: 327
+        width: 122
+        height: 122
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2b7d335864a6b220800000000000000
+      internalID: 2501367411030981423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BreakablePlatform_14
+      rect:
+        serializedVersion: 2
+        x: 1599
+        y: 255
+        width: 74
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af44dac4d17248d30800000000000000
+      internalID: 4432710940033369338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BreakablePlatform_15
+      rect:
+        serializedVersion: 2
+        x: 2991
+        y: 183
+        width: 122
+        height: 122
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 120923a6568a2c740800000000000000
+      internalID: 5170880475701612577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BreakablePlatform_16
+      rect:
+        serializedVersion: 2
+        x: 2271
+        y: 159
+        width: 50
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ddc67ec113d49f6a0800000000000000
+      internalID: -6415011320878895907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      BreakablePlatform_0: -6502486340211345692
+      BreakablePlatform_1: 8846697015507728850
+      BreakablePlatform_10: 964172540297034531
+      BreakablePlatform_11: 4726814148173846199
+      BreakablePlatform_12: -9181122318694370996
+      BreakablePlatform_13: 2501367411030981423
+      BreakablePlatform_14: 4432710940033369338
+      BreakablePlatform_15: 5170880475701612577
+      BreakablePlatform_16: -6415011320878895907
+      BreakablePlatform_2: 4812631009229882045
+      BreakablePlatform_3: 331966579329042427
+      BreakablePlatform_4: 4483247596868601115
+      BreakablePlatform_5: 8574327936927977239
+      BreakablePlatform_6: -6554625099248606943
+      BreakablePlatform_7: 8291141729075391027
+      BreakablePlatform_8: 6044545404264365264
+      BreakablePlatform_9: -5906430866457179028
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

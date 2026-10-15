@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: 1078256670443929797, guid: 98a484251951c40f496841fd2be4506e, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -5743616145994895851, guid: 4f9bc396008a54605bb5fec500a3b891, type: 3}
+      objectReference: {fileID: 1117937798771182689, guid: 94e23b21f39db4369870ac2cc30e3847, type: 3}
     - target: {fileID: 2526247595814950858, guid: 98a484251951c40f496841fd2be4506e, type: 3}
       propertyPath: m_Name
       value: MovingPlatform-MEDIUM
@@ -58,11 +58,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7459525180315936383, guid: 98a484251951c40f496841fd2be4506e, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.1761989
+      value: 0.048545823
+      objectReference: {fileID: 0}
+    - target: {fileID: 7459525180315936383, guid: 98a484251951c40f496841fd2be4506e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.30508026
       objectReference: {fileID: 0}
     - target: {fileID: 7459525180315936383, guid: 98a484251951c40f496841fd2be4506e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.00047
+      value: 0.0048
+      objectReference: {fileID: 0}
+    - target: {fileID: 7459525180315936383, guid: 98a484251951c40f496841fd2be4506e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0671
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
