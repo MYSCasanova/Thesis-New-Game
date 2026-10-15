@@ -57,7 +57,7 @@ public class S4_Hazards : MonoBehaviour
         S7_HealthSystem health = collision.gameObject.GetComponent<S7_HealthSystem>();
 
         if (health == null) return;
-        if (health.isGameOver) return;
+        if (health.isGameOver || health.isTakingDamage) return;
 
         Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
 

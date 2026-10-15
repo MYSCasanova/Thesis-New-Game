@@ -112,10 +112,10 @@ TextureImporter:
       name: Level1BG_0
       rect:
         serializedVersion: 2
-        x: 276
-        y: 385
-        width: 309
-        height: 4974
+        x: 285
+        y: 395
+        width: 293
+        height: 3795
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -156,10 +156,10 @@ TextureImporter:
       name: Level1BG_2
       rect:
         serializedVersion: 2
-        x: 5132
-        y: 345
-        width: 309
-        height: 5058
+        x: 5144
+        y: 359
+        width: 279
+        height: 3865
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

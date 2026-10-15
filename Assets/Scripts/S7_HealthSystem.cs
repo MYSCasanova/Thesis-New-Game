@@ -24,7 +24,7 @@ public class S7_HealthSystem : MonoBehaviour
     [Header("GameOver check")]
     public bool isGameOver = false; // Flag to indicate if the game is in progress
 
-    private bool isTakingDamage = false;
+    public bool isTakingDamage = false;
 
     void Start()
     {
@@ -134,6 +134,21 @@ public class S7_HealthSystem : MonoBehaviour
     public void Die()
     {
         isGameOver = true; // Set the game over flag to true
+
+        // Stop player movement
+        S1_PlayerController playerController = GetComponent<S1_PlayerController>();
+
+        if (playerController != null)
+        {
+            playerController.enabled = false;
+        }
+
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
 
         Scene betaScene = SceneManager.GetSceneByName("GYM_BetaGame");
 

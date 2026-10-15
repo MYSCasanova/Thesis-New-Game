@@ -64,6 +64,7 @@ public class GameOverUI : MonoBehaviour
                 playerController.StopRespawning();
                 playerController.ResetMultiplier();
                 playerController.ResetRun();
+                playerController.enabled = true;
             }
 
             // Reset camera position to the checkpoint
