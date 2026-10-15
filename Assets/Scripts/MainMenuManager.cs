@@ -4,6 +4,8 @@ using System.Collections;
 
 public class MainMenuManager : MonoBehaviour
 {
+    // Static variable to remember where we came from across different scenes
+    public static string previousSceneName;
     // Reset key for testing purposes
     // Uncomment when resetting
     
