@@ -10,7 +10,7 @@ public class S11_ManualSettingsUI : MonoBehaviour
     [System.Serializable]
     public class GraphicsCategoryUI
     {
-        public string categoryTag; // Ex: "Background", "Hazard", "Platform", "Player"
+        public string categoryTag; // Ex: "Background", "Obstacle", "Platform", "Player"
         public Slider brightnessSlider;
         public Slider contrastSlider;
         public Slider colorSlider;
@@ -18,7 +18,8 @@ public class S11_ManualSettingsUI : MonoBehaviour
 
     [Header("Graphics Settings")]
     public GraphicsCategoryUI backgroundUI = new GraphicsCategoryUI { categoryTag = "Background" };
-    public GraphicsCategoryUI hazardUI = new GraphicsCategoryUI { categoryTag = "Hazard" };
+    // CHANGED: Renamed hazardUI to obstacleUI and updated the categoryTag
+    public GraphicsCategoryUI obstacleUI = new GraphicsCategoryUI { categoryTag = "Obstacle" }; 
     public GraphicsCategoryUI platformUI = new GraphicsCategoryUI { categoryTag = "Platform" };
     public GraphicsCategoryUI playerUI = new GraphicsCategoryUI { categoryTag = "Player" };
 
@@ -44,7 +45,7 @@ public class S11_ManualSettingsUI : MonoBehaviour
     private void InitializeGraphics()
     {
         SetupGraphicsCategory(backgroundUI, settingsData.backgroundSettings);
-        SetupGraphicsCategory(hazardUI, settingsData.hazardSettings);
+        SetupGraphicsCategory(obstacleUI, settingsData.obstacleSettings);
         SetupGraphicsCategory(platformUI, settingsData.platformSettings);
         SetupGraphicsCategory(playerUI, settingsData.playerSettings);
     }

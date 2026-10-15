@@ -9,6 +9,14 @@ public class S17_GameplayData : MonoBehaviour
     private bool gameTimerStarted = false;
     private bool gameCompleted = false;
 
+    // --- ADD THIS ---
+    private void Awake()
+    {
+        // Keeps this specific GameObject alive across all scenes
+        DontDestroyOnLoad(this.gameObject); 
+    }
+    // ----------------
+
     public void StartGameTimer()
     {
         if (gameTimerStarted || gameCompleted) return;

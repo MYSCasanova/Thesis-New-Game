@@ -4,7 +4,7 @@ public class S15_VisualReceiver : MonoBehaviour
 {
     public VisualSettingsSO settingsData;
     
-    public enum Category { Background, Hazard, Platform, Player }
+    public enum Category { Background, Obstacle, Platform, Player }
     
     [Header("Object Category")]
     public Category myCategory;
@@ -49,7 +49,7 @@ public class S15_VisualReceiver : MonoBehaviour
         // Return the corresponding settings from the ScriptableObject
         switch (myCategory)
         {
-            case Category.Hazard: return settingsData.hazardSettings;
+            case Category.Obstacle: return settingsData.obstacleSettings;
             case Category.Platform: return settingsData.platformSettings;
             case Category.Player: return settingsData.playerSettings;
             case Category.Background: 
