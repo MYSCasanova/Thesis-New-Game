@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2873808062822963561}
   - component: {fileID: 8264379566106688318}
-  - component: {fileID: 1898266847385865014}
   - component: {fileID: 2457239389078833089}
+  - component: {fileID: 6556541130123276952}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -93,7 +93,21 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!95 &1898266847385865014
+--- !u!114 &2457239389078833089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808092144176449890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d93420151e4c3624da6cf6cfd514eb96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::S15_VisualReceiver
+  settingsData: {fileID: 11400000, guid: 6ecc76993b0982e44a8e4bcab1863386, type: 2}
+  myCategory: 2
+--- !u!95 &6556541130123276952
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0
@@ -115,20 +129,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2457239389078833089
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1808092144176449890}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d93420151e4c3624da6cf6cfd514eb96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::S15_VisualReceiver
-  settingsData: {fileID: 11400000, guid: 6ecc76993b0982e44a8e4bcab1863386, type: 2}
-  myCategory: 2
 --- !u!1 &3355121090184776573
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,9 +184,9 @@ MonoBehaviour:
   isIcy: 0
   isBouncy: 0
   isBreaking: 1
-  breakDelay: 1.5
+  breakDelay: 0.5
   fallSpeed: 5
-  destroyDelay: 3
+  destroyDelay: 1.5
 --- !u!61 &9197969921820955133
 BoxCollider2D:
   m_ObjectHideFlags: 0

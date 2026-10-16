@@ -92,6 +92,9 @@ public class S7_HealthSystem : MonoBehaviour
         transform.position = checkpointPosition;
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
 
+        // Reset all platforms when the player respawns
+        S3_Platform.ResetAllPlatforms();
+
         if (rb != null)
         {
             rb.linearVelocity = Vector2.zero; // Reset velocity to avoid falling through platforms
@@ -122,10 +125,10 @@ public class S7_HealthSystem : MonoBehaviour
     }
 
     private IEnumerator RespawnAfterDelay()
-{
-    yield return new WaitForSeconds(respawnDelay);
-    RespawnPlayer();
-}
+    {
+        yield return new WaitForSeconds(respawnDelay);
+        RespawnPlayer();
+    }
 
     public void ResetLives()
     {

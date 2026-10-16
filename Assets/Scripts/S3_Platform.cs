@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class S3_Platform : MonoBehaviour
 {    
@@ -35,11 +36,23 @@ public class S3_Platform : MonoBehaviour
 
     private Rigidbody2D rb;
     private Vector3 startPosition;
+    private Animator animator;
+    private bool hasBroken = false;
+
+    private static List<S3_Platform> allPlatforms = new List<S3_Platform>();
+
+    private void Awake()
+    {
+        if (!allPlatforms.Contains(this))
+        {
+            allPlatforms.Add(this);
+        }
+    }
 
     void Start()
     {
         startPosition = transform.position;
-
+        animator = GetComponentInChildren<Animator>();
         //Used for falling platforms
         rb = GetComponent<Rigidbody2D>();
         if (direction == MovementDirection.Falling)
@@ -52,7 +65,7 @@ public class S3_Platform : MonoBehaviour
     {
         MovePlatform();
 
-        if(isBreaking && isPlayerOnPlatform) // Only start the timer if the platform is a breaking type and the player is on it
+        if(isBreaking && isPlayerOnPlatform && !hasBroken) // Only start the timer if the platform is a breaking type and the player is on it and it hasnt broken yet
         {
             breakTimer += Time.deltaTime;
             if(breakTimer >= breakDelay)
@@ -98,7 +111,7 @@ public class S3_Platform : MonoBehaviour
         if (isBreaking)
         {
             isPlayerOnPlatform = true; // Start the timer when the player lands on the platform
-            breakTimer = 0f; // Reset the timer when the player lands on the platform
+            // breakTimer = 0f; // Reset the timer when the player lands on the platform
         }
         if (direction == MovementDirection.Falling && !isFalling)
         {
@@ -108,29 +121,80 @@ public class S3_Platform : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player") && isBreaking)
-        {
-            isPlayerOnPlatform = false; // Stop the timer when the player leaves the platform
-            breakTimer = 0f; // Reset the timer when the player leaves the platform
-        }
-    }
-
     private void BreakPlatform()
     {
-        // Disable the platform's collider and renderer to simulate breaking
+        if (hasBroken) return;
+
+        hasBroken = true;
+        isPlayerOnPlatform = false;
+
+        // Play the breaking animation
+        if (animator != null)
+        {
+            animator.SetTrigger("Break");
+        }
+        else
+        {
+            Debug.LogWarning("No Animator found on the platform or its children!");
+        }
+
+        // Stop the platform from being used
         GetComponent<Collider2D>().enabled = false;
-        GetComponent<SpriteRenderer>().enabled = false;
 
-        // Optionally, you can add a particle effect or sound effect here
-
-        // Set platform to inactive
-        gameObject.SetActive(false);
+        Invoke(nameof(DestroyPlatform), 0.6f);
     }
 
     private void DestroyPlatform()
     {
         gameObject.SetActive(false);
+    }
+
+    private void OnDestroy()
+    {
+        allPlatforms.Remove(this);
+    }
+
+    public static void ResetAllPlatforms()
+    {
+        foreach (S3_Platform platform in allPlatforms)
+        {
+            if (platform != null)
+            {
+                platform.ResetPlatform();
+            }
+        }
+    }
+
+    public void ResetPlatform()
+    {
+        CancelInvoke();
+
+        // Reactivate the platform
+        gameObject.SetActive(true);
+
+        // Reset breaking-platform variables
+        hasBroken = false;
+        isPlayerOnPlatform = false;
+        breakTimer = 0f;
+
+        // Re-enable the platform collider
+        GetComponent<Collider2D>().enabled = true;
+
+        // Reset the breaking animation
+        if (animator != null)
+        {
+            animator.ResetTrigger("Break");
+            animator.Play("IdleBreakingPlatform", 0, 0f);
+        }
+
+        // Reset falling-platform variables
+        isFalling = false;
+
+        if (rb != null && direction == MovementDirection.Falling)
+        {
+            rb.gravityScale = 0f;
+            rb.linearVelocity = Vector2.zero;
+            transform.position = startPosition;
+        }
     }
 }
