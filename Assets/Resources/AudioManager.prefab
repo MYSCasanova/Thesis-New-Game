@@ -244,7 +244,39 @@ MonoBehaviour:
   sfxSource: {fileID: 5127138180886754277}
   bgmSounds:
   - name: Main Menu
-    clip: {fileID: 8300000, guid: 331e5ba3199b36c48a1f65e1a4456794, type: 3}
+    clip: {fileID: 8300000, guid: 8d6760cbc2fb94b48902121bacb7866f, type: 3}
+  - name: Game Over
+    clip: {fileID: 8300000, guid: 5f385f46550e90f44a4e7d0ba5cdd89c, type: 3}
+  - name: Level 1
+    clip: {fileID: 8300000, guid: 39cef93c57158734c99e42807f806d59, type: 3}
+  - name: Level 2
+    clip: {fileID: 8300000, guid: 2fcbfcf74dd1ace4997861c79ec05cbd, type: 3}
+  - name: Level 3
+    clip: {fileID: 8300000, guid: fe233c673f89585429bbe86127ef91e6, type: 3}
+  - name: Tutorial
+    clip: {fileID: 8300000, guid: b7cf86b2eec95f3438869306f43dc798, type: 3}
+  - name: Winner
+    clip: {fileID: 8300000, guid: d4423a0d59cf40245af872fa5af85838, type: 3}
   sfxSounds:
   - name: Jump
-    clip: {fileID: 8300000, guid: 0c0625927154bb24ab4f41bcc3e13efb, type: 3}
+    clip: {fileID: 8300000, guid: c98591c5737c0a543ad6a850c594e92e, type: 3}
+  - name: Cancel
+    clip: {fileID: 8300000, guid: 6482117d0c040bd4aab12a3ed62e10d3, type: 3}
+  - name: Check
+    clip: {fileID: 8300000, guid: 8aa19a62ba3e4d643a442b18580dbcd7, type: 3}
+  - name: Click
+    clip: {fileID: 8300000, guid: 93516a636d38a9b46ae68ffa56e17a55, type: 3}
+  - name: Confirm
+    clip: {fileID: 8300000, guid: 3f5ab65b5f75afc4dbafcad7c5d7320e, type: 3}
+  - name: High Jump
+    clip: {fileID: 8300000, guid: 49d5185d92b40594fbaad9ccdabddce4, type: 3}
+  - name: Death
+    clip: {fileID: 8300000, guid: 0d5c9523447abd8459a10bb71e6c547e, type: 3}
+  - name: Hurt
+    clip: {fileID: 8300000, guid: 70cb17aaf2c739442820aac37390546e, type: 3}
+  - name: Trampoline
+    clip: {fileID: 8300000, guid: aa951d3ae4e455d46b2a347217a25bb8, type: 3}
+  - name: Trampoline
+    clip: {fileID: 8300000, guid: aa951d3ae4e455d46b2a347217a25bb8, type: 3}
+  - name: Booster
+    clip: {fileID: 8300000, guid: 096f0ebea2aab0748baa9d6ca403b3cc, type: 3}
