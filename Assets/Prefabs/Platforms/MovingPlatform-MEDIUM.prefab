@@ -12,17 +12,21 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 1117937798771182689, guid: 94e23b21f39db4369870ac2cc30e3847, type: 3}
+    - target: {fileID: 1078256670443929797, guid: 98a484251951c40f496841fd2be4506e, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5b008eed4c638214eb2f0fce39b3092e, type: 2}
     - target: {fileID: 2526247595814950858, guid: 98a484251951c40f496841fd2be4506e, type: 3}
       propertyPath: m_Name
       value: MovingPlatform-MEDIUM
       objectReference: {fileID: 0}
     - target: {fileID: 6322316608884550006, guid: 98a484251951c40f496841fd2be4506e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 4.42029
       objectReference: {fileID: 0}
     - target: {fileID: 6322316608884550006, guid: 98a484251951c40f496841fd2be4506e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -3.04469
       objectReference: {fileID: 0}
     - target: {fileID: 6322316608884550006, guid: 98a484251951c40f496841fd2be4506e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -75,5 +79,27 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5365589111355281556, guid: 98a484251951c40f496841fd2be4506e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5184610528660210767}
   m_SourcePrefab: {fileID: 100100000, guid: 98a484251951c40f496841fd2be4506e, type: 3}
+--- !u!1 &4016410992371908155 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5365589111355281556, guid: 98a484251951c40f496841fd2be4506e, type: 3}
+  m_PrefabInstance: {fileID: 9064424827380838063}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5184610528660210767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4016410992371908155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d93420151e4c3624da6cf6cfd514eb96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::S15_VisualReceiver
+  settingsData: {fileID: 11400000, guid: 6ecc76993b0982e44a8e4bcab1863386, type: 2}
+  myCategory: 2

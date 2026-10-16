@@ -32,13 +32,17 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 1117937798771182689, guid: 94e23b21f39db4369870ac2cc30e3847, type: 3}
+    - target: {fileID: 4293460251103473389, guid: 31065c60657a04bd4be8ff4e2bc8c58f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5b008eed4c638214eb2f0fce39b3092e, type: 2}
     - target: {fileID: 4397603201051198727, guid: 31065c60657a04bd4be8ff4e2bc8c58f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 4.42029
       objectReference: {fileID: 0}
     - target: {fileID: 4397603201051198727, guid: 31065c60657a04bd4be8ff4e2bc8c58f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -3.04469
       objectReference: {fileID: 0}
     - target: {fileID: 4397603201051198727, guid: 31065c60657a04bd4be8ff4e2bc8c58f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -75,5 +79,27 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8547960416534115075, guid: 31065c60657a04bd4be8ff4e2bc8c58f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6962383744142247182}
   m_SourcePrefab: {fileID: 100100000, guid: 31065c60657a04bd4be8ff4e2bc8c58f, type: 3}
+--- !u!1 &4190914715482885440 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8547960416534115075, guid: 31065c60657a04bd4be8ff4e2bc8c58f, type: 3}
+  m_PrefabInstance: {fileID: 5515055831379164739}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6962383744142247182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4190914715482885440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d93420151e4c3624da6cf6cfd514eb96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::S15_VisualReceiver
+  settingsData: {fileID: 11400000, guid: 6ecc76993b0982e44a8e4bcab1863386, type: 2}
+  myCategory: 2

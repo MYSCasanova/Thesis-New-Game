@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2182084312936387450}
   - component: {fileID: 2979792709556554517}
   - component: {fileID: 8087632597355285008}
+  - component: {fileID: 8536528733387576945}
   m_Layer: 3
   m_Name: GameObject
   m_TagString: Untagged
@@ -59,7 +60,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 5b008eed4c638214eb2f0fce39b3092e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -114,6 +115,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8536528733387576945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382451976859760252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d93420151e4c3624da6cf6cfd514eb96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::S15_VisualReceiver
+  settingsData: {fileID: 11400000, guid: 6ecc76993b0982e44a8e4bcab1863386, type: 2}
+  myCategory: 2
 --- !u!1 &5836717231442320765
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,7 +156,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5836717231442320765}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 17.19, y: -9.320001, z: 0}
   m_LocalScale: {x: 4.658844, y: 0.91075987, z: 1}
   m_ConstrainProportionsScale: 0

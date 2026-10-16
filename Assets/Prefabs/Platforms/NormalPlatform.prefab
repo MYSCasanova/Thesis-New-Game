@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 412830356924349444}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -23.52, y: -9.32, z: 0}
   m_LocalScale: {x: 4.658844, y: 0.91075987, z: 1}
   m_ConstrainProportionsScale: 0
@@ -132,6 +132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3655808214974821538}
   - component: {fileID: 4293460251103473389}
+  - component: {fileID: 3145557433533911730}
   m_Layer: 3
   m_Name: NormalPlatform
   m_TagString: Platform
@@ -180,7 +181,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 5b008eed4c638214eb2f0fce39b3092e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -213,3 +214,17 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &3145557433533911730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8547960416534115075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d93420151e4c3624da6cf6cfd514eb96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::S15_VisualReceiver
+  settingsData: {fileID: 11400000, guid: 6ecc76993b0982e44a8e4bcab1863386, type: 2}
+  myCategory: 2
