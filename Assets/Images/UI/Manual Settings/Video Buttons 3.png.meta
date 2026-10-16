@@ -1,0 +1,832 @@
+fileFormatVersion: 2
+guid: 5ba5e0b136e5905469dfecdfab2fb58b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8071283597270076774
+    second: Video Buttons 3_0
+  - first:
+      213: -7271565386948408677
+    second: Video Buttons 3_1
+  - first:
+      213: -842178702485139215
+    second: Video Buttons 3_2
+  - first:
+      213: -4760243064629442827
+    second: Video Buttons 3_3
+  - first:
+      213: 145056371036437165
+    second: Video Buttons 3_4
+  - first:
+      213: 9216455971857121584
+    second: Video Buttons 3_5
+  - first:
+      213: -4495937786231327380
+    second: Video Buttons 3_6
+  - first:
+      213: 2418178313504152206
+    second: Video Buttons 3_7
+  - first:
+      213: -6794115098222589197
+    second: Video Buttons 3_8
+  - first:
+      213: -7741943174418389718
+    second: Video Buttons 3_9
+  - first:
+      213: -6583547714049710219
+    second: Video Buttons 3_10
+  - first:
+      213: -767459329022752192
+    second: Video Buttons 3_11
+  - first:
+      213: -4029698552986487769
+    second: Video Buttons 3_12
+  - first:
+      213: 9195803490854361722
+    second: Video Buttons 3_13
+  - first:
+      213: 3001284056676535006
+    second: Video Buttons 3_14
+  - first:
+      213: 8161382906155152474
+    second: Video Buttons 3_15
+  - first:
+      213: 2583980856895277506
+    second: Video Buttons 3_16
+  - first:
+      213: 4154990722002089209
+    second: Video Buttons 3_17
+  - first:
+      213: 6227964855487854346
+    second: Video Buttons 3_18
+  - first:
+      213: -5970535735707348892
+    second: Video Buttons 3_19
+  - first:
+      213: -5555144647527006758
+    second: Video Buttons 3_20
+  - first:
+      213: 8012742423420261818
+    second: Video Buttons 3_21
+  - first:
+      213: 8602770325991451960
+    second: Video Buttons 3_22
+  - first:
+      213: 4001069249347911226
+    second: Video Buttons 3_23
+  - first:
+      213: 3089530143380689227
+    second: Video Buttons 3_24
+  - first:
+      213: -8293031833858677161
+    second: Video Buttons 3_25
+  - first:
+      213: -6381862909657178362
+    second: Video Buttons 3_26
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Video Buttons 3_0
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 897
+        width: 277
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66d48b01ba5f20070800000000000000
+      internalID: 8071283597270076774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Video Buttons 3_1
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 897
+        width: 277
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9a0ae59ec5361b90800000000000000
+      internalID: -7271565386948408677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Video Buttons 3_2
+      rect:
+        serializedVersion: 2
+        x: 963
+        y: 897
+        width: 277
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f059f0aeeaff44f0800000000000000
+      internalID: -842178702485139215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Video Buttons 3_3
+      rect:
+        serializedVersion: 2
+        x: 1247
+        y: 897
+        width: 276
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f6ce30572830fdb0800000000000000
+      internalID: -4760243064629442827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Video Buttons 3_4
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 756
+        width: 385
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: daab80c3008530200800000000000000
+      internalID: 145056371036437165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Video Buttons 3_5
+      rect:
+        serializedVersion: 2
+        x: 803
+        y: 751
+        width: 41
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 031429220ed67ef70800000000000000
+      internalID: 9216455971857121584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Video Buttons 3_6
+      rect:
+        serializedVersion: 2
+        x: 976
+        y: 707
+        width: 56
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c65fc6767683b91c0800000000000000
+      internalID: -4495937786231327380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Video Buttons 3_7
+      rect:
+        serializedVersion: 2
+        x: 1074
+        y: 707
+        width: 56
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8ad7f33d581f8120800000000000000
+      internalID: 2418178313504152206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Video Buttons 3_8
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 663
+        width: 385
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3fa035f905476b1a0800000000000000
+      internalID: -6794115098222589197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Video Buttons 3_9
+      rect:
+        serializedVersion: 2
+        x: 527
+        y: 604
+        width: 19
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a25288193b71f8490800000000000000
+      internalID: -7741943174418389718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Video Buttons 3_10
+      rect:
+        serializedVersion: 2
+        x: 1063
+        y: 517
+        width: 106
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5776b363c3a82a4a0800000000000000
+      internalID: -6583547714049710219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Video Buttons 3_11
+      rect:
+        serializedVersion: 2
+        x: 585
+        y: 421
+        width: 19
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04a0a027ecf6955f0800000000000000
+      internalID: -767459329022752192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Video Buttons 3_12
+      rect:
+        serializedVersion: 2
+        x: 604
+        y: 421
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 724b55d2482a318c0800000000000000
+      internalID: -4029698552986487769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Video Buttons 3_13
+      rect:
+        serializedVersion: 2
+        x: 622
+        y: 421
+        width: 19
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7adba0bd8e0e9f70800000000000000
+      internalID: 9195803490854361722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Video Buttons 3_14
+      rect:
+        serializedVersion: 2
+        x: 641
+        y: 421
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eda8f34b2f3b6a920800000000000000
+      internalID: 3001284056676535006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Video Buttons 3_15
+      rect:
+        serializedVersion: 2
+        x: 659
+        y: 421
+        width: 19
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a54b255238e034170800000000000000
+      internalID: 8161382906155152474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Video Buttons 3_16
+      rect:
+        serializedVersion: 2
+        x: 696
+        y: 421
+        width: 19
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c907a916e42cd320800000000000000
+      internalID: 2583980856895277506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Video Buttons 3_17
+      rect:
+        serializedVersion: 2
+        x: 715
+        y: 421
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f47afd2c0e79a930800000000000000
+      internalID: 4154990722002089209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Video Buttons 3_18
+      rect:
+        serializedVersion: 2
+        x: 752
+        y: 421
+        width: 18
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0778f4f90d2e6650800000000000000
+      internalID: 6227964855487854346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Video Buttons 3_19
+      rect:
+        serializedVersion: 2
+        x: 770
+        y: 421
+        width: 19
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4605362b165642da0800000000000000
+      internalID: -5970535735707348892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Video Buttons 3_20
+      rect:
+        serializedVersion: 2
+        x: 789
+        y: 421
+        width: 18
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: add7d30206928e2b0800000000000000
+      internalID: -5555144647527006758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Video Buttons 3_21
+      rect:
+        serializedVersion: 2
+        x: 807
+        y: 421
+        width: 19
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab5daa0e7caf23f60800000000000000
+      internalID: 8012742423420261818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Video Buttons 3_22
+      rect:
+        serializedVersion: 2
+        x: 826
+        y: 421
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83dedf4380e236770800000000000000
+      internalID: 8602770325991451960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Video Buttons 3_23
+      rect:
+        serializedVersion: 2
+        x: 844
+        y: 421
+        width: 19
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3efe11a847a68730800000000000000
+      internalID: 4001069249347911226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Video Buttons 3_24
+      rect:
+        serializedVersion: 2
+        x: 863
+        y: 421
+        width: 18
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b41511fdb4730ea20800000000000000
+      internalID: 3089530143380689227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Video Buttons 3_25
+      rect:
+        serializedVersion: 2
+        x: 954
+        y: 406
+        width: 273
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 756e8d74c7b39ec80800000000000000
+      internalID: -8293031833858677161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Video Buttons 3_26
+      rect:
+        serializedVersion: 2
+        x: 373
+        y: 271
+        width: 1222
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60f94a80f711f67a0800000000000000
+      internalID: -6381862909657178362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Video Buttons 3_0: 8071283597270076774
+      Video Buttons 3_1: -7271565386948408677
+      Video Buttons 3_10: -6583547714049710219
+      Video Buttons 3_11: -767459329022752192
+      Video Buttons 3_12: -4029698552986487769
+      Video Buttons 3_13: 9195803490854361722
+      Video Buttons 3_14: 3001284056676535006
+      Video Buttons 3_15: 8161382906155152474
+      Video Buttons 3_16: 2583980856895277506
+      Video Buttons 3_17: 4154990722002089209
+      Video Buttons 3_18: 6227964855487854346
+      Video Buttons 3_19: -5970535735707348892
+      Video Buttons 3_2: -842178702485139215
+      Video Buttons 3_20: -5555144647527006758
+      Video Buttons 3_21: 8012742423420261818
+      Video Buttons 3_22: 8602770325991451960
+      Video Buttons 3_23: 4001069249347911226
+      Video Buttons 3_24: 3089530143380689227
+      Video Buttons 3_25: -8293031833858677161
+      Video Buttons 3_26: -6381862909657178362
+      Video Buttons 3_3: -4760243064629442827
+      Video Buttons 3_4: 145056371036437165
+      Video Buttons 3_5: 9216455971857121584
+      Video Buttons 3_6: -4495937786231327380
+      Video Buttons 3_7: 2418178313504152206
+      Video Buttons 3_8: -6794115098222589197
+      Video Buttons 3_9: -7741943174418389718
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
