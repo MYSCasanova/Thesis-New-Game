@@ -182,8 +182,7 @@ public class SceneTransition : MonoBehaviour
 
         // Reset the score and lives before showing the UI
         comboSystem.scoreText.text = "0";
-        comboSystem.comboText.text = "Combo: 0";
-
+        
         S7_HealthSystem healthSystem = player.GetComponent<S7_HealthSystem>();
 
         if (healthSystem != null)
