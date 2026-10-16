@@ -10,7 +10,7 @@ public class SceneTransition : MonoBehaviour
     private void Start()
     {
         // TEMPORARY: Uncomment this line to reset the tutorial state for testing!
-        //PlayerPrefs.DeleteKey("tutorialCompleted");
+        PlayerPrefs.DeleteKey("tutorialCompleted");
         
         // Only start the flow from PersistentGameplay.
         if (gameObject.scene.name == "PersistentGameplay")
@@ -232,20 +232,30 @@ public class SceneTransition : MonoBehaviour
 
     private IEnumerator LoadTutorial()
     {
-        Scene tutorial = SceneManager.GetSceneByName("GYM_TutorialLevel");
+        // Freeze the game time so the tutorial level is paused in the background
+        Time.timeScale = 0f;
 
+        // 1. Load the Tutorial Level first
+        Scene tutorial = SceneManager.GetSceneByName("GYM_TutorialLevel");
         if (!tutorial.isLoaded)
         {
-            AsyncOperation operation = SceneManager.LoadSceneAsync("GYM_TutorialLevel",LoadSceneMode.Additive);
-
-            yield return operation;
-
-            tutorial = SceneManager.GetSceneByName("GYM_TutorialLevel");
+            AsyncOperation tutOp = SceneManager.LoadSceneAsync("GYM_TutorialLevel", LoadSceneMode.Additive);
+            yield return tutOp;
         }
 
-        SceneManager.SetActiveScene(tutorial);
+        // 2. Load the Basic UI tutorial scene on top
+        Scene basicUI = SceneManager.GetSceneByName("GYM_BasicUI");
+        if (!basicUI.isLoaded)
+        {
+            AsyncOperation uiOp = SceneManager.LoadSceneAsync("GYM_BasicUI", LoadSceneMode.Additive);
+            yield return uiOp;
+            basicUI = SceneManager.GetSceneByName("GYM_BasicUI");
+        }
 
-        Debug.Log("Tutorial loaded and set as active scene.");
+        // Set BasicUI as active so it has temporary priority
+        SceneManager.SetActiveScene(basicUI);
+
+        Debug.Log("Both scenes loaded. Game paused behind UI.");
     }
 
     public void ReturnToMainMenu()
