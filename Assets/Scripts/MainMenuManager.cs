@@ -51,4 +51,9 @@ public class MainMenuManager : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.UnloadSceneAsync("GYM_ManualSettings");
     }
+
+    public void OpenVisualAccessibility()
+    {
+        SceneManager.LoadScene("GYM_VisualAccessibility", LoadSceneMode.Single);
+    }
 }

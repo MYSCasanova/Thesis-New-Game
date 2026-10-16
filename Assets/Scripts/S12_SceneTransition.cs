@@ -10,7 +10,7 @@ public class SceneTransition : MonoBehaviour
     private void Start()
     {
         // TEMPORARY: Uncomment this line to reset the tutorial state for testing!
-        PlayerPrefs.DeleteKey("tutorialCompleted");
+        //PlayerPrefs.DeleteKey("tutorialCompleted");
         
         // Only start the flow from PersistentGameplay.
         if (gameObject.scene.name == "PersistentGameplay")
