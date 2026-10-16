@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; // Kailangan para mabasa ang mga scenes
+using UnityEngine.SceneManagement; // Required for scene management
 using System;
 
 public class S16_AudioManager : MonoBehaviour
@@ -23,7 +23,7 @@ public class S16_AudioManager : MonoBehaviour
                     }
                     else
                     {
-                        Debug.LogWarning("Walang nakitang 'AudioManager' prefab sa Resources folder!");
+                        Debug.LogWarning("No 'AudioManager' prefab found in the Resources folder!");
                     }
                 }
             }
@@ -31,7 +31,7 @@ public class S16_AudioManager : MonoBehaviour
         }
     }
 
-    // AUTO-SPAWN FEATURE: Kusang binubuhay ang Audio Manager pag-open ng laro
+    // AUTO-SPAWN FEATURE: Automatically spawns the Audio Manager when the game opens
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void AutoInitialize()
     {
@@ -68,34 +68,48 @@ public class S16_AudioManager : MonoBehaviour
         }
     }
 
-    // AUTO-BGM FEATURE: Kusang nagpapalit ng kanta kapag nag-iba ang Scene
+    // AUTO-BGM FEATURE: Automatically changes the song when the Active Scene changes
     private void OnEnable()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.activeSceneChanged += OnActiveSceneChanged;
     }
 
     private void OnDisable()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.activeSceneChanged -= OnActiveSceneChanged;
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    private void Start()
     {
-        // I-check ang pangalan ng active scene at i-play ang tamang BGM
-        // Siguraduhing tugma ang spelling ng scene names sa loob ng quotation marks
-        if (scene.name == "Main Menu") 
+        // Manually trigger the BGM for the very first scene when the game boots up
+        Scene currentScene = SceneManager.GetActiveScene();
+        CheckAndPlaySceneBGM(currentScene);
+    }
+
+    private void OnActiveSceneChanged(Scene current, Scene next)
+    {
+        // Trigger BGM when transitioning between levels
+        CheckAndPlaySceneBGM(next);
+    }
+
+    private void CheckAndPlaySceneBGM(Scene scene)
+    {
+        if (scene.name == "GYM_MainMenu") 
         {
             PlayBGM("Main Menu");
         }
-        else if (scene.name == "Level 1") // Palitan ng exact name ng Level 1 scene mo
+        else if (scene.name == "GYM_Level1")
         {
-            PlayBGM("In Game 1");
+            PlayBGM("Level 1");
         }
-        else if (scene.name == "Level 2") // Palitan ng exact name ng Level 2 scene mo
+        else if (scene.name == "GYM_Level2") 
         {
-            PlayBGM("In Game 2");
+            PlayBGM("Level 2");
         }
-        // Pwede mong kopyahin at dagdagan ang "else if" block na ito para sa iba pang scenes
+        else if (scene.name == "GYM_Level3") 
+        {
+            PlayBGM("Level 3");
+        }
     }
 
     public void PlayBGM(string name)
