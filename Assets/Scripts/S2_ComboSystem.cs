@@ -7,7 +7,6 @@ public class S2_ComboSystem : MonoBehaviour
 {
     [Header("UI Elements")]
     public Slider comboBar;
-    public TMP_Text comboText;
     public TMP_Text scoreText;
     public Button boostButton;
 
@@ -72,9 +71,7 @@ public class S2_ComboSystem : MonoBehaviour
     }
 
     private void UpdateUI()
-    {
-        comboText.text = "Combo: " + currentCombo + " (x" + scoreMultiplier + ")";
-        
+    {        
         // Only update scoreText if it's assigned in the inspector
         if (scoreText != null) scoreText.text = "Score: " + totalScore;
         
