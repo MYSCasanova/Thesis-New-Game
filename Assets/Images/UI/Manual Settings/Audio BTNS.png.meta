@@ -1,0 +1,728 @@
+fileFormatVersion: 2
+guid: c1586e39404c7de4eb38a6b8b5acce0b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -9203614044137422541
+    second: Audio BTNS_0
+  - first:
+      213: 8574935852515952779
+    second: Audio BTNS_1
+  - first:
+      213: -3702019603702780867
+    second: Audio BTNS_2
+  - first:
+      213: -6152027451513855828
+    second: Audio BTNS_3
+  - first:
+      213: -2798982764186076072
+    second: Audio BTNS_4
+  - first:
+      213: 9114318682206986458
+    second: Audio BTNS_5
+  - first:
+      213: -5028939531488773405
+    second: Audio BTNS_6
+  - first:
+      213: 2489983444091225890
+    second: Audio BTNS_7
+  - first:
+      213: -4118151003325847598
+    second: Audio BTNS_8
+  - first:
+      213: 6378369823721344132
+    second: Audio BTNS_9
+  - first:
+      213: -6644957689214166007
+    second: Audio BTNS_10
+  - first:
+      213: 714707459609654904
+    second: Audio BTNS_11
+  - first:
+      213: -6499468109836841491
+    second: Audio BTNS_12
+  - first:
+      213: -3962386805550699985
+    second: Audio BTNS_13
+  - first:
+      213: 7670934892100271301
+    second: Audio BTNS_14
+  - first:
+      213: -8970139352204716353
+    second: Audio BTNS_15
+  - first:
+      213: -7099435697028321420
+    second: Audio BTNS_16
+  - first:
+      213: -6157116465003197105
+    second: Audio BTNS_17
+  - first:
+      213: -110688046481473568
+    second: Audio BTNS_18
+  - first:
+      213: 8567241417696635348
+    second: Audio BTNS_19
+  - first:
+      213: 2028848028535771339
+    second: Audio BTNS_20
+  - first:
+      213: 1431162370326629333
+    second: Audio BTNS_21
+  - first:
+      213: -5287634941912263082
+    second: Audio BTNS_22
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Audio BTNS_0
+      rect:
+        serializedVersion: 2
+        x: 881
+        y: 848
+        width: 277
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33184692ac1364080800000000000000
+      internalID: -9203614044137422541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Audio BTNS_1
+      rect:
+        serializedVersion: 2
+        x: 1164
+        y: 848
+        width: 277
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8889f4d9ba400770800000000000000
+      internalID: 8574935852515952779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Audio BTNS_2
+      rect:
+        serializedVersion: 2
+        x: 1447
+        y: 848
+        width: 277
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3c63c9d8c8cf9cc0800000000000000
+      internalID: -3702019603702780867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Audio BTNS_3
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 755
+        width: 21
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca0a010b0ab9f9aa0800000000000000
+      internalID: -6152027451513855828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Audio BTNS_4
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 755
+        width: 21
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85c7f3071040829d0800000000000000
+      internalID: -2798982764186076072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Audio BTNS_5
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 777
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad067ae3d809c7e70800000000000000
+      internalID: 9114318682206986458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Audio BTNS_6
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 755
+        width: 21
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ea31bcf32e953ab0800000000000000
+      internalID: -5028939531488773405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Audio BTNS_7
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 755
+        width: 21
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22749a9ffb23e8220800000000000000
+      internalID: 2489983444091225890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Audio BTNS_8
+      rect:
+        serializedVersion: 2
+        x: 421
+        y: 755
+        width: 22
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d7285b3b7369d6c0800000000000000
+      internalID: -4118151003325847598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Audio BTNS_9
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 777
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48c4bf48f85848850800000000000000
+      internalID: 6378369823721344132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Audio BTNS_10
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 755
+        width: 22
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90c93ea203e58c3a0800000000000000
+      internalID: -6644957689214166007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Audio BTNS_11
+      rect:
+        serializedVersion: 2
+        x: 286
+        y: 755
+        width: 22
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 876fa58d5a62be900800000000000000
+      internalID: 714707459609654904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Audio BTNS_12
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 755
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ded023490304dc5a0800000000000000
+      internalID: -6499468109836841491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Audio BTNS_13
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 755
+        width: 22
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2aa478a136c209c0800000000000000
+      internalID: -3962386805550699985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Audio BTNS_14
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 755
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cc39ca54a2a47a60800000000000000
+      internalID: 7670934892100271301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Audio BTNS_15
+      rect:
+        serializedVersion: 2
+        x: 466
+        y: 755
+        width: 22
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb6d516f8c9a38380800000000000000
+      internalID: -8970139352204716353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Audio BTNS_16
+      rect:
+        serializedVersion: 2
+        x: 489
+        y: 747
+        width: 21
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47f26e419dcb97d90800000000000000
+      internalID: -7099435697028321420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Audio BTNS_17
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 755
+        width: 22
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4d86c662378d8aa0800000000000000
+      internalID: -6157116465003197105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Audio BTNS_18
+      rect:
+        serializedVersion: 2
+        x: 569
+        y: 569
+        width: 385
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0eff694eec1c67ef0800000000000000
+      internalID: -110688046481473568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Audio BTNS_19
+      rect:
+        serializedVersion: 2
+        x: 1084
+        y: 564
+        width: 41
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d962de9da4f4e670800000000000000
+      internalID: 8567241417696635348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Audio BTNS_20
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 476
+        width: 385
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc0502c588ae72c10800000000000000
+      internalID: 2028848028535771339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Audio BTNS_21
+      rect:
+        serializedVersion: 2
+        x: 1053
+        y: 201
+        width: 255
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5db893bd7928cd310800000000000000
+      internalID: 1431162370326629333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Audio BTNS_22
+      rect:
+        serializedVersion: 2
+        x: 1417
+        y: 201
+        width: 273
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6565061190c8e96b0800000000000000
+      internalID: -5287634941912263082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Audio BTNS_0: -9203614044137422541
+      Audio BTNS_1: 8574935852515952779
+      Audio BTNS_10: -6644957689214166007
+      Audio BTNS_11: 714707459609654904
+      Audio BTNS_12: -6499468109836841491
+      Audio BTNS_13: -3962386805550699985
+      Audio BTNS_14: 7670934892100271301
+      Audio BTNS_15: -8970139352204716353
+      Audio BTNS_16: -7099435697028321420
+      Audio BTNS_17: -6157116465003197105
+      Audio BTNS_18: -110688046481473568
+      Audio BTNS_19: 8567241417696635348
+      Audio BTNS_2: -3702019603702780867
+      Audio BTNS_20: 2028848028535771339
+      Audio BTNS_21: 1431162370326629333
+      Audio BTNS_22: -5287634941912263082
+      Audio BTNS_3: -6152027451513855828
+      Audio BTNS_4: -2798982764186076072
+      Audio BTNS_5: 9114318682206986458
+      Audio BTNS_6: -5028939531488773405
+      Audio BTNS_7: 2489983444091225890
+      Audio BTNS_8: -4118151003325847598
+      Audio BTNS_9: 6378369823721344132
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
