@@ -181,7 +181,7 @@ public class SceneTransition : MonoBehaviour
         cameraFollow.ResetCamera(cameraStartPosition);
 
         // Reset the score and lives before showing the UI
-        comboSystem.scoreText.text = "Score: 0";
+        comboSystem.scoreText.text = "0";
         comboSystem.comboText.text = "Combo: 0";
 
         S7_HealthSystem healthSystem = player.GetComponent<S7_HealthSystem>();
@@ -190,13 +190,14 @@ public class SceneTransition : MonoBehaviour
         {
             healthSystem.currentLives = healthSystem.maxLives;
             healthSystem.comboSystem = comboSystem; // Assign the combo system to the health system
-            livesUI.healthSystem = healthSystem; // Assign the health system to the LivesUI
-
+            
+            healthSystem.livesUI = livesUI;
+            livesUI.UpdateHearts(healthSystem.currentLives);
 
                 if (gameOverPanel != null)
                 {
                     Transform panelTransform = gameOverPanel.transform;
-                    Transform scoreTransform = panelTransform.Find("Score");
+                    Transform scoreTransform = panelTransform.Find("ScoreNumber");
 
                     if (scoreTransform != null)
                     {
