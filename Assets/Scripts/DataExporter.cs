@@ -37,8 +37,8 @@ public class DataExporter : MonoBehaviour
         float completionTime = 0f;
         int errorCount = 0;
 
-        // Automatically searches the current active scenes for the script
-        S17_GameplayData activeGameplayData = Object.FindFirstObjectByType<S17_GameplayData>();
+        // Force Unity to find the script even if the GameObject has been disabled 
+        S17_GameplayData activeGameplayData = Object.FindFirstObjectByType<S17_GameplayData>(FindObjectsInactive.Include);
 
         if (activeGameplayData != null)
         {

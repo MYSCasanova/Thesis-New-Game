@@ -12,6 +12,10 @@ public class S17_GameplayData : MonoBehaviour
     // --- ADD THIS ---
     private void Awake()
     {
+        // Detach from parent to ensure this is a root object, 
+        // because DontDestroyOnLoad only works on root GameObjects.
+        transform.SetParent(null); 
+
         // Keeps this specific GameObject alive across all scenes
         DontDestroyOnLoad(this.gameObject); 
     }
