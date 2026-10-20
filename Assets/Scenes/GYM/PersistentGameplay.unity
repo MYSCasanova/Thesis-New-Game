@@ -1427,6 +1427,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: --- PLAYER ---
       objectReference: {fileID: 0}
+    - target: {fileID: 2192652041445135554, guid: fba9a0a5dc463dd4186be9b64c7a3904, type: 3}
+      propertyPath: maxLives
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 3977192672028607565, guid: fba9a0a5dc463dd4186be9b64c7a3904, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1466,6 +1470,10 @@ PrefabInstance:
     - target: {fileID: 3977192672028607565, guid: fba9a0a5dc463dd4186be9b64c7a3904, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6606860122960175346, guid: fba9a0a5dc463dd4186be9b64c7a3904, type: 3}
+      propertyPath: badLandingPenalty
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
