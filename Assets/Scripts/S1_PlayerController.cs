@@ -46,6 +46,9 @@ public class S1_PlayerController : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public float animationMovementThreshold = 0.1f;
 
+    [Header("Landing Feedback")]
+    public S18_LandingFeedback landingFeedback;
+
     private Rigidbody2D rb;
     private float moveInput;
     private bool isGrounded;
@@ -277,6 +280,11 @@ public class S1_PlayerController : MonoBehaviour
                         Debug.Log("PERFECT Landing! Momentum restored.");
                         currentSpeedMultiplier = 1f; // REMOVES THE PENALTY
 
+                        if (landingFeedback != null)
+                        {
+                            landingFeedback.ShowPerfect();
+                        }
+
                         if (comboSystem != null)
                         {
                             comboSystem.AddScore(800);
@@ -286,11 +294,21 @@ public class S1_PlayerController : MonoBehaviour
                     {
                         Debug.Log("GOOD Landing.");
                         // Good landings do nothing to the penalty. You must get a Perfect to cure it!
+
+                        if (landingFeedback != null)
+                        {
+                            landingFeedback.ShowGood();
+                        }
                     }
                     else
                     {
                         Debug.Log("BAD Landing (Edge)! Speed halved until Perfect.");
                         currentSpeedMultiplier = badLandingPenalty; // APPLIES THE PENALTY
+
+                        if (landingFeedback != null)
+                        {
+                            landingFeedback.ShowBad();
+                        }
 
                         // Increment error count in S17_GameplayData
                         S17_GameplayData gameplayData = FindFirstObjectByType<S17_GameplayData>();
