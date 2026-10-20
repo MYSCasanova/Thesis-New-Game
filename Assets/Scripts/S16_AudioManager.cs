@@ -1,6 +1,7 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; // Required for scene management
+using UnityEngine.SceneManagement; 
 using System;
+using UnityEngine.UI; // REQUIRED for finding UI Buttons
 
 public class S16_AudioManager : MonoBehaviour
 {
@@ -30,8 +31,8 @@ public class S16_AudioManager : MonoBehaviour
             return _instance;
         }
     }
+    
 
-    // AUTO-SPAWN FEATURE: Automatically spawns the Audio Manager when the game opens
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void AutoInitialize()
     {
@@ -49,10 +50,10 @@ public class S16_AudioManager : MonoBehaviour
     public AudioSource bgmSource;
     public AudioSource sfxSource;
 
-    [Header("BGM List (Main Menu, In Game 1-3, Game Over, Winner, Tutorial)")]
+    [Header("BGM List")]
     public Sound[] bgmSounds;
 
-    [Header("SFX List (Walk, Jump, High Jump, Booster, Death, Lost Life, Checkpoint, UI Click)")]
+    [Header("SFX List")]
     public Sound[] sfxSounds;
 
     private void Awake()
@@ -68,28 +69,58 @@ public class S16_AudioManager : MonoBehaviour
         }
     }
 
-    // AUTO-BGM FEATURE: Automatically changes the song when the Active Scene changes
     private void OnEnable()
     {
         SceneManager.activeSceneChanged += OnActiveSceneChanged;
+        // --- NEW LOGIC: Listen for when any scene finishes loading ---
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
     {
         SceneManager.activeSceneChanged -= OnActiveSceneChanged;
+        // --- NEW LOGIC: Stop listening when disabled ---
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void Start()
     {
-        // Manually trigger the BGM for the very first scene when the game boots up
         Scene currentScene = SceneManager.GetActiveScene();
         CheckAndPlaySceneBGM(currentScene);
+        
+        // Hook buttons in the very first scene on boot
+        HookAllUIButtons();
     }
 
     private void OnActiveSceneChanged(Scene current, Scene next)
     {
-        // Trigger BGM when transitioning between levels
         CheckAndPlaySceneBGM(next);
+    }
+
+    // --- NEW LOGIC: Trigger button hook when additive scenes (like Settings) load ---
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        HookAllUIButtons();
+    }
+
+    // --- NEW LOGIC: Finds all buttons and attaches the click sound automatically ---
+    private void HookAllUIButtons()
+    {
+        // FindObjectsOfType with 'true' finds even hidden/inactive buttons (like paused menus)
+        Button[] allButtons = Resources.FindObjectsOfTypeAll<Button>();
+        
+        foreach (Button btn in allButtons)
+        {
+            // Remove listener first to prevent the sound from playing multiple times if scenes reload
+            btn.onClick.RemoveListener(PlayUIClickSound);
+            btn.onClick.AddListener(PlayUIClickSound);
+        }
+    }
+
+    // --- NEW LOGIC: The actual method the buttons will call ---
+    public void PlayUIClickSound()
+    {
+        PlaySFX("Click");
     }
 
     private void CheckAndPlaySceneBGM(Scene scene)
@@ -106,7 +137,6 @@ public class S16_AudioManager : MonoBehaviour
         {
             if (PlayerPrefs.GetInt("tutorialCompleted", 0) == 1)
             {
-                // Play Level 1 music immediately when the main game loads
                 PlayBGM("Level 1"); 
             }
             else
@@ -121,7 +151,6 @@ public class S16_AudioManager : MonoBehaviour
         Sound s = System.Array.Find(bgmSounds, x => x.name == name);
         if (s != null)
         {
-            // CRITICAL FIX: Do not restart the track if it is already playing
             if (bgmSource.clip == s.clip && bgmSource.isPlaying)
             {
                 return; 

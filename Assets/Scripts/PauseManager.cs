@@ -18,6 +18,13 @@ public class PauseManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            // --- NEW BGM LOGIC ---
+            // Play the UI click sound when pressing ESC
+            if (S16_AudioManager.instance != null)
+            {
+                S16_AudioManager.instance.PlaySFX("Click");
+            }
+
             if (isPaused)
             {
                 ResumeGame();
