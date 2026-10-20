@@ -64,6 +64,7 @@ public class S7_HealthSystem : MonoBehaviour
         if (currentLives > 0 && animator != null)
         {
             animator.SetTrigger("Hurt");
+            S16_AudioManager.instance.PlaySFX("Hurt");
         }
 
         Debug.Log("Lost a life. Current lives: " + currentLives);
@@ -188,6 +189,14 @@ public class S7_HealthSystem : MonoBehaviour
             if (betaGameOverPanel != null)
             {
                 betaGameOverPanel.SetActive(true);
+
+                // --- NEW BGM LOGIC ---
+                // Trigger the Game Over BGM right as the panel appears
+                if (S16_AudioManager.instance != null)
+                {
+                    S16_AudioManager.instance.PlayBGM("Game Over");
+                    S16_AudioManager.instance.PlaySFX("Death");
+                }
 
                 if(comboSystem != null && scoreText != null)
                 {

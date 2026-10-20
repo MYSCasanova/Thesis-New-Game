@@ -1028,6 +1028,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72d75fdee97904c19ad7730a7d576110, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S11_CheckpointTrigger
+  levelBGMName: Level 1
 --- !u!1001 &117082747
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1451,6 +1452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72d75fdee97904c19ad7730a7d576110, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S11_CheckpointTrigger
+  levelBGMName: Level 2
 --- !u!1001 &143927235
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5812,6 +5814,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72d75fdee97904c19ad7730a7d576110, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S11_CheckpointTrigger
+  levelBGMName: 
 --- !u!1001 &831410149
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6489,6 +6492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72d75fdee97904c19ad7730a7d576110, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S11_CheckpointTrigger
+  levelBGMName: 
 --- !u!4 &968131714 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7018874721825413939, guid: 360e3417bbe2844e48b495f1a902269b, type: 3}
@@ -7302,6 +7306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72d75fdee97904c19ad7730a7d576110, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S11_CheckpointTrigger
+  levelBGMName: 
 --- !u!1001 &1015389986
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7438,6 +7443,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48ba04b498a9c46989d8a635be277ec5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuManager
+  settingsData: {fileID: 0}
+  audioMixer: {fileID: 0}
 --- !u!1001 &1096427462
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8254,6 +8261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72d75fdee97904c19ad7730a7d576110, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S11_CheckpointTrigger
+  levelBGMName: Level 3
 --- !u!1001 &1196086819
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8508,6 +8516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72d75fdee97904c19ad7730a7d576110, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S11_CheckpointTrigger
+  levelBGMName: 
 --- !u!1 &1233844459
 GameObject:
   m_ObjectHideFlags: 0
@@ -9327,6 +9336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72d75fdee97904c19ad7730a7d576110, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S11_CheckpointTrigger
+  levelBGMName: 
 --- !u!1 &1389166078
 GameObject:
   m_ObjectHideFlags: 0

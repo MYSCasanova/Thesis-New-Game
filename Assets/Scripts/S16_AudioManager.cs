@@ -98,17 +98,21 @@ public class S16_AudioManager : MonoBehaviour
         {
             PlayBGM("Main Menu");
         }
-        else if (scene.name == "GYM_Level1")
+        else if(scene.name == "GYM_TutorialGallery" || scene.name == "GYM_TutorialLevel")
         {
-            PlayBGM("Level 1");
+            PlayBGM("Tutorial");
         }
-        else if (scene.name == "GYM_Level2") 
+        else if(scene.name == "PersistentGameplay" || scene.name == "GYM_BetaGame")
         {
-            PlayBGM("Level 2");
-        }
-        else if (scene.name == "GYM_Level3") 
-        {
-            PlayBGM("Level 3");
+            if (PlayerPrefs.GetInt("tutorialCompleted", 0) == 1)
+            {
+                // Play Level 1 music immediately when the main game loads
+                PlayBGM("Level 1"); 
+            }
+            else
+            {
+                PlayBGM("Tutorial");
+            }
         }
     }
 
@@ -117,6 +121,12 @@ public class S16_AudioManager : MonoBehaviour
         Sound s = System.Array.Find(bgmSounds, x => x.name == name);
         if (s != null)
         {
+            // CRITICAL FIX: Do not restart the track if it is already playing
+            if (bgmSource.clip == s.clip && bgmSource.isPlaying)
+            {
+                return; 
+            }
+
             bgmSource.clip = s.clip;
             bgmSource.Play();
         }
