@@ -16,7 +16,6 @@ public class WinningTrigger : MonoBehaviour
 
         hasWon = true;
 
-        // Stop the completion timer and save the final gameplay data
         S17_GameplayData gameplayData = FindFirstObjectByType<S17_GameplayData>();
 
         if (gameplayData != null)
@@ -24,8 +23,14 @@ public class WinningTrigger : MonoBehaviour
             gameplayData.CompleteGame();
         }
 
-        // Display the winning panel
         winningPanel.SetActive(true);
+        
+        // --- NEW BGM LOGIC ---
+        // Play Winner BGM as soon as the panel is activated
+        if (S16_AudioManager.instance != null)
+        {
+            S16_AudioManager.instance.PlayBGM("Winner");
+        }
 
         // Display the player's final score
         finalScoreText.text = comboSystem.totalScore.ToString();

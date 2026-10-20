@@ -1,8 +1,11 @@
-
 using UnityEngine;
 
 public class S11_CheckpointTrigger : MonoBehaviour
 {
+    [Header("Level Audio")]
+    [Tooltip("Leave this blank if the BGM should not change here. Otherwise, type the exact name of the BGM (e.g., 'Level 2').")]
+    public string levelBGMName = "";
+
     private bool playerInsideTrigger;
     private bool checkpointSaved;
     private Collider2D ground;
@@ -38,7 +41,6 @@ public class S11_CheckpointTrigger : MonoBehaviour
         if (!other.IsTouching(ground))
             return;
 
-        // Confirm the player is standing above the ground.
         if (other.bounds.min.y < ground.bounds.max.y - 0.1f)
             return;
 
@@ -50,6 +52,17 @@ public class S11_CheckpointTrigger : MonoBehaviour
 
         S6_Checkpoint.Instance.SetCheckpoint(other.transform.position);
         checkpointSaved = true;
+
+        // --- NEW BGM LOGIC ---
+        // If a BGM name was typed into the inspector, tell the AudioManager to play it.
+        // Because of your previous fix, it won't restart if it's already playing.
+        if (!string.IsNullOrEmpty(levelBGMName))
+        {
+            if (S16_AudioManager.instance != null)
+            {
+                S16_AudioManager.instance.PlayBGM(levelBGMName);
+            }
+        }
 
         Debug.Log(name + ": CHECKPOINT SAVED!");
     }
