@@ -1,0 +1,11 @@
+# Force Unity text files to use LF (fixes Mac vs Windows conflicts)
+*.meta text eol=lf
+*.asset text eol=lf
+*.unity text eol=lf
+*.prefab text eol=lf
+
+# Treat fonts as raw binary data (prevents Git from corrupting them)
+*.ttf binary
+*.otf binary
+*.woff binary
+*.woff2 binary
