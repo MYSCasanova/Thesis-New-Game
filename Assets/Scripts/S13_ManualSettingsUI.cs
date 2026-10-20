@@ -317,6 +317,9 @@ public class S13_ManualSettingsUI : MonoBehaviour
     }
     public void ReturnToMainMenu()
     {
-        SceneManager.LoadScene("GYM_MainMenu", LoadSceneMode.Single);
+        // OLD: SceneManager.LoadScene("GYM_MainMenu", LoadSceneMode.Single);
+        
+        // NEW:
+        S18_LoadingManager.Instance.LoadScenes("GYM_MainMenu");
     }
 }
