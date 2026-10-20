@@ -252,6 +252,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48ba04b498a9c46989d8a635be277ec5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuManager
+  settingsData: {fileID: 11400000, guid: 6ecc76993b0982e44a8e4bcab1863386, type: 2}
+  audioMixer: {fileID: 24100000, guid: fd031cc312926c54fb8ecc81cb27bcb0, type: 2}
 --- !u!4 &106943775
 Transform:
   m_ObjectHideFlags: 0
@@ -1004,6 +1006,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48ba04b498a9c46989d8a635be277ec5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuManager
+  settingsData: {fileID: 0}
+  audioMixer: {fileID: 0}
 --- !u!1 &1227668926
 GameObject:
   m_ObjectHideFlags: 0

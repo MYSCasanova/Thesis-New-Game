@@ -80,6 +80,13 @@ public class GameOverUI : MonoBehaviour
 
             // Hide Game Over UI
             gameOverPanel.SetActive(false);
+            
+            // --- NEW BGM LOGIC ---
+            // Switch the music back to the starting level BGM when the player restarts
+            if (S16_AudioManager.instance != null)
+            {
+                S16_AudioManager.instance.PlayBGM("Level 1");
+            }
         }
     }
 }
