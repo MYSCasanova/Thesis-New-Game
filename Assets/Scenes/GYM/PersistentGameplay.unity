@@ -531,6 +531,7 @@ MonoBehaviour:
   isGameOver: 0
   livesUI: {fileID: 0}
   isTakingDamage: 0
+  devMode: 1
 --- !u!95 &180503760
 Animator:
   serializedVersion: 7
@@ -712,6 +713,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48ba04b498a9c46989d8a635be277ec5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuManager
+  settingsData: {fileID: 0}
+  audioMixer: {fileID: 0}
 --- !u!1 &469847238
 GameObject:
   m_ObjectHideFlags: 0
@@ -1405,7 +1408,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraFollow
   player: {fileID: 180503757}
-  topPadding: 7
+  topPadding: 10
   moveSpeed: 1
   smoothTime: 1.5
   currentLevel: 0

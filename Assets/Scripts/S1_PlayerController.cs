@@ -174,7 +174,17 @@ public class S1_PlayerController : MonoBehaviour
 
         if (isOnBouncy) // If the player is on a bouncy platform, increase jump height
         {
-            currentJump *= bounceMultiplier; // Increase jump height by bounce multiplier if on a bouncy platform
+            currentJump *= bounceMultiplier; 
+            
+            // --- NEW BGM LOGIC ---
+            // Play the Trampoline sound instead of the normal jump sound
+            S16_AudioManager.instance.PlaySFX("Trampoline"); 
+        }
+        else 
+        {
+            // --- NEW BGM LOGIC ---
+            // Play the normal jump sound only if NOT on a bouncy platform
+            S16_AudioManager.instance.PlaySFX("Jump"); 
         }
 
         // 7. Momentum Boost (Running fast = higher jump)
@@ -186,10 +196,11 @@ public class S1_PlayerController : MonoBehaviour
         {
             currentJump *= edgeJumpMultiplier; // Lower jump height
         }
-        S16_AudioManager.instance.PlaySFX("Jump");
+        
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, currentJump);
         MovePlayerToPersistentScene();
     }
+
 
     void OnCollisionEnter2D(Collision2D collision)
     {
