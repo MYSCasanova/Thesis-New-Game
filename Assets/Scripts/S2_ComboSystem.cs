@@ -70,6 +70,9 @@ public class S2_ComboSystem : MonoBehaviour
         currentCombo = 0;
         scoreMultiplier = 1;
 
+        if (boostButton != null)
+            boostButton.interactable = false;
+
         UpdateUI();
     }
 
@@ -82,7 +85,6 @@ public class S2_ComboSystem : MonoBehaviour
 
         if (comboBlocks != null)
         {
-            Debug.Log("Current Combo: " + currentCombo + " | Blocks: " + comboBlocks.Length);
             for (int i = 0; i < comboBlocks.Length; i++)
             {
                 if (comboBlocks[i] != null)
@@ -94,6 +96,11 @@ public class S2_ComboSystem : MonoBehaviour
                     Debug.LogWarning("Block " + (i + 1) + " is not assigned!");
                 }
             }
+        }
+
+        if (boostButton != null)
+        {
+            boostButton.interactable = currentCombo >= comboRequiredForBoost && player != null && !player.isAutoBouncing; 
         }
     }
 

@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 36d34cd2303dc41378892e6e1bf685b4
+guid: edde73613fdeb466e8eaae30405110f4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6695950386315148514
-    second: BG_0
+      213: -8993825477427478462
+    second: Combo Texts_0
+  - first:
+      213: 7335808629044418241
+    second: Combo Texts_1
+  - first:
+      213: -7652595594184047455
+    second: Combo Texts_2
+  - first:
+      213: -7703455133788678135
+    second: Combo Texts_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,30 +105,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BG_0
+      name: Combo Texts_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 941
-        height: 941
+        x: 436
+        y: 2149
+        width: 2201
+        height: 505
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,30 +124,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e13cb0ea9943313a0800000000000000
-      internalID: -6695950386315148514
+      spriteID: 240c31e21638f2380800000000000000
+      internalID: -8993825477427478462
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BG_1
+      name: Combo Texts_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 941
-        height: 508
+        x: 1508
+        y: 2159
+        width: 48
+        height: 47
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 80350ef719b6e2b4b892ad1de1c70a94
-      internalID: -670750520
+      spriteID: 1c61072d4170ec560800000000000000
+      internalID: 7335808629044418241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Combo Texts_2
+      rect:
+        serializedVersion: 2
+        x: 436
+        y: 1150
+        width: 1992
+        height: 665
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a4c0fe2ad48cc590800000000000000
+      internalID: -7652595594184047455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Combo Texts_3
+      rect:
+        serializedVersion: 2
+        x: 436
+        y: 306
+        width: 1278
+        height: 568
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 908dd57de54d71590800000000000000
+      internalID: -7703455133788678135
       vertices: []
       indices: 
       edges: []
@@ -160,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 54bd0ec30047f3441b6d4ba67fae72c9
+    spriteID: 8db33b1258bfb4e62a18b86053da563f
     internalID: 0
     vertices: []
     indices: 
@@ -170,8 +210,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      BG_0: -6695950386315148514
-      BG_1: -670750520
+      Combo Texts_0: -8993825477427478462
+      Combo Texts_1: 7335808629044418241
+      Combo Texts_2: -7652595594184047455
+      Combo Texts_3: -7703455133788678135
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
