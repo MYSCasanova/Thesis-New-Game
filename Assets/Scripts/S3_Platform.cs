@@ -111,7 +111,6 @@ public class S3_Platform : MonoBehaviour
         if (isBreaking)
         {
             isPlayerOnPlatform = true; // Start the timer when the player lands on the platform
-            // breakTimer = 0f; // Reset the timer when the player lands on the platform
         }
         if (direction == MovementDirection.Falling && !isFalling)
         {

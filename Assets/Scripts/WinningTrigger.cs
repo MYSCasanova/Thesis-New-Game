@@ -28,6 +28,6 @@ public class WinningTrigger : MonoBehaviour
         winningPanel.SetActive(true);
 
         // Display the player's final score
-        finalScoreText.text = "Final Score: " + comboSystem.totalScore;
+        finalScoreText.text = comboSystem.totalScore.ToString();
     }
 }
