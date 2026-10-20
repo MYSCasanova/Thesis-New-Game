@@ -74,12 +74,19 @@ public class S13_ManualSettingsUI : MonoBehaviour
             uiElements.contrastSlider.interactable = isCustom;
             uiElements.colorSlider.interactable = isCustom;
 
-            // If Default is selected upon loading, enforce the default values immediately
+            // Load initial values based on mode
             if (!isCustom)
             {
                 currentSettings.brightness = defaultBrightness;
                 currentSettings.contrast = defaultContrast;
                 currentSettings.color = defaultColor;
+            }
+            else
+            {
+                // FIX: Load saved custom visual values from PlayerPrefs
+                currentSettings.brightness = PlayerPrefs.GetFloat(tagToFind + "_Brightness", defaultBrightness);
+                currentSettings.contrast = PlayerPrefs.GetFloat(tagToFind + "_Contrast", defaultContrast);
+                currentSettings.color = PlayerPrefs.GetFloat(tagToFind + "_Color", defaultColor);
             }
 
             // Listen for dropdown changes
@@ -92,18 +99,23 @@ public class S13_ManualSettingsUI : MonoBehaviour
                 uiElements.contrastSlider.interactable = customSelected;
                 uiElements.colorSlider.interactable = customSelected;
 
-                // If "Default" is selected, force sliders back to default values
                 if (!customSelected) 
                 {
                     uiElements.brightnessSlider.value = defaultBrightness;
                     uiElements.contrastSlider.value = defaultContrast;
                     uiElements.colorSlider.value = defaultColor;
-                    
-                    // Apply defaults immediately
-                    UpdateVisuals(uiElements, currentSettings);
+                }
+                else
+                {
+                    // FIX: Restore saved custom values when switching back to Custom
+                    uiElements.brightnessSlider.value = PlayerPrefs.GetFloat(tagToFind + "_Brightness", defaultBrightness);
+                    uiElements.contrastSlider.value = PlayerPrefs.GetFloat(tagToFind + "_Contrast", defaultContrast);
+                    uiElements.colorSlider.value = PlayerPrefs.GetFloat(tagToFind + "_Color", defaultColor);
                 }
                 
-                // Play SFX when dropdown is changed
+                // Apply defaults or loaded values immediately
+                UpdateVisuals(tagToFind, uiElements, currentSettings);
+                
                 if (S16_AudioManager.instance != null) S16_AudioManager.instance.PlaySFX("UI Buttons Click");
             });
         }
@@ -114,20 +126,24 @@ public class S13_ManualSettingsUI : MonoBehaviour
         uiElements.colorSlider.value = currentSettings.color;
 
         // 5. Add listeners to update settings when sliders are moved
-        uiElements.brightnessSlider.onValueChanged.AddListener(val => UpdateVisuals(uiElements, currentSettings));
-        uiElements.contrastSlider.onValueChanged.AddListener(val => UpdateVisuals(uiElements, currentSettings));
-        uiElements.colorSlider.onValueChanged.AddListener(val => UpdateVisuals(uiElements, currentSettings));
+        // FIX: Pass the tagToFind parameter so it knows what PlayerPrefs key to save to
+        uiElements.brightnessSlider.onValueChanged.AddListener(val => UpdateVisuals(tagToFind, uiElements, currentSettings));
+        uiElements.contrastSlider.onValueChanged.AddListener(val => UpdateVisuals(tagToFind, uiElements, currentSettings));
+        uiElements.colorSlider.onValueChanged.AddListener(val => UpdateVisuals(tagToFind, uiElements, currentSettings));
     }
 
-    private void UpdateVisuals(S14_CategoryUI ui, VisualSettingsSO.CategorySettings currentSettings)
+    // FIX: Add 'string tagToFind' parameter to save values persistently
+    private void UpdateVisuals(string tagToFind, S14_CategoryUI ui, VisualSettingsSO.CategorySettings currentSettings)
     {
-        // Save the new slider values into the respective category in the ScriptableObject
         currentSettings.brightness = ui.brightnessSlider.value;
         currentSettings.contrast = ui.contrastSlider.value;
         currentSettings.color = ui.colorSlider.value;
 
-        // Calling ApplyChanges() on the ScriptableObject will trigger the OnSettingsChanged event.
-        // This automatically notifies all active S15_VisualReceiver scripts to update their materials instantly.
+        // FIX: Save actual slider values to PlayerPrefs
+        PlayerPrefs.SetFloat(tagToFind + "_Brightness", currentSettings.brightness);
+        PlayerPrefs.SetFloat(tagToFind + "_Contrast", currentSettings.contrast);
+        PlayerPrefs.SetFloat(tagToFind + "_Color", currentSettings.color);
+
         settingsData.ApplyChanges(); 
     }
 
