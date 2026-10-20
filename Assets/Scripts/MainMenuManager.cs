@@ -90,8 +90,15 @@ public class MainMenuManager : MonoBehaviour
 
     public void PlayBeta()
     {
-        // Load the PersistentGameplay scene first to ensure the player and camera are available
-        SceneManager.LoadScene("PersistentGameplay", LoadSceneMode.Single);
+        // Check if they need the tutorial or the real game, then load both flawlessly
+        if (PlayerPrefs.GetInt("tutorialCompleted", 0) == 1)
+        {
+            S18_LoadingManager.Instance.LoadScenes("PersistentGameplay", "GYM_BetaGame");
+        }
+        else
+        {
+            S18_LoadingManager.Instance.LoadScenes("PersistentGameplay", "GYM_TutorialLevel");
+        }
     }
 
     public void OpenTutorialGallery()
