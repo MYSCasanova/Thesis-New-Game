@@ -24,10 +24,13 @@ public class S7_HealthSystem : MonoBehaviour
     [Header("GameOver check")]
     public bool isGameOver = false; // Flag to indicate if the game is in progress
 
-    [Header("Lives UI")]
+    [Header("Lives")]
     public LivesUI livesUI;
-
     public bool isTakingDamage = false;
+
+    [Header("Dev Mode")]
+    public bool devMode = false;
+
 
     void Start()
     {
@@ -42,7 +45,7 @@ public class S7_HealthSystem : MonoBehaviour
     public int LoseLife(int damage)
     {
 
-        if (isGameOver || isTakingDamage)
+        if (isGameOver || isTakingDamage || devMode)
             return currentLives;
 
         isTakingDamage = true;
