@@ -172,8 +172,9 @@ public class S1_PlayerController : MonoBehaviour
     {   
         float currentJump = jumpForce;
 
-        if (isOnBouncy) // If the player is on a bouncy platform, increase jump height
+        if (isOnBouncy && !isAutoBouncing) // If the player is on a bouncy platform, increase jump height
         {
+
             currentJump *= bounceMultiplier; 
             
             // --- NEW BGM LOGIC ---

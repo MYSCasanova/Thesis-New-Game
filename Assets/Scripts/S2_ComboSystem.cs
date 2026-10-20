@@ -14,11 +14,14 @@ public class S2_ComboSystem : MonoBehaviour
     public int currentCombo = 0;
     public int totalScore = 0; // NEW: Tracks your points
     public int scoreMultiplier = 1; // NEW: Current multiplier; Set to public
-    public int comboRequiredForBoost = 10;
+    public int comboRequiredForBoost = 8;
     public float boostDuration = 5f;
 
     [Header("Player Reference")]
     public S1_PlayerController player;
+
+    [Header("Combo Blocks")]
+    public Image[] comboBlocks;
 
     
 
@@ -75,7 +78,23 @@ public class S2_ComboSystem : MonoBehaviour
         // Only update scoreText if it's assigned in the inspector
         if (scoreText != null) scoreText.text = "Score: " + totalScore;
         
-        comboBar.value = currentCombo;
+        if (comboBar != null) comboBar.value = currentCombo;
+
+        if (comboBlocks != null)
+        {
+            Debug.Log("Current Combo: " + currentCombo + " | Blocks: " + comboBlocks.Length);
+            for (int i = 0; i < comboBlocks.Length; i++)
+            {
+                if (comboBlocks[i] != null)
+                {
+                    comboBlocks[i].gameObject.SetActive(i < currentCombo);
+                }
+                else
+                {
+                    Debug.LogWarning("Block " + (i + 1) + " is not assigned!");
+                }
+            }
+        }
     }
 
     private void ActivateAutoJumpBoost()
