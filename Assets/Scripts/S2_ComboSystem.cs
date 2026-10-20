@@ -80,6 +80,13 @@ public class S2_ComboSystem : MonoBehaviour
 
     private void ActivateAutoJumpBoost()
     {
+        // --- NEW BGM LOGIC ---
+        // Play the Booster SFX when the button is pressed
+        if (S16_AudioManager.instance != null)
+        {
+            S16_AudioManager.instance.PlaySFX("Booster");
+        }
+
         StartCoroutine(BoostRoutine());
     }
 
