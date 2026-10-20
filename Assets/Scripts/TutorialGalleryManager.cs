@@ -101,15 +101,18 @@ public class TutorialGalleryManager : MonoBehaviour
     void OnBasicTutorialClicked()
     {
         Debug.Log("Loading Scene: Basic Tutorial...");
-        
-        // Indicate that we are entering from the Tutorial Gallery
         SceneTransition.isFromGallery = true;
 
-        SceneManager.LoadScene("PersistentGameplay");
-        SceneManager.LoadScene("GYM_TutorialLevel", LoadSceneMode.Additive);
+        // Tell the LoadingManager to load BOTH the base scene and the tutorial.
+        // SceneTransition.cs will automatically detect when GYM_TutorialLevel finishes 
+        // loading and will properly overlay the BasicUI on top of it.
+        S18_LoadingManager.Instance.LoadScenes("PersistentGameplay", "GYM_TutorialLevel");
     }
     public void ReturnToMainMenu()
     {
-        SceneManager.LoadScene("GYM_MainMenu", LoadSceneMode.Single);
+        // OLD: SceneManager.LoadScene("GYM_MainMenu", LoadSceneMode.Single);
+        
+        // NEW:
+        S18_LoadingManager.Instance.LoadScenes("GYM_MainMenu");
     }
 }

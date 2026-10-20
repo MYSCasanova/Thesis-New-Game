@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement; 
 using System;
-using UnityEngine.UI; // REQUIRED for finding UI Buttons
+using UnityEngine.UI; 
+using System.Collections; 
 
 public class S16_AudioManager : MonoBehaviour
 {
@@ -32,7 +33,6 @@ public class S16_AudioManager : MonoBehaviour
         }
     }
     
-
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void AutoInitialize()
     {
@@ -48,7 +48,13 @@ public class S16_AudioManager : MonoBehaviour
 
     [Header("Audio Sources")]
     public AudioSource bgmSource;
+    private AudioSource bgmSource2; // Generated at runtime for true crossfading
+    private bool isUsingSource1 = true; // Tracks which source is currently active
     public AudioSource sfxSource;
+    
+    [Header("Transition Settings")]
+    public float bgmFadeDuration = 1.0f; // How long the crossfade takes in seconds
+    private Coroutine fadeCoroutine; 
 
     [Header("BGM List")]
     public Sound[] bgmSounds;
@@ -62,6 +68,14 @@ public class S16_AudioManager : MonoBehaviour
         {
             _instance = this;
             DontDestroyOnLoad(gameObject);
+            
+            // --- NEW LOGIC: Generate a clone AudioSource for crossfading ---
+            bgmSource2 = gameObject.AddComponent<AudioSource>();
+            bgmSource2.outputAudioMixerGroup = bgmSource.outputAudioMixerGroup;
+            bgmSource2.loop = bgmSource.loop;
+            bgmSource2.ignoreListenerPause = bgmSource.ignoreListenerPause;
+            bgmSource2.spatialBlend = bgmSource.spatialBlend;
+            bgmSource2.volume = 0f; // Start silent
         }
         else if (_instance != this)
         {
@@ -72,14 +86,12 @@ public class S16_AudioManager : MonoBehaviour
     private void OnEnable()
     {
         SceneManager.activeSceneChanged += OnActiveSceneChanged;
-        // --- NEW LOGIC: Listen for when any scene finishes loading ---
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
     {
         SceneManager.activeSceneChanged -= OnActiveSceneChanged;
-        // --- NEW LOGIC: Stop listening when disabled ---
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
@@ -87,8 +99,6 @@ public class S16_AudioManager : MonoBehaviour
     {
         Scene currentScene = SceneManager.GetActiveScene();
         CheckAndPlaySceneBGM(currentScene);
-        
-        // Hook buttons in the very first scene on boot
         HookAllUIButtons();
     }
 
@@ -97,27 +107,21 @@ public class S16_AudioManager : MonoBehaviour
         CheckAndPlaySceneBGM(next);
     }
 
-    // --- NEW LOGIC: Trigger button hook when additive scenes (like Settings) load ---
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         HookAllUIButtons();
     }
 
-    // --- NEW LOGIC: Finds all buttons and attaches the click sound automatically ---
     private void HookAllUIButtons()
     {
-        // FindObjectsOfType with 'true' finds even hidden/inactive buttons (like paused menus)
         Button[] allButtons = Resources.FindObjectsOfTypeAll<Button>();
-        
         foreach (Button btn in allButtons)
         {
-            // Remove listener first to prevent the sound from playing multiple times if scenes reload
             btn.onClick.RemoveListener(PlayUIClickSound);
             btn.onClick.AddListener(PlayUIClickSound);
         }
     }
 
-    // --- NEW LOGIC: The actual method the buttons will call ---
     public void PlayUIClickSound()
     {
         PlaySFX("Click");
@@ -151,18 +155,55 @@ public class S16_AudioManager : MonoBehaviour
         Sound s = System.Array.Find(bgmSounds, x => x.name == name);
         if (s != null)
         {
-            if (bgmSource.clip == s.clip && bgmSource.isPlaying)
+            // Determine which source is currently playing and which is free
+            AudioSource activeSource = isUsingSource1 ? bgmSource : bgmSource2;
+            AudioSource nextSource = isUsingSource1 ? bgmSource2 : bgmSource;
+
+            if (activeSource.clip == s.clip && activeSource.isPlaying)
             {
-                return; 
+                return; // Do nothing if the same song is already playing
             }
 
-            bgmSource.clip = s.clip;
-            bgmSource.Play();
+            if (fadeCoroutine != null)
+            {
+                StopCoroutine(fadeCoroutine);
+            }
+            
+            // Load the new clip into the silent source and start playing it
+            nextSource.clip = s.clip;
+            nextSource.Play();
+            
+            // Crossfade them
+            fadeCoroutine = StartCoroutine(CrossfadeRoutine(activeSource, nextSource));
+            
+            // Swap the active tracker
+            isUsingSource1 = !isUsingSource1;
         }
         else
         {
             Debug.LogWarning("BGM not found: " + name);
         }
+    }
+
+    // --- NEW BGM LOGIC: Simultaneous True Crossfade ---
+    private IEnumerator CrossfadeRoutine(AudioSource fadingOut, AudioSource fadingIn)
+    {
+        float safeDuration = Mathf.Max(bgmFadeDuration, 0.1f);
+        float startVolumeOut = fadingOut.volume;
+
+        // Fade both sources at the exact same time
+        for (float t = 0; t < safeDuration; t += Time.unscaledDeltaTime)
+        {
+            fadingOut.volume = Mathf.Lerp(startVolumeOut, 0f, t / safeDuration);
+            fadingIn.volume = Mathf.Lerp(0f, 1f, t / safeDuration);
+            yield return null;
+        }
+
+        // Snap them precisely to their final values to ensure mathematical perfection
+        fadingOut.volume = 0f;
+        fadingOut.Stop(); // Stop the old track completely
+        
+        fadingIn.volume = 1f;
     }
 
     public void PlaySFX(string name)
