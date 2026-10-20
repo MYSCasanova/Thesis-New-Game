@@ -32,6 +32,7 @@ public class WinningTrigger : MonoBehaviour
             S16_AudioManager.instance.PlayBGM("Winner");
         }
 
-        finalScoreText.text = "Final Score: " + comboSystem.totalScore;
+        // Display the player's final score
+        finalScoreText.text = comboSystem.totalScore.ToString();
     }
 }
