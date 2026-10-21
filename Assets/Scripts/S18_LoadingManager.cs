@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using TMPro;
 
 public class S18_LoadingManager : MonoBehaviour
 {
@@ -10,8 +9,9 @@ public class S18_LoadingManager : MonoBehaviour
 
     [Header("Loading UI Elements")]
     public GameObject loadingPanel;
-    public Slider progressBar;
-    public TMP_Text progressText;
+    
+    // Kept exactly as is for your 26 blocks
+    public GameObject[] progressBlocks; 
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void AutoInitialize()
@@ -37,7 +37,6 @@ public class S18_LoadingManager : MonoBehaviour
         }
     }
 
-    // Accepts 1 scene, or multiple scenes separated by commas
     public void LoadScenes(params string[] sceneNames)
     {
         StartCoroutine(LoadMultipleScenesAsync(sceneNames));
@@ -47,52 +46,51 @@ public class S18_LoadingManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         
-        // Lock the screen with the loading overlay
         loadingPanel.SetActive(true);
-        progressBar.value = 0f;
-        if (progressText != null) progressText.text = "Loading: 0%";
+        UpdateProgressBlocks(0f); // Reset blocks to 0
 
         float totalScenes = sceneNames.Length;
 
-        // Loop through and load every requested scene behind the overlay
         for (int i = 0; i < sceneNames.Length; i++)
         {
-            // The first scene is loaded Single (wiping the menu), the rest are Additive
             LoadSceneMode mode = (i == 0) ? LoadSceneMode.Single : LoadSceneMode.Additive;
             
             AsyncOperation op = SceneManager.LoadSceneAsync(sceneNames[i], mode);
-            op.allowSceneActivation = false; // Prevent it from rendering immediately
+            op.allowSceneActivation = false; 
 
             while (op.progress < 0.9f)
             {
-                // Calculate progress smoothly across all scenes
                 float sceneProgress = op.progress / 0.9f;
                 float overallProgress = (i + sceneProgress) / totalScenes;
                 
-                progressBar.value = overallProgress;
-                if (progressText != null) progressText.text = "Loading: " + Mathf.RoundToInt(overallProgress * 100f) + "%";
+                UpdateProgressBlocks(overallProgress); // Update the array
 
                 yield return null;
             }
 
-            // Let this specific scene activate silently in the background
             op.allowSceneActivation = true;
             
-            // Wait for Unity to confirm it is fully injected before moving to the next
             while (!op.isDone)
             {
                 yield return null;
             }
         }
 
-        // Force UI to 100% just in case of rounding errors
-        progressBar.value = 1f;
-        if (progressText != null) progressText.text = "Loading: " + "100%";
+        UpdateProgressBlocks(1f); // Force 100%
 
-        // Brief delay so the player registers the load is complete before the screen flashes away
         yield return new WaitForSecondsRealtime(0.4f);
         
-        // Remove the overlay, revealing the fully loaded game
         loadingPanel.SetActive(false);
+    }
+
+    // Helper method to toggle the blocks based on progress percentage
+    private void UpdateProgressBlocks(float progress)
+    {
+        int activeBlocks = Mathf.RoundToInt(progress * progressBlocks.Length);
+
+        for (int i = 0; i < progressBlocks.Length; i++)
+        {
+            progressBlocks[i].SetActive(i < activeBlocks);
+        }
     }
 }
