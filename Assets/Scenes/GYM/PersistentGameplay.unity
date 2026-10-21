@@ -1428,6 +1428,10 @@ PrefabInstance:
       value: --- PLAYER ---
       objectReference: {fileID: 0}
     - target: {fileID: 2192652041445135554, guid: fba9a0a5dc463dd4186be9b64c7a3904, type: 3}
+      propertyPath: devMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2192652041445135554, guid: fba9a0a5dc463dd4186be9b64c7a3904, type: 3}
       propertyPath: maxLives
       value: 9
       objectReference: {fileID: 0}
