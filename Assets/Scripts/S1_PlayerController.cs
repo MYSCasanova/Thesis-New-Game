@@ -18,9 +18,13 @@ public class S1_PlayerController : MonoBehaviour
     public float bounceMultiplier = 1.5f; // Multiplier for jump height when on a bouncy platform
 
     [Header("Auto-Bounce (Jump Chaining)")]
-    public bool isAutoBouncing = false; // Toggle this in inspector for continuous bouncing
-    public float jumpBufferTime = 0.2f; // Allows jumping just before hitting the ground
+    public bool isAutoBouncing = false; 
+    public float jumpBufferTime = 0.2f; 
     private float jumpBufferCounter;
+    
+    // --- ADD THESE TWO LINES ---
+    private float lastJumpTime;
+    private float jumpCooldown = 0.1f;
 
     [Header("Collision")]
     public Transform leftFoot;
@@ -78,11 +82,12 @@ public class S1_PlayerController : MonoBehaviour
             jumpBufferCounter -= Time.deltaTime;
         }
 
-        // 3. Execute Jump (Manual or Auto-bounce)
-        if (isGrounded && (jumpBufferCounter > 0f || isAutoBouncing))
+        // 3. Execute Jump (Manual or Auto-bounce) with COOLDOWN
+        if (isGrounded && (jumpBufferCounter > 0f || isAutoBouncing) && Time.time > lastJumpTime + jumpCooldown)
         {
             PerformJump();
             jumpBufferCounter = 0f;
+            lastJumpTime = Time.time; // Record the time of the jump
         }
 
         // 4. Short Jump (Release Spacebar early)
@@ -177,17 +182,14 @@ public class S1_PlayerController : MonoBehaviour
 
         if (isOnBouncy && !isAutoBouncing) // If the player is on a bouncy platform, increase jump height
         {
-
             currentJump *= bounceMultiplier; 
             
-            // --- NEW BGM LOGIC ---
             // Play the Trampoline sound instead of the normal jump sound
             S16_AudioManager.instance.PlaySFX("Trampoline"); 
         }
         else 
         {
-            // --- NEW BGM LOGIC ---
-            // Play the normal jump sound only if NOT on a bouncy platform
+            // The jump sound plays normally, but the cooldown prevents the ear-hurting spam!
             S16_AudioManager.instance.PlaySFX("Jump"); 
         }
 
@@ -204,7 +206,6 @@ public class S1_PlayerController : MonoBehaviour
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, currentJump);
         MovePlayerToPersistentScene();
     }
-
 
     void OnCollisionEnter2D(Collision2D collision)
     {
