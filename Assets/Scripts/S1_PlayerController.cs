@@ -352,6 +352,7 @@ public class S1_PlayerController : MonoBehaviour
 
             MovePlayerToPersistentScene();
             isOnIcy = false; // Reset icy state when leaving the platform
+            isOnBouncy = false;
         }
     }
 
