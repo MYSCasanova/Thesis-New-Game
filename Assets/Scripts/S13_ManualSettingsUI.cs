@@ -62,8 +62,8 @@ public class S13_ManualSettingsUI : MonoBehaviour
         if (uiElements.modeDropdown != null)
         {
             uiElements.modeDropdown.ClearOptions();
-            // ADDED: "Visual Accessibility #1 Preset" as the 3rd option
-            uiElements.modeDropdown.AddOptions(new List<string> { "Default", "Custom", "Visual Accessibility #1 Preset" });
+            // ADDED: "Visual Accessibility #2 Preset" as the 3rd option
+            uiElements.modeDropdown.AddOptions(new List<string> { "Default", "Custom", "V.A. #2" });
 
             // Load saved mode (0 = Default, 1 = Custom, 2 = AI Preset)
             int savedMode = PlayerPrefs.GetInt(tagToFind + "_GraphicsMode", 0);
