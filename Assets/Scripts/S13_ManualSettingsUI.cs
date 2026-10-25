@@ -39,7 +39,7 @@ public class S13_ManualSettingsUI : MonoBehaviour
 
         // Generate graphics categories
         GenerateCategory("Adjust Background Visual", "Background", settingsData.backgroundSettings);
-        GenerateCategory("Adjust Obstacle Visual", "Obstacle", settingsData.obstacleSettings);
+        GenerateCategory("Adjust Obstacle Visual", "Obstacle", settingsData.obstacleSettings); // Matches "obstacle" from Pipeline V2
         GenerateCategory("Adjust Platform Visual", "Platform", settingsData.platformSettings);
         GenerateCategory("Adjust Player Visual", "Player", settingsData.playerSettings);
 
@@ -58,35 +58,41 @@ public class S13_ManualSettingsUI : MonoBehaviour
         // 2. Change the title text
         if (uiElements.headerText != null) uiElements.headerText.text = title;
 
-        // 3. Dropdown Logic (Default vs Custom)
+        // 3. Dropdown Logic (Default vs Custom vs AI Preset)
         if (uiElements.modeDropdown != null)
         {
             uiElements.modeDropdown.ClearOptions();
-            uiElements.modeDropdown.AddOptions(new List<string> { "Default", "Custom" });
+            // ADDED: "Visual Accessibility #1 Preset" as the 3rd option
+            uiElements.modeDropdown.AddOptions(new List<string> { "Default", "Custom", "Visual Accessibility #1 Preset" });
 
-            // Load saved mode (0 = Default, 1 = Custom)
+            // Load saved mode (0 = Default, 1 = Custom, 2 = AI Preset)
             int savedMode = PlayerPrefs.GetInt(tagToFind + "_GraphicsMode", 0);
             uiElements.modeDropdown.value = savedMode;
 
-            // Set initial slider interactable state
+            // Set initial slider interactable state (Only editable if Custom is selected)
             bool isCustom = (savedMode == 1);
             uiElements.brightnessSlider.interactable = isCustom;
             uiElements.contrastSlider.interactable = isCustom;
             uiElements.colorSlider.interactable = isCustom;
 
             // Load initial values based on mode
-            if (!isCustom)
+            if (savedMode == 0) // Default
             {
                 currentSettings.brightness = defaultBrightness;
                 currentSettings.contrast = defaultContrast;
                 currentSettings.color = defaultColor;
             }
-            else
+            else if (savedMode == 1) // Custom
             {
-                // FIX: Load saved custom visual values from PlayerPrefs
                 currentSettings.brightness = PlayerPrefs.GetFloat(tagToFind + "_Brightness", defaultBrightness);
                 currentSettings.contrast = PlayerPrefs.GetFloat(tagToFind + "_Contrast", defaultContrast);
                 currentSettings.color = PlayerPrefs.GetFloat(tagToFind + "_Color", defaultColor);
+            }
+            else if (savedMode == 2) // Visual Accessibility #1 Preset (From Python AI)
+            {
+                currentSettings.brightness = PlayerPrefs.GetFloat(tagToFind + "_AIPreset_Brightness", defaultBrightness);
+                currentSettings.contrast = PlayerPrefs.GetFloat(tagToFind + "_AIPreset_Contrast", defaultContrast);
+                currentSettings.color = PlayerPrefs.GetFloat(tagToFind + "_AIPreset_Color", defaultColor);
             }
 
             // Listen for dropdown changes
@@ -99,18 +105,23 @@ public class S13_ManualSettingsUI : MonoBehaviour
                 uiElements.contrastSlider.interactable = customSelected;
                 uiElements.colorSlider.interactable = customSelected;
 
-                if (!customSelected) 
+                if (val == 0) // Switched to Default
                 {
                     uiElements.brightnessSlider.value = defaultBrightness;
                     uiElements.contrastSlider.value = defaultContrast;
                     uiElements.colorSlider.value = defaultColor;
                 }
-                else
+                else if (val == 1) // Switched to Custom
                 {
-                    // FIX: Restore saved custom values when switching back to Custom
                     uiElements.brightnessSlider.value = PlayerPrefs.GetFloat(tagToFind + "_Brightness", defaultBrightness);
                     uiElements.contrastSlider.value = PlayerPrefs.GetFloat(tagToFind + "_Contrast", defaultContrast);
                     uiElements.colorSlider.value = PlayerPrefs.GetFloat(tagToFind + "_Color", defaultColor);
+                }
+                else if (val == 2) // Switched to AI Preset
+                {
+                    uiElements.brightnessSlider.value = PlayerPrefs.GetFloat(tagToFind + "_AIPreset_Brightness", defaultBrightness);
+                    uiElements.contrastSlider.value = PlayerPrefs.GetFloat(tagToFind + "_AIPreset_Contrast", defaultContrast);
+                    uiElements.colorSlider.value = PlayerPrefs.GetFloat(tagToFind + "_AIPreset_Color", defaultColor);
                 }
                 
                 // Apply defaults or loaded values immediately
@@ -126,23 +137,24 @@ public class S13_ManualSettingsUI : MonoBehaviour
         uiElements.colorSlider.value = currentSettings.color;
 
         // 5. Add listeners to update settings when sliders are moved
-        // FIX: Pass the tagToFind parameter so it knows what PlayerPrefs key to save to
         uiElements.brightnessSlider.onValueChanged.AddListener(val => UpdateVisuals(tagToFind, uiElements, currentSettings));
         uiElements.contrastSlider.onValueChanged.AddListener(val => UpdateVisuals(tagToFind, uiElements, currentSettings));
         uiElements.colorSlider.onValueChanged.AddListener(val => UpdateVisuals(tagToFind, uiElements, currentSettings));
     }
 
-    // FIX: Add 'string tagToFind' parameter to save values persistently
     private void UpdateVisuals(string tagToFind, S14_CategoryUI ui, VisualSettingsSO.CategorySettings currentSettings)
     {
         currentSettings.brightness = ui.brightnessSlider.value;
         currentSettings.contrast = ui.contrastSlider.value;
         currentSettings.color = ui.colorSlider.value;
 
-        // FIX: Save actual slider values to PlayerPrefs
-        PlayerPrefs.SetFloat(tagToFind + "_Brightness", currentSettings.brightness);
-        PlayerPrefs.SetFloat(tagToFind + "_Contrast", currentSettings.contrast);
-        PlayerPrefs.SetFloat(tagToFind + "_Color", currentSettings.color);
+        // Only save to the Custom manual PlayerPrefs if we are actively in Custom mode
+        if (PlayerPrefs.GetInt(tagToFind + "_GraphicsMode", 0) == 1)
+        {
+            PlayerPrefs.SetFloat(tagToFind + "_Brightness", currentSettings.brightness);
+            PlayerPrefs.SetFloat(tagToFind + "_Contrast", currentSettings.contrast);
+            PlayerPrefs.SetFloat(tagToFind + "_Color", currentSettings.color);
+        }
 
         settingsData.ApplyChanges(); 
     }
@@ -163,14 +175,11 @@ public class S13_ManualSettingsUI : MonoBehaviour
     }
     
     // --- VIDEO SETTINGS LOGIC ---
-
     private void InitializeVideoSettings()
     {
         if (resolutionDropdown == null || fullScreenToggle == null || windowedToggle == null) return;
 
         Resolution[] allResolutions = Screen.resolutions;
-        
-        // REVERSE ORDER: Highest resolution at the top (index 0)
         System.Array.Reverse(allResolutions); 
 
         List<Resolution> ratioResolutions = new List<Resolution>();
@@ -194,24 +203,18 @@ public class S13_ManualSettingsUI : MonoBehaviour
         resolutionDropdown.ClearOptions();
         resolutionDropdown.AddOptions(options);
 
-        // --- LOADING SETTINGS OR DEFAULT ---
-        // Retrieve saved data. If none exists (first launch), default to 0 (Highest Res) and 1 (Fullscreen)
         int savedResIndex = PlayerPrefs.GetInt("SavedResolution", 0); 
         bool isFullscreen = PlayerPrefs.GetInt("SavedFullscreen", 1) == 1;
 
-        // Fallback in case the player changed monitors and the previous resolution index is out of bounds
         if (savedResIndex >= filteredResolutions.Length) savedResIndex = 0;
 
-        // Update UI to match the loaded settings
         resolutionDropdown.value = savedResIndex;
         resolutionDropdown.RefreshShownValue();
         fullScreenToggle.isOn = isFullscreen;
         windowedToggle.isOn = !isFullscreen;
 
-        // Apply video settings immediately upon opening the game
         ApplyVideoSettings(savedResIndex, isFullscreen);
 
-        // --- LISTENERS ---
         resolutionDropdown.onValueChanged.AddListener(val => {
             ApplyVideoSettings(val, fullScreenToggle.isOn);
             if (S16_AudioManager.instance != null) S16_AudioManager.instance.PlaySFX("UI Buttons Click");
@@ -253,9 +256,6 @@ public class S13_ManualSettingsUI : MonoBehaviour
     public void SetFullscreen(bool isFullscreen)
     {
         Screen.fullScreen = isFullscreen;
-        
-        // Optional: Re-apply the current resolution when switching screen modes 
-        // to ensure the window resizes correctly to the 16:9 ratio.
         Resolution resolution = filteredResolutions[resolutionDropdown.value];
         Screen.SetResolution(resolution.width, resolution.height, isFullscreen);
     }
@@ -263,11 +263,9 @@ public class S13_ManualSettingsUI : MonoBehaviour
     // --- SAVE BUTTON LOGIC ---
     public void SaveAllSettings()
     {
-        // Video Settings
         PlayerPrefs.SetInt("SavedResolution", resolutionDropdown.value);
         PlayerPrefs.SetInt("SavedFullscreen", fullScreenToggle.isOn ? 1 : 0);
         
-        // Audio Settings
         if (musicSlider != null && sfxSlider != null)
         {
             PlayerPrefs.SetFloat("SavedMusicVol", musicSlider.value);
@@ -275,9 +273,7 @@ public class S13_ManualSettingsUI : MonoBehaviour
         }
         
         PlayerPrefs.Save();
-
         if (settingsData != null) settingsData.ApplyChanges();
-        
         if (S16_AudioManager.instance != null) S16_AudioManager.instance.PlaySFX("UI Buttons Click");
         
         Debug.Log("All settings have been saved!");
@@ -288,7 +284,6 @@ public class S13_ManualSettingsUI : MonoBehaviour
     {
         if (musicSlider == null || sfxSlider == null || audioMixer == null) return;
 
-        // Retrieve saved values (default to 1 for max volume)
         float savedMusic = PlayerPrefs.GetFloat("SavedMusicVol", 1f);
         float savedSFX = PlayerPrefs.GetFloat("SavedSFXVol", 1f);
 
@@ -298,14 +293,12 @@ public class S13_ManualSettingsUI : MonoBehaviour
         SetMusicVolume(savedMusic);
         SetSFXVolume(savedSFX);
 
-        // Add listeners
         musicSlider.onValueChanged.AddListener(SetMusicVolume);
         sfxSlider.onValueChanged.AddListener(SetSFXVolume);
     }
 
     private void SetMusicVolume(float volume)
     {
-        // Convert linear slider value to logarithmic decibel scale
         float dbVolume = Mathf.Log10(Mathf.Clamp(volume, 0.0001f, 1f)) * 20f;
         audioMixer.SetFloat("MusicVolume", dbVolume);
     }
@@ -315,11 +308,9 @@ public class S13_ManualSettingsUI : MonoBehaviour
         float dbVolume = Mathf.Log10(Mathf.Clamp(volume, 0.0001f, 1f)) * 20f;
         audioMixer.SetFloat("SFXVolume", dbVolume);
     }
+
     public void ReturnToMainMenu()
     {
-        // OLD: SceneManager.LoadScene("GYM_MainMenu", LoadSceneMode.Single);
-        
-        // NEW:
         S18_LoadingManager.Instance.LoadScenes("GYM_MainMenu");
     }
 }
