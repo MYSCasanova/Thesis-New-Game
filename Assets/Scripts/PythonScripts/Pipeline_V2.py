@@ -28,12 +28,19 @@ Raw Dataset
 # PHASE 0 — IMPORT LIBRARIES AND LOAD DATA
 # ============================================================
 
+import sys
 import numpy as np
 import pandas as pd
 import math
+import json
 
-# Read the CSV directly from the Unity project folder
-csv_filename = "SettingsExport.csv" # Ensure this matches the name/path exported by DataExporter.cs
+if len(sys.argv) > 1:
+    csv_filename = sys.argv[1]
+else:
+    # Fallback path 
+    csv_filename = "SettingsExport.csv" 
+
+# Read the CSV dynamically
 data = pd.read_csv(csv_filename)
 
 # ------------------------------------------------------------
@@ -53,7 +60,7 @@ for i, column in enumerate(data.columns, start=1):
     print(f"{i:2d}. {column}")
 
 print("\nFirst 5 Rows:")
-display(data.head())
+print(data.head())
 
 """# **PHASE 1 — Identify the Variables**
 
@@ -157,7 +164,7 @@ statistics_table = pd.DataFrame(
     index=["Completion Time", "Error Count"]
 )
 
-display(statistics_table.round(4))
+print(statistics_table.round(4))
 
 """# **PHASE 3 — RULE-BASED LABELING**
 """
@@ -209,7 +216,7 @@ print("=" * 70)
 print("GROUND-TRUTH LABELING")
 print("=" * 70)
 
-display(
+print(
     labeled_data[
         [
             "completion_time",
@@ -232,7 +239,7 @@ label_distribution = (
 print("=" * 70)
 print("ACCESSIBILITY LEVEL DISTRIBUTION")
 print("=" * 70)
-display(label_distribution.to_frame("Number of Participants"))
+print(label_distribution.to_frame("Number of Participants"))
 
 
 """# **PHASE 4 — PEARSON CORRELATION**
@@ -263,7 +270,7 @@ pearson_table = pd.DataFrame(pearson_results)
 print("=" * 70)
 print("ALL 66 PEARSON PAIRS")
 print("=" * 70)
-display(pearson_table.round(4))
+print(pearson_table.round(4))
 
 yes_count = np.sum(pearson_table["|r| >= 0.80"] == "YES")
 no_count = np.sum(pearson_table["|r| >= 0.80"] == "NO")
@@ -414,7 +421,7 @@ relief_results.insert(0, "Rank", np.arange(1, len(relief_results) + 1))
 print("=" * 80)
 print("FINAL RELIEFF FEATURE WEIGHTS")
 print("=" * 80)
-display(relief_results.round(6))
+print(relief_results.round(6))
 
 # ============================================================
 # RELIEFF FEATURE SELECTION USING LARGEST WEIGHT GAP
@@ -483,4 +490,44 @@ c45_dataset.insert(0, "Participant", range(1, len(c45_dataset) + 1))
 print("=" * 60)
 print("FINAL C4.5 DATASET (PIPELINE V2)")
 print("=" * 60)
-display(c45_dataset.head())
+print(c45_dataset.head())
+
+
+# ============================================================
+# PHASE 6 (CONTINUED) - APPLY ACTUAL C4.5 RULES & GENERATE PRESET
+# ============================================================
+
+# 1. Define the final verified C4.5 decision-tree rules from the thesis
+def apply_c45_rules(row):
+    # Root node
+    if row["platform_brightness"] <= 0.205:
+        return "HIGH"
+    # Second-level node
+    if row["platform_brightness"] <= 0.665:
+        return "MEDIUM"
+    # Third-level node
+    if row["platform_contrast"] <= 0.765:
+        return "LOW"
+    # Final terminal leaf
+    return "MEDIUM"
+
+# 2. Get the current player's data (assuming the last row in the CSV is the latest player)
+current_player = c45_dataset.iloc[-1]
+
+# 3. Predict the accessibility level for the current player
+predicted_label = apply_c45_rules(current_player)
+
+# 4. Calculate the recommended settings based on the predicted class
+recommended_preset = c45_dataset[c45_dataset["accessibility_level"] == predicted_label].mean(numeric_only=True)
+
+# 5. Extract the specific values Unity needs 
+# Mapping "hazard_contrast" back to "obstacle_contrast" for Unity C# parsing
+final_predictions = {
+    "background_brightness": float(recommended_preset.get("background_brightness", 50.0)),
+    "obstacle_contrast": float(recommended_preset.get("hazard_contrast", 50.0)), 
+    "player_color": float(recommended_preset.get("player_color", 50.0))
+}
+
+# 6. Output the final result in the exact JSON format Unity is waiting for
+print("\nPredicted Accessibility Level:", predicted_label)
+print("AI_RESULT:" + json.dumps(final_predictions))
