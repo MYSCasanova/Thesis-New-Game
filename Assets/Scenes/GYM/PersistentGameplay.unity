@@ -1600,7 +1600,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04aaa4727d9ed4016943099c7b47d597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S7_HealthSystem
-  maxLives: 8
+  maxLives: 3
   currentLives: 0
   betaGameOverPanel: {fileID: 0}
   scoreText: {fileID: 0}

@@ -520,12 +520,16 @@ predicted_label = apply_c45_rules(current_player)
 # 4. Calculate the recommended settings based on the predicted class
 recommended_preset = c45_dataset[c45_dataset["accessibility_level"] == predicted_label].mean(numeric_only=True)
 
-# 5. Extract the specific values Unity needs 
-# Mapping "hazard_contrast" back to "obstacle_contrast" for Unity C# parsing
+# 5. Extract and convert values to Unity's raw scales
+# We use 0.5 as the fallback (50%) in case ReliefF excluded the feature
+bg_bright_norm = float(recommended_preset.get("background_brightness", 0.5))
+obs_contrast_norm = float(recommended_preset.get("obstacle_contrast", 0.5))
+player_color_norm = float(recommended_preset.get("player_color", 0.5))
+
 final_predictions = {
-    "background_brightness": float(recommended_preset.get("background_brightness", 50.0)),
-    "obstacle_contrast": float(recommended_preset.get("hazard_contrast", 50.0)), 
-    "player_color": float(recommended_preset.get("player_color", 50.0))
+    "background_brightness": bg_bright_norm * 2.0,  # Converted to 0 - 2 scale
+    "obstacle_contrast": obs_contrast_norm * 2.0,   # Converted to 0 - 2 scale
+    "player_color": player_color_norm * 360.0       # Converted to 0 - 360 scale
 }
 
 # 6. Output the final result in the exact JSON format Unity is waiting for

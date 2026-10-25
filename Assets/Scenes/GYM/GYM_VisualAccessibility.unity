@@ -3900,7 +3900,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PythonIntegration
   pythonExecutablePath: C:\Users\MYSC\AppData\Local\Programs\Python\Python311\python.exe
-  pythonScriptName: Pipeline_V2.py
+  pythonScriptName: Pipeline_V3.py
 --- !u!1 &1097130592
 GameObject:
   m_ObjectHideFlags: 0

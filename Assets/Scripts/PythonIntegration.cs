@@ -9,7 +9,7 @@ public class PythonIntegration : MonoBehaviour
     public string pythonExecutablePath = "python";
     
     [Tooltip("Name of the python script to run")]
-    public string pythonScriptName = "Pipeline_V2.py";
+    public string pythonScriptName = "Pipeline_V3.py";
 
     // Class to map the JSON data coming from Python
     [System.Serializable]
@@ -85,15 +85,10 @@ public class PythonIntegration : MonoBehaviour
                 // Deserialize the JSON string into our C# class
                 AIPrediction prediction = JsonUtility.FromJson<AIPrediction>(jsonString);
 
-                // Convert percentages (0-100) back to actual min/max scales
-                float bgBrightnessRaw = (prediction.background_brightness / 100f) * 2f;
-                float obsContrastRaw = (prediction.obstacle_contrast / 100f) * 2f;
-                float playerColorRaw = (prediction.player_color / 100f) * 360f;
-
-                // Save to PlayerPrefs
-                PlayerPrefs.SetFloat("Background_AIPreset_Brightness", bgBrightnessRaw);
-                PlayerPrefs.SetFloat("Obstacle_AIPreset_Contrast", obsContrastRaw);
-                PlayerPrefs.SetFloat("Player_AIPreset_Color", playerColorRaw);
+                // Python already converted these to their raw scales, so apply them directly
+                PlayerPrefs.SetFloat("Background_AIPreset_Brightness", prediction.background_brightness);
+                PlayerPrefs.SetFloat("Obstacle_AIPreset_Contrast", prediction.obstacle_contrast);
+                PlayerPrefs.SetFloat("Player_AIPreset_Color", prediction.player_color);
                 
                 // Automatically switch the UI to the AI Preset Mode (Mode 2)
                 PlayerPrefs.SetInt("Background_GraphicsMode", 2);
