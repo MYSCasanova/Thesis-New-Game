@@ -65,7 +65,78 @@ public class DataExporter : MonoBehaviour
         }
 
         Debug.Log("Appended Player Record to VisualAccessibility_Player.csv: \n" + dataRow);
+
+        PlayerPrefs.SetInt("v1Completed", 1);
+        PlayerPrefs.Save();
+        Debug.Log("Version 1 and Visual Assessment completed!");
+
         SceneManager.LoadScene("GYM_MainMenu", LoadSceneMode.Single);
+    }
+
+    public void ExportGameplayToCSV()
+    {
+        string sceneName = SceneManager.GetActiveScene().name;
+        string fileName;
+
+        if (sceneName == "GYM_V2Game")
+        {
+            fileName = "V2_Player.csv";
+        }
+        else if (sceneName == "GYM_V3Game")
+        {
+            fileName = "V3_Player.csv";
+        }
+        else
+        {
+            Debug.LogError("This is not a V2 or V3 game scene!");
+            return;
+        }
+
+        if (settingsData == null)
+        {
+            Debug.LogError("Global VisualSettingsSO is not assigned!");
+            return;
+        }
+
+        S17_GameplayData gameplayData = Object.FindFirstObjectByType<S17_GameplayData>(FindObjectsInactive.Include);
+
+        if (gameplayData == null)
+        {
+            Debug.LogError("Gameplay data not found!");
+            return;
+        }
+
+        var bg = settingsData.backgroundSettings;
+        var ob = settingsData.obstacleSettings;
+        var pt = settingsData.platformSettings;
+        var pl = settingsData.playerSettings;
+
+        string header = "background_color,background_contrast,background_brightness," +
+                        "obstacle_color,obstacle_contrast,obstacle_brightness," +
+                        "platform_color,platform_contrast,platform_brightness," +
+                        "player_color,player_contrast,player_brightness," +
+                        "completion_time,error_count";
+
+        string dataRow = $"{bg.color:F2},{bg.contrast:F2},{bg.brightness:F2}," +
+                        $"{ob.color:F2},{ob.contrast:F2},{ob.brightness:F2}," +
+                        $"{pt.color:F2},{pt.contrast:F2},{pt.brightness:F2}," +
+                        $"{pl.color:F2},{pl.contrast:F2},{pl.brightness:F2}," +
+                        $"{gameplayData.completionTime:F2},{gameplayData.errorCount}";
+
+        string filePath = Path.Combine(Application.dataPath, fileName); 
+
+        if (!File.Exists(filePath))
+        {
+            File.WriteAllText(filePath, header + "\n" + dataRow + "\n");
+        }
+        else
+        {
+            File.AppendAllText(filePath, dataRow + "\n");
+        }
+
+        Debug.Log("Gameplay data exported to " + fileName);
+
+        FindFirstObjectByType<SceneTransition>().MainMenuFromWin();
     }
 
     private string Normalize(float rawValue, float maxValue)

@@ -146,6 +146,30 @@ public class SceneTransition : MonoBehaviour
         S18_LoadingManager.Instance.LoadScenes("GYM_MainMenu");
     }
 
+    public void MainMenuFromWin()
+    {
+        // Unpause time in case the player clicks this from the Pause Menu
+        Time.timeScale = 1f;
+
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "GYM_V2Game":
+                PlayerPrefs.SetInt("v2Completed", 1);
+                PlayerPrefs.Save();
+                Debug.Log("Version 2 Completed!");
+                break;
+            
+            case "GYM_V3Game":
+                PlayerPrefs.SetInt("v3Completed", 1);
+                PlayerPrefs.Save();
+                Debug.Log("Version 3 Completed!");
+                break;
+        }
+        
+        // Use the new Loading Screen
+        S18_LoadingManager.Instance.LoadScenes("GYM_MainMenu");
+    }
+
     private IEnumerator LinkTutorial(Scene tutorialScene)
     {
         // Freeze time instantly so gameplay doesn't start while UI loads
