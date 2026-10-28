@@ -64,7 +64,7 @@ public class DataExporter : MonoBehaviour
                          $"{Normalize(pl.color, maxColor)},{Normalize(pl.contrast, maxContrast)},{Normalize(pl.brightness, maxBrightness)}," +
                          $"{completionTime.ToString("F2")},{errorCount}";
 
-        string filePath = Application.dataPath + "/SettingsExport.csv";
+        string filePath = Path.Combine(Application.dataPath, "VisualAccessibility_Player.csv");
         
         if (!File.Exists(filePath))
         {

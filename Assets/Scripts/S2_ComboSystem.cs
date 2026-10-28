@@ -37,6 +37,14 @@ public class S2_ComboSystem : MonoBehaviour
         // Connect the button click to our Boost function
         boostButton.onClick.AddListener(ActivateAutoJumpBoost);
     }
+    void Update()
+    {
+        // Trigger the boost if the 'B' key is pressed AND the boost is currently ready/interactable
+        if (Input.GetKeyDown(KeyCode.B) && boostButton != null && boostButton.interactable)
+        {
+            ActivateAutoJumpBoost();
+        }
+    }
 
     // Call this whenever the player successfully jumps to a new platform
     public void AddCombo(int amount = 1)
