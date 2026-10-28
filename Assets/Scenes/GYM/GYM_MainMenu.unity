@@ -300,14 +300,14 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 65794483}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1154273597}
         m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
-        m_MethodName: PlayBeta
+        m_MethodName: PlayVersion3
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -386,6 +386,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuManager
   settingsData: {fileID: 11400000, guid: 6ecc76993b0982e44a8e4bcab1863386, type: 2}
   audioMixer: {fileID: 24100000, guid: fd031cc312926c54fb8ecc81cb27bcb0, type: 2}
+  v2Button: {fileID: 0}
+  v3Button: {fileID: 0}
 --- !u!4 &106943775
 Transform:
   m_ObjectHideFlags: 0
@@ -874,14 +876,14 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 582818310}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1154273597}
         m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
-        m_MethodName: PlayBeta
+        m_MethodName: PlayVersion2
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1274,6 +1276,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuManager
   settingsData: {fileID: 0}
   audioMixer: {fileID: 0}
+  v2Button: {fileID: 582818309}
+  v3Button: {fileID: 65794482}
 --- !u!1 &1227668926
 GameObject:
   m_ObjectHideFlags: 0

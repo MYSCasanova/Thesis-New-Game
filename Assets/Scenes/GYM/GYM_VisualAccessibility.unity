@@ -3899,8 +3899,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f72b84317897ce1459857201f4c81368, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PythonIntegration
-  pythonExecutablePath: C:\Users\MYSC\AppData\Local\Programs\Python\Python311\python.exe
-  pythonScriptName: Pipeline_V3.py
+  executableName: Pipeline_V3.exe
 --- !u!1 &1097130592
 GameObject:
   m_ObjectHideFlags: 0

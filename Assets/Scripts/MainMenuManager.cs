@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
-using UnityEngine.Audio; // Required for AudioMixer
+using UnityEngine.Audio;
+using UnityEngine.UI; // Required for AudioMixer
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -11,9 +12,14 @@ public class MainMenuManager : MonoBehaviour
     public VisualSettingsSO settingsData; 
     public AudioMixer audioMixer;
 
+    [Header("Buttons")]
+    public Button v2Button;
+    public Button v3Button;
+
     private void Start()
     {
         ApplySavedSettingsOnLoad();
+        UpdateButtons();
     }
 
     private void ApplySavedSettingsOnLoad()
@@ -101,6 +107,22 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
+    public void PlayVersion2()
+    {
+        if (PlayerPrefs.GetInt("v1Completed", 0) == 1)
+        {
+            S18_LoadingManager.Instance.LoadScenes("PersistentGameplay", "GYM_V2Game");
+        }
+    }
+
+    public void PlayVersion3()
+    {
+        if (PlayerPrefs.GetInt("v2Completed", 0) == 1)
+        {
+            S18_LoadingManager.Instance.LoadScenes("PersistentGameplay", "GYM_V3Game");
+        }
+    }
+
     public void OpenTutorialGallery()
     {
         SceneManager.LoadScene("GYM_TutorialGallery", LoadSceneMode.Single);
@@ -133,5 +155,24 @@ public class MainMenuManager : MonoBehaviour
     public void OpenVisualAccessibility()
     {
         SceneManager.LoadScene("GYM_VisualAccessibility", LoadSceneMode.Single);
+    }
+
+    private void UpdateButtons()
+    {
+        // Enable Version 2 Button if Version 1 is completed
+        bool v1Completed = PlayerPrefs.GetInt("v1Completed", 0) == 1;
+
+        if (v2Button != null)
+        {
+            v2Button.interactable = v1Completed;
+        }
+
+        // Enable Version 3 Button if Version 2 is completed
+        bool v2Completed = PlayerPrefs.GetInt("v2Completed", 0) == 1;
+
+        if (v3Button != null)
+        {
+            v3Button.interactable = v2Completed;
+        }
     }
 }
