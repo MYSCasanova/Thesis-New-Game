@@ -1610,7 +1610,7 @@ MonoBehaviour:
   isGameOver: 0
   livesUI: {fileID: 0}
   isTakingDamage: 0
-  devMode: 0
+  devMode: 1
 --- !u!114 &2263964379272313949
 MonoBehaviour:
   m_ObjectHideFlags: 0

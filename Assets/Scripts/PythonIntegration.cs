@@ -4,32 +4,34 @@ using System.IO;
 
 public class PythonIntegration : MonoBehaviour
 {
-    [Header("Script Paths")]
-    [Tooltip("Path to the python executable (e.g., C:/Python39/python.exe or just 'python' if in PATH)")]
-    public string pythonExecutablePath = "python";
-    
-    [Tooltip("Name of the python script to run")]
-    public string pythonScriptName = "Pipeline_V3.py";
+    [Header("Script Settings")]
+    [Tooltip("Name of the compiled standalone executable in StreamingAssets")]
+    public string executableName = "Pipeline_V3.exe";
 
-    // Class to map the JSON data coming from Python
     [System.Serializable]
     public class AIPrediction
     {
         public float background_brightness;
         public float obstacle_contrast;
         public float player_color;
-        // Add your other 9 variables here if needed
     }
 
     public void CallPythonScript()
     {
-        string scriptFullPath = Application.dataPath + "/Scripts/PythonScripts/" + pythonScriptName;
-        string csvFullPath = Application.dataPath + "/SettingsExport.csv"; 
+        string exePath = Path.Combine(Application.streamingAssetsPath, executableName);
+        string baselinePath = Path.Combine(Application.dataPath, "VisualAccessibility_Baseline.csv");
+        string playerPath = Path.Combine(Application.dataPath, "VisualAccessibility_Player.csv");
+
+        if (!File.Exists(exePath))
+        {
+            UnityEngine.Debug.LogError("Standalone AI Executable not found at: " + exePath);
+            return;
+        }
 
         ProcessStartInfo startInfo = new ProcessStartInfo
         {
-            FileName = pythonExecutablePath,    
-            Arguments = $"\"{scriptFullPath}\" \"{csvFullPath}\"", 
+            FileName = exePath,
+            Arguments = $"\"{baselinePath}\" \"{playerPath}\"",
             UseShellExecute = false,
             RedirectStandardOutput = true,
             RedirectStandardError = true,
@@ -47,19 +49,19 @@ public class PythonIntegration : MonoBehaviour
 
                 if (!string.IsNullOrEmpty(result))
                 {
-                    UnityEngine.Debug.Log("Python Output:\n" + result);
+                    UnityEngine.Debug.Log("Standalone AI Output:\n" + result);
                     ParseAndApplyResults(result);
                 }
                 
                 if (!string.IsNullOrEmpty(error))
                 {
-                    UnityEngine.Debug.LogError("Python Error:\n" + error);
+                    UnityEngine.Debug.LogError("Standalone AI Error:\n" + error);
                 }
             }
         }
         catch (System.Exception e)
         {
-            UnityEngine.Debug.LogError("Failed to launch Python script: " + e.Message);
+            UnityEngine.Debug.LogError("Failed to launch AI Executable: " + e.Message);
         }
     }
 
@@ -70,7 +72,6 @@ public class PythonIntegration : MonoBehaviour
             string jsonString = "";
             string[] lines = pythonOutput.Split('\n');
             
-            // Find the specific line containing the final prediction
             foreach (string line in lines)
             {
                 if (line.TrimStart().StartsWith("AI_RESULT:"))
@@ -82,15 +83,12 @@ public class PythonIntegration : MonoBehaviour
 
             if (!string.IsNullOrEmpty(jsonString))
             {
-                // Deserialize the JSON string into our C# class
                 AIPrediction prediction = JsonUtility.FromJson<AIPrediction>(jsonString);
 
-                // Python already converted these to their raw scales, so apply them directly
                 PlayerPrefs.SetFloat("Background_AIPreset_Brightness", prediction.background_brightness);
                 PlayerPrefs.SetFloat("Obstacle_AIPreset_Contrast", prediction.obstacle_contrast);
                 PlayerPrefs.SetFloat("Player_AIPreset_Color", prediction.player_color);
                 
-                // Automatically switch the UI to the AI Preset Mode (Mode 2)
                 PlayerPrefs.SetInt("Background_GraphicsMode", 2);
                 PlayerPrefs.SetInt("Obstacle_GraphicsMode", 2);
                 PlayerPrefs.SetInt("Platform_GraphicsMode", 2);
@@ -101,12 +99,12 @@ public class PythonIntegration : MonoBehaviour
             }
             else 
             {
-                UnityEngine.Debug.LogWarning("Could not find 'AI_RESULT:' string in the Python output.");
+                UnityEngine.Debug.LogWarning("Could not find 'AI_RESULT:' string in output.");
             }
         }
         catch (System.Exception e)
         {
-            UnityEngine.Debug.LogError("Error parsing Python results: " + e.Message);
+            UnityEngine.Debug.LogError("Error parsing AI results: " + e.Message);
         }
     }
 }

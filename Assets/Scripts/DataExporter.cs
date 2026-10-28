@@ -9,7 +9,6 @@ public class DataExporter : MonoBehaviour
     public VisualSettingsSO settingsData; 
 
     [Header("UI Slider References")]
-    [Tooltip("Drag any Color, Contrast, and Brightness slider from your UI panels here to get their exact max values.")]
     public Slider colorSlider;
     public Slider contrastSlider;
     public Slider brightnessSlider;
@@ -18,7 +17,7 @@ public class DataExporter : MonoBehaviour
     {
         if (settingsData == null || colorSlider == null || contrastSlider == null || brightnessSlider == null)
         {
-            Debug.LogError("Missing references in the Inspector! Ensure Settings Data and all three Sliders are assigned.");
+            Debug.LogError("Missing references in the Inspector!");
             return;
         }
 
@@ -33,26 +32,16 @@ public class DataExporter : MonoBehaviour
         var pt = settingsData.platformSettings;
         var pl = settingsData.playerSettings;
 
-        // --- DYNAMICALLY FIND THE GAMEPLAY DATA ---
         float completionTime = 0f;
         int errorCount = 0;
 
-        // Force Unity to find the script even if the GameObject has been disabled 
         S17_GameplayData activeGameplayData = Object.FindFirstObjectByType<S17_GameplayData>(FindObjectsInactive.Include);
-
         if (activeGameplayData != null)
         {
             completionTime = activeGameplayData.completionTime;
             errorCount = activeGameplayData.errorCount;
-            
-            // Optional: Destroy it after grabbing the data so it doesn't pile up if you replay
             Destroy(activeGameplayData.gameObject);
         }
-        else
-        {
-            Debug.LogWarning("Gameplay Data was not found in the scene! Saving 0 for time and errors.");
-        }
-        // ------------------------------------------
 
         float maxColor = colorSlider.maxValue;
         float maxContrast = contrastSlider.maxValue;
@@ -64,7 +53,7 @@ public class DataExporter : MonoBehaviour
                          $"{Normalize(pl.color, maxColor)},{Normalize(pl.contrast, maxContrast)},{Normalize(pl.brightness, maxBrightness)}," +
                          $"{completionTime.ToString("F2")},{errorCount}";
 
-        string filePath = Application.dataPath + "/SettingsExport.csv";
+        string filePath = Path.Combine(Application.dataPath, "VisualAccessibility_Player.csv");
         
         if (!File.Exists(filePath))
         {
@@ -75,8 +64,7 @@ public class DataExporter : MonoBehaviour
             File.AppendAllText(filePath, dataRow + "\n");
         }
 
-        Debug.Log("Exported Normalized Row: \n" + dataRow);
-        Debug.Log("Going back to Main Menu");
+        Debug.Log("Appended Player Record to VisualAccessibility_Player.csv: \n" + dataRow);
         SceneManager.LoadScene("GYM_MainMenu", LoadSceneMode.Single);
     }
 
