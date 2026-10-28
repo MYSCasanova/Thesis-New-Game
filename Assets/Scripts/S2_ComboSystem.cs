@@ -23,6 +23,9 @@ public class S2_ComboSystem : MonoBehaviour
     [Header("Combo Blocks")]
     public Image[] comboBlocks;
 
+    // NEW: Flag to ignore the massive combo payload when landing after a boost
+    private bool justFinishedBoost = false;
+
     
 
     void Start()
@@ -37,10 +40,31 @@ public class S2_ComboSystem : MonoBehaviour
         // Connect the button click to our Boost function
         boostButton.onClick.AddListener(ActivateAutoJumpBoost);
     }
+    void Update()
+    {
+        // Trigger the boost if the 'B' key is pressed AND the boost is currently ready/interactable
+        if (Input.GetKeyDown(KeyCode.B) && boostButton != null && boostButton.interactable)
+        {
+            ActivateAutoJumpBoost();
+        }
+    }
 
     // Call this whenever the player successfully jumps to a new platform
     public void AddCombo(int amount = 1)
     {
+        // 1. Ignore combo if currently boosting
+        if (player != null && player.isAutoBouncing)
+        {
+            return;
+        }
+
+        // 2. Ignore the massive delayed combo added when landing right after a boost finishes
+        if (justFinishedBoost)
+        {
+            justFinishedBoost = false; // Turn the flag off so normal jumps work again
+            return; 
+        }
+
         currentCombo += amount;
         
         // Multiplier Tiers
@@ -122,14 +146,15 @@ public class S2_ComboSystem : MonoBehaviour
         player.isAutoBouncing = true;
         boostButton.interactable = false; // Disable button while boosting
         
-        // Reset combo count visually if you want
+        // Reset combo count visually
         currentCombo = 0;
         UpdateUI();
 
         // 2. Wait for 5 seconds
         yield return new WaitForSeconds(boostDuration);
 
-        // 3. Disable Auto-Jump
+        // 3. Disable Auto-Jump and flag the landing
         player.isAutoBouncing = false;
+        justFinishedBoost = true; // NEW: Tell AddCombo to ignore the next time it's called
     }
 }
