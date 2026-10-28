@@ -26,7 +26,7 @@ public class SceneTransition : MonoBehaviour
     {
         if (mode == LoadSceneMode.Additive)
         {
-            if (scene.name == "GYM_BetaGame")
+            if (scene.name == "GYM_BetaGame" || scene.name == "GYM_V2Game" || scene.name == "GYM_V3Game")
             {
                 StartCoroutine(LinkBetaGame(scene));
             }
@@ -135,7 +135,7 @@ public class SceneTransition : MonoBehaviour
         }
 
         gameUI.SetActive(true);
-        Debug.Log("Link to BetaGame complete.");
+        Debug.Log("Link to Game complete.");
     }
     public void ReturnToMainMenu()
     {
