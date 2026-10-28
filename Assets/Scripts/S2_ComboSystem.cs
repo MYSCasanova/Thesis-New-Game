@@ -79,7 +79,7 @@ public class S2_ComboSystem : MonoBehaviour
     private void UpdateUI()
     {        
         // Only update scoreText if it's assigned in the inspector
-        if (scoreText != null) scoreText.text = "Score: " + totalScore;
+        if (scoreText != null) scoreText.text = "" + totalScore;
         
         if (comboBar != null) comboBar.value = currentCombo;
 

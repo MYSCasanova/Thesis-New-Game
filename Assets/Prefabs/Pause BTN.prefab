@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 902859907022457769}
   - component: {fileID: 8540575415478547915}
   - component: {fileID: 1832357385383759506}
-  - component: {fileID: 3953322846231567123}
+  - component: {fileID: -5496536724600554572}
   m_Layer: 5
-  m_Name: Settings BTN
+  m_Name: Pause BTN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 4009956101240934875, guid: 808685826834be648acfdbacfb179d00, type: 3}
+  m_Sprite: {fileID: -3588704432274223083, guid: 808685826834be648acfdbacfb179d00, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -121,9 +121,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3953322846231567123}
-        m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
-        m_MethodName: OpenSettings
+      - m_Target: {fileID: -5496536724600554572}
+        m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
+        m_MethodName: PauseGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -133,7 +133,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &3953322846231567123
+--- !u!114 &-5496536724600554572
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,6 +142,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 449186473363525411}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48ba04b498a9c46989d8a635be277ec5, type: 3}
+  m_Script: {fileID: 11500000, guid: ee0e44829e3e44cba84a5062013d9dbc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MainMenuManager
+  m_EditorClassIdentifier: Assembly-CSharp::PauseManager
+  pausePanel: {fileID: 6081024077457493551, guid: f3721f97399164b8e9d39c55befa1f06, type: 3}
