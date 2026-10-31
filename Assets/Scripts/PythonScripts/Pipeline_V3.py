@@ -614,6 +614,7 @@ bg_bright_norm = float(recommended_preset.get("background_brightness", 0.5))
 obs_contrast_norm = float(recommended_preset.get("obstacle_contrast", 0.5))
 player_color_norm = float(recommended_preset.get("player_color", 0.5))
 
+#FINAL PREDICTIONS SHOWS ALL
 final_predictions = {
     "background_brightness": bg_bright_norm * 2.0,  # Converted to 0 - 2 scale
     "obstacle_contrast": obs_contrast_norm * 2.0,   # Converted to 0 - 2 scale

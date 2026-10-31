@@ -51,95 +51,135 @@ public class S13_ManualSettingsUI : MonoBehaviour
 
     private void GenerateCategory(string title, string tagToFind, VisualSettingsSO.CategorySettings currentSettings)
     {
-        // 1. Spawn a new Prefab inside the Content Parent
         GameObject newCategory = Instantiate(categoryPrefab, graphicsContentParent);
         S14_CategoryUI uiElements = newCategory.GetComponent<S14_CategoryUI>();
 
-        // 2. Change the title text
         if (uiElements.headerText != null) uiElements.headerText.text = title;
 
-        // 3. Dropdown Logic (Default vs Custom vs AI Preset)
         if (uiElements.modeDropdown != null)
         {
             uiElements.modeDropdown.ClearOptions();
-            // ADDED: "Visual Accessibility #2 Preset" as the 3rd option
-            uiElements.modeDropdown.AddOptions(new List<string> { "Default", "Custom", "V.A. #2" });
 
-            // Load saved mode (0 = Default, 1 = Custom, 2 = AI Preset)
+            string sceneName = SceneManager.GetActiveScene().name;
+            List<string> options = new List<string>();
+            List<int> validModes = new List<int>();
+
+            // 1. FILTER DROPDOWN OPTIONS BASED ON SCENE NAME
+            if (sceneName == "GYM_V2Game")
+            {
+                options.Add("AIPreset #2");
+                validModes.Add(2);
+            }
+            else if (sceneName == "GYM_V3Game")
+            {
+                options.Add("AIPreset #3");
+                validModes.Add(3);
+            }
+            else if (sceneName == "GYM_BetaGame")
+            {
+                options.Add("Default");
+                options.Add("Custom");
+                validModes.Add(0);
+                validModes.Add(1);
+            }
+            else 
+            {
+                // Main Menu or other scenes - Allow everything so player can review settings
+                options.Add("Default");
+                options.Add("Custom");
+                options.Add("AIPreset #2");
+                options.Add("AIPreset #3");
+                validModes.Add(0);
+                validModes.Add(1);
+                validModes.Add(2);
+                validModes.Add(3);
+            }
+
+            uiElements.modeDropdown.AddOptions(options);
+
+            // 2. CHECK SAVED MODE AND FORCE OVERRIDE IF NOT ALLOWED IN THIS SCENE
             int savedMode = PlayerPrefs.GetInt(tagToFind + "_GraphicsMode", 0);
-            uiElements.modeDropdown.value = savedMode;
+            
+            if (!validModes.Contains(savedMode))
+            {
+                savedMode = validModes[0]; // Force to the first allowed preset for this scene
+                PlayerPrefs.SetInt(tagToFind + "_GraphicsMode", savedMode);
+            }
 
-            // Set initial slider interactable state (Only editable if Custom is selected)
+            // Sync the dropdown UI visually to the correct index in our filtered list
+            uiElements.modeDropdown.value = validModes.IndexOf(savedMode);
+            
+            // Lock the dropdown completely if there is only 1 allowed option (V2 / V3)
+            uiElements.modeDropdown.interactable = options.Count > 1;
+
             bool isCustom = (savedMode == 1);
             uiElements.brightnessSlider.interactable = isCustom;
             uiElements.contrastSlider.interactable = isCustom;
             uiElements.colorSlider.interactable = isCustom;
 
             // Load initial values based on mode
-            if (savedMode == 0) // Default
-            {
-                currentSettings.brightness = defaultBrightness;
-                currentSettings.contrast = defaultContrast;
-                currentSettings.color = defaultColor;
-            }
-            else if (savedMode == 1) // Custom
-            {
-                currentSettings.brightness = PlayerPrefs.GetFloat(tagToFind + "_Brightness", defaultBrightness);
-                currentSettings.contrast = PlayerPrefs.GetFloat(tagToFind + "_Contrast", defaultContrast);
-                currentSettings.color = PlayerPrefs.GetFloat(tagToFind + "_Color", defaultColor);
-            }
-            else if (savedMode == 2) // Visual Accessibility #1 Preset (From Python AI)
-            {
-                currentSettings.brightness = PlayerPrefs.GetFloat(tagToFind + "_AIPreset_Brightness", defaultBrightness);
-                currentSettings.contrast = PlayerPrefs.GetFloat(tagToFind + "_AIPreset_Contrast", defaultContrast);
-                currentSettings.color = PlayerPrefs.GetFloat(tagToFind + "_AIPreset_Color", defaultColor);
-            }
+            LoadSettingsForMode(savedMode, tagToFind, currentSettings);
 
-            // Listen for dropdown changes
-            uiElements.modeDropdown.onValueChanged.AddListener(val => {
-                PlayerPrefs.SetInt(tagToFind + "_GraphicsMode", val);
-                bool customSelected = (val == 1);
+            // 3. LISTEN FOR CHANGES (Mapped to the valid modes list)
+            uiElements.modeDropdown.onValueChanged.AddListener(valIndex => {
                 
-                // Enable or disable sliders based on selection
+                int actualMode = validModes[valIndex];
+                PlayerPrefs.SetInt(tagToFind + "_GraphicsMode", actualMode);
+                bool customSelected = (actualMode == 1);
+                
                 uiElements.brightnessSlider.interactable = customSelected;
                 uiElements.contrastSlider.interactable = customSelected;
                 uiElements.colorSlider.interactable = customSelected;
 
-                if (val == 0) // Switched to Default
-                {
-                    uiElements.brightnessSlider.value = defaultBrightness;
-                    uiElements.contrastSlider.value = defaultContrast;
-                    uiElements.colorSlider.value = defaultColor;
-                }
-                else if (val == 1) // Switched to Custom
-                {
-                    uiElements.brightnessSlider.value = PlayerPrefs.GetFloat(tagToFind + "_Brightness", defaultBrightness);
-                    uiElements.contrastSlider.value = PlayerPrefs.GetFloat(tagToFind + "_Contrast", defaultContrast);
-                    uiElements.colorSlider.value = PlayerPrefs.GetFloat(tagToFind + "_Color", defaultColor);
-                }
-                else if (val == 2) // Switched to AI Preset
-                {
-                    uiElements.brightnessSlider.value = PlayerPrefs.GetFloat(tagToFind + "_AIPreset_Brightness", defaultBrightness);
-                    uiElements.contrastSlider.value = PlayerPrefs.GetFloat(tagToFind + "_AIPreset_Contrast", defaultContrast);
-                    uiElements.colorSlider.value = PlayerPrefs.GetFloat(tagToFind + "_AIPreset_Color", defaultColor);
-                }
+                LoadSettingsForMode(actualMode, tagToFind, currentSettings);
                 
-                // Apply defaults or loaded values immediately
+                // Visually update the sliders to reflect the newly loaded mode's values
+                uiElements.brightnessSlider.value = currentSettings.brightness;
+                uiElements.contrastSlider.value = currentSettings.contrast;
+                uiElements.colorSlider.value = currentSettings.color;
+
                 UpdateVisuals(tagToFind, uiElements, currentSettings);
                 
                 if (S16_AudioManager.instance != null) S16_AudioManager.instance.PlaySFX("UI Buttons Click");
             });
         }
 
-        // 4. Load the saved values into the sliders
         uiElements.brightnessSlider.value = currentSettings.brightness;
         uiElements.contrastSlider.value = currentSettings.contrast;
         uiElements.colorSlider.value = currentSettings.color;
 
-        // 5. Add listeners to update settings when sliders are moved
         uiElements.brightnessSlider.onValueChanged.AddListener(val => UpdateVisuals(tagToFind, uiElements, currentSettings));
         uiElements.contrastSlider.onValueChanged.AddListener(val => UpdateVisuals(tagToFind, uiElements, currentSettings));
         uiElements.colorSlider.onValueChanged.AddListener(val => UpdateVisuals(tagToFind, uiElements, currentSettings));
+    }
+
+    // Helper method to keep GenerateCategory clean
+    private void LoadSettingsForMode(int mode, string tagToFind, VisualSettingsSO.CategorySettings currentSettings)
+    {
+        if (mode == 0) // Default
+        {
+            currentSettings.brightness = defaultBrightness;
+            currentSettings.contrast = defaultContrast;
+            currentSettings.color = defaultColor;
+        }
+        else if (mode == 1) // Custom
+        {
+            currentSettings.brightness = PlayerPrefs.GetFloat(tagToFind + "_Brightness", defaultBrightness);
+            currentSettings.contrast = PlayerPrefs.GetFloat(tagToFind + "_Contrast", defaultContrast);
+            currentSettings.color = PlayerPrefs.GetFloat(tagToFind + "_Color", defaultColor);
+        }
+        else if (mode == 2) // AIPreset #2
+        {
+            currentSettings.brightness = PlayerPrefs.GetFloat(tagToFind + "_AIPresetV2_Brightness", defaultBrightness);
+            currentSettings.contrast = PlayerPrefs.GetFloat(tagToFind + "_AIPresetV2_Contrast", defaultContrast);
+            currentSettings.color = PlayerPrefs.GetFloat(tagToFind + "_AIPresetV2_Color", defaultColor);
+        }
+        else if (mode == 3) // AIPreset #3
+        {
+            currentSettings.brightness = PlayerPrefs.GetFloat(tagToFind + "_AIPresetV3_Brightness", defaultBrightness);
+            currentSettings.contrast = PlayerPrefs.GetFloat(tagToFind + "_AIPresetV3_Contrast", defaultContrast);
+            currentSettings.color = PlayerPrefs.GetFloat(tagToFind + "_AIPresetV3_Color", defaultColor);
+        }
     }
 
     private void UpdateVisuals(string tagToFind, S14_CategoryUI ui, VisualSettingsSO.CategorySettings currentSettings)

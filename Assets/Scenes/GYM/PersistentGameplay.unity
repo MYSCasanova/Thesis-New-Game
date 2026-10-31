@@ -462,8 +462,10 @@ MonoBehaviour:
   player: {fileID: 3977192671886289321}
   topPadding: 10
   moveSpeed: 1
-  smoothTime: 1.5
+  smoothTime: 0.3
   currentLevel: 0
+  followThresholdOffset: 0
+  topSafetyMargin: 1.5
 --- !u!1 &1333308873
 GameObject:
   m_ObjectHideFlags: 0
@@ -873,7 +875,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 9999
+  m_SortingOrder: 9
   m_TargetDisplay: 0
 --- !u!114 &2192652042659674406
 MonoBehaviour:
@@ -897,7 +899,7 @@ MonoBehaviour:
   isGameOver: 0
   livesUI: {fileID: 0}
   isTakingDamage: 0
-  devMode: 1
+  devMode: 0
 --- !u!114 &2263964379272313949
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -70,7 +70,7 @@ public class DataExporter : MonoBehaviour
         PlayerPrefs.Save();
         Debug.Log("Version 1 and Visual Assessment completed!");
 
-        SceneManager.LoadScene("GYM_MainMenu", LoadSceneMode.Single);
+        // SceneManager.LoadScene("GYM_MainMenu", LoadSceneMode.Single);
     }
 
     public void ExportGameplayToCSV()
