@@ -55,7 +55,6 @@ public class PythonIntegration : MonoBehaviour
         PlayerPrefs.SetInt("Player_GraphicsMode", 3);
         PlayerPrefs.Save();
         
-        // ... (Previous AI execution code remains exactly the same)
         
         UnityEngine.Debug.Log("Both AI Pipelines have finished running and presets are saved.");
 
