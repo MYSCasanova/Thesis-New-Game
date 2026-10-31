@@ -1131,7 +1131,7 @@ SpriteRenderer:
   m_Size: {x: 9.41, y: 5.08}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
 --- !u!4 &236245905
 Transform:
@@ -5885,6 +5885,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuManager
   settingsData: {fileID: 0}
   audioMixer: {fileID: 0}
+  v2Button: {fileID: 0}
+  v3Button: {fileID: 0}
 --- !u!1 &1782292443
 GameObject:
   m_ObjectHideFlags: 0
@@ -7240,6 +7242,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   spriteRenderer: {fileID: 0}
   animationMovementThreshold: 0.1
+  landingFeedback: {fileID: 0}
 --- !u!114 &6606860123115535667
 MonoBehaviour:
   m_ObjectHideFlags: 0

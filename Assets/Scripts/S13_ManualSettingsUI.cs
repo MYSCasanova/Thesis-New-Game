@@ -51,25 +51,20 @@ public class S13_ManualSettingsUI : MonoBehaviour
 
     private void GenerateCategory(string title, string tagToFind, VisualSettingsSO.CategorySettings currentSettings)
     {
-        // 1. Spawn a new Prefab inside the Content Parent
         GameObject newCategory = Instantiate(categoryPrefab, graphicsContentParent);
         S14_CategoryUI uiElements = newCategory.GetComponent<S14_CategoryUI>();
 
-        // 2. Change the title text
         if (uiElements.headerText != null) uiElements.headerText.text = title;
 
-        // 3. Dropdown Logic (Default vs Custom vs AI Preset)
         if (uiElements.modeDropdown != null)
         {
             uiElements.modeDropdown.ClearOptions();
-            // ADDED: "Visual Accessibility #2 Preset" as the 3rd option
-            uiElements.modeDropdown.AddOptions(new List<string> { "Default", "Custom", "V.A. #2" });
+            // ADDED: 4 options total
+            uiElements.modeDropdown.AddOptions(new List<string> { "Default", "Custom", "AIPreset #2", "AIPreset #3" });
 
-            // Load saved mode (0 = Default, 1 = Custom, 2 = AI Preset)
             int savedMode = PlayerPrefs.GetInt(tagToFind + "_GraphicsMode", 0);
             uiElements.modeDropdown.value = savedMode;
 
-            // Set initial slider interactable state (Only editable if Custom is selected)
             bool isCustom = (savedMode == 1);
             uiElements.brightnessSlider.interactable = isCustom;
             uiElements.contrastSlider.interactable = isCustom;
@@ -88,19 +83,23 @@ public class S13_ManualSettingsUI : MonoBehaviour
                 currentSettings.contrast = PlayerPrefs.GetFloat(tagToFind + "_Contrast", defaultContrast);
                 currentSettings.color = PlayerPrefs.GetFloat(tagToFind + "_Color", defaultColor);
             }
-            else if (savedMode == 2) // Visual Accessibility #1 Preset (From Python AI)
+            else if (savedMode == 2) // AIPreset #2 Preset
             {
-                currentSettings.brightness = PlayerPrefs.GetFloat(tagToFind + "_AIPreset_Brightness", defaultBrightness);
-                currentSettings.contrast = PlayerPrefs.GetFloat(tagToFind + "_AIPreset_Contrast", defaultContrast);
-                currentSettings.color = PlayerPrefs.GetFloat(tagToFind + "_AIPreset_Color", defaultColor);
+                currentSettings.brightness = PlayerPrefs.GetFloat(tagToFind + "_AIPresetV2_Brightness", defaultBrightness);
+                currentSettings.contrast = PlayerPrefs.GetFloat(tagToFind + "_AIPresetV2_Contrast", defaultContrast);
+                currentSettings.color = PlayerPrefs.GetFloat(tagToFind + "_AIPresetV2_Color", defaultColor);
+            }
+            else if (savedMode == 3) // AIPreset #3 Preset
+            {
+                currentSettings.brightness = PlayerPrefs.GetFloat(tagToFind + "_AIPresetV3_Brightness", defaultBrightness);
+                currentSettings.contrast = PlayerPrefs.GetFloat(tagToFind + "_AIPresetV3_Contrast", defaultContrast);
+                currentSettings.color = PlayerPrefs.GetFloat(tagToFind + "_AIPresetV3_Color", defaultColor);
             }
 
-            // Listen for dropdown changes
             uiElements.modeDropdown.onValueChanged.AddListener(val => {
                 PlayerPrefs.SetInt(tagToFind + "_GraphicsMode", val);
                 bool customSelected = (val == 1);
                 
-                // Enable or disable sliders based on selection
                 uiElements.brightnessSlider.interactable = customSelected;
                 uiElements.contrastSlider.interactable = customSelected;
                 uiElements.colorSlider.interactable = customSelected;
@@ -117,26 +116,29 @@ public class S13_ManualSettingsUI : MonoBehaviour
                     uiElements.contrastSlider.value = PlayerPrefs.GetFloat(tagToFind + "_Contrast", defaultContrast);
                     uiElements.colorSlider.value = PlayerPrefs.GetFloat(tagToFind + "_Color", defaultColor);
                 }
-                else if (val == 2) // Switched to AI Preset
+                else if (val == 2) // Switched to AIPreset #2
                 {
-                    uiElements.brightnessSlider.value = PlayerPrefs.GetFloat(tagToFind + "_AIPreset_Brightness", defaultBrightness);
-                    uiElements.contrastSlider.value = PlayerPrefs.GetFloat(tagToFind + "_AIPreset_Contrast", defaultContrast);
-                    uiElements.colorSlider.value = PlayerPrefs.GetFloat(tagToFind + "_AIPreset_Color", defaultColor);
+                    uiElements.brightnessSlider.value = PlayerPrefs.GetFloat(tagToFind + "_AIPresetV2_Brightness", defaultBrightness);
+                    uiElements.contrastSlider.value = PlayerPrefs.GetFloat(tagToFind + "_AIPresetV2_Contrast", defaultContrast);
+                    uiElements.colorSlider.value = PlayerPrefs.GetFloat(tagToFind + "_AIPresetV2_Color", defaultColor);
+                }
+                else if (val == 3) // Switched to AIPreset #3
+                {
+                    uiElements.brightnessSlider.value = PlayerPrefs.GetFloat(tagToFind + "_AIPresetV3_Brightness", defaultBrightness);
+                    uiElements.contrastSlider.value = PlayerPrefs.GetFloat(tagToFind + "_AIPresetV3_Contrast", defaultContrast);
+                    uiElements.colorSlider.value = PlayerPrefs.GetFloat(tagToFind + "_AIPresetV3_Color", defaultColor);
                 }
                 
-                // Apply defaults or loaded values immediately
                 UpdateVisuals(tagToFind, uiElements, currentSettings);
                 
                 if (S16_AudioManager.instance != null) S16_AudioManager.instance.PlaySFX("UI Buttons Click");
             });
         }
 
-        // 4. Load the saved values into the sliders
         uiElements.brightnessSlider.value = currentSettings.brightness;
         uiElements.contrastSlider.value = currentSettings.contrast;
         uiElements.colorSlider.value = currentSettings.color;
 
-        // 5. Add listeners to update settings when sliders are moved
         uiElements.brightnessSlider.onValueChanged.AddListener(val => UpdateVisuals(tagToFind, uiElements, currentSettings));
         uiElements.contrastSlider.onValueChanged.AddListener(val => UpdateVisuals(tagToFind, uiElements, currentSettings));
         uiElements.colorSlider.onValueChanged.AddListener(val => UpdateVisuals(tagToFind, uiElements, currentSettings));
