@@ -1,0 +1,51 @@
+{
+  "player_attempt_index": 0,
+  "predicted_accessibility_level": "LOW",
+  "selected_features": [
+    "background_color"
+  ],
+  "decision_path": [
+    {
+      "feature": "background_color",
+      "value": 0.81,
+      "threshold": 0.73,
+      "branch": "right",
+      "gain_ratio": 0.6549539030051209,
+      "node_training_count": 30,
+      "comparison": ">",
+      "condition_satisfied": "background_color (0.810000) > 0.730000"
+    }
+  ],
+  "terminal_leaf_class": "LOW",
+  "preset_source": "Baseline training records assigned to the predicted class",
+  "preset_selection_reason": "The trained decision tree classified the selected player as LOW; the corresponding LOW baseline class-mean preset was selected.",
+  "normalized_baseline_class_mean_preset": {
+    "background_color": 0.682,
+    "background_contrast": 0.6799999999999999,
+    "background_brightness": 0.6900000000000001,
+    "obstacle_color": 0.65,
+    "obstacle_contrast": 0.662,
+    "obstacle_brightness": 0.654,
+    "platform_color": 0.618,
+    "platform_contrast": 0.6299999999999999,
+    "platform_brightness": 0.624,
+    "player_color": 0.8402000000000001,
+    "player_contrast": 0.8173999999999999,
+    "player_brightness": 0.5995999999999999
+  },
+  "unity_scaled_recommended_settings": {
+    "background_color": 245.52,
+    "background_contrast": 1.36,
+    "background_brightness": 1.38,
+    "obstacle_color": 234.0,
+    "obstacle_contrast": 1.324,
+    "obstacle_brightness": 1.308,
+    "platform_color": 222.48,
+    "platform_contrast": 1.26,
+    "platform_brightness": 1.248,
+    "player_color": 302.472,
+    "player_contrast": 1.6348,
+    "player_brightness": 1.1992
+  },
+  "caution": "The trace explains model behavior; it does not establish that the preset is optimal."
+}

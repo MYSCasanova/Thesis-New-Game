@@ -1,0 +1,14 @@
+{
+  "V2_ReliefF_C45": {
+    "accuracy": 0.7,
+    "macro_f1": 0.4975845410628019,
+    "balanced_accuracy": 0.4545454545454546
+  },
+  "V3_Pearson_Report_ReliefF_C45": {
+    "accuracy": 0.7,
+    "macro_f1": 0.4975845410628019,
+    "balanced_accuracy": 0.4545454545454546
+  },
+  "predictions_and_selected_features_identical": true,
+  "interpretation": "Pearson provides correlation diagnostics only; no classification improvement is expected."
+}

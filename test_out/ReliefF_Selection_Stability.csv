@@ -1,0 +1,13 @@
+feature,folds_selected,total_folds,selection_rate
+background_color,4,4,1.0
+player_color,4,4,1.0
+background_brightness,3,4,0.75
+background_contrast,3,4,0.75
+obstacle_brightness,3,4,0.75
+obstacle_color,3,4,0.75
+obstacle_contrast,3,4,0.75
+platform_brightness,3,4,0.75
+platform_color,3,4,0.75
+platform_contrast,3,4,0.75
+player_contrast,3,4,0.75
+player_brightness,0,4,0.0

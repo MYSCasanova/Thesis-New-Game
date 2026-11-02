@@ -1,0 +1,25 @@
+IF background_color <= 0.730000 [gain=0.3072, gain_ratio=0.6550]
+  IF background_color <= 0.210000 [gain=0.3024, gain_ratio=0.3293]
+    IF background_color <= 0.190000 [gain=0.1427, gain_ratio=0.2835]
+      IF background_color <= 0.140000 [gain=0.0924, gain_ratio=0.1699]
+        Predict MEDIUM (n=1)
+      ELSE (background_color > 0.140000)
+        IF background_color <= 0.170000 [gain=0.1281, gain_ratio=0.2165]
+          IF background_color <= 0.155000 [gain=0.1909, gain_ratio=0.2936]
+            Predict MEDIUM (n=5)
+          ELSE (background_color > 0.155000)
+            Predict HIGH (n=1)
+        ELSE (background_color > 0.170000)
+          Predict MEDIUM (n=1)
+    ELSE (background_color > 0.190000)
+      Predict HIGH (n=1)
+  ELSE (background_color > 0.210000)
+    IF background_color <= 0.470000 [gain=0.1676, gain_ratio=0.1738]
+      Predict MEDIUM (n=11)
+    ELSE (background_color > 0.470000)
+      IF background_color <= 0.545000 [gain=0.8631, gain_ratio=1.0000]
+        Predict LOW (n=2)
+      ELSE (background_color > 0.545000)
+        Predict MEDIUM (n=5)
+ELSE (background_color > 0.730000)
+  Predict LOW (n=3)
