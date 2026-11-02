@@ -16,6 +16,10 @@ public class MainMenuManager : MonoBehaviour
     public Button v2Button;
     public Button v3Button;
 
+    [Header("Panels")]
+    public GameObject menuPanel;
+    public GameObject creditsPanel;
+
     private void Start()
     {
         ApplySavedSettingsOnLoad();
@@ -128,9 +132,16 @@ public class MainMenuManager : MonoBehaviour
         SceneManager.LoadScene("GYM_TutorialGallery", LoadSceneMode.Single);
     }
 
+    public void BackToMainMenu()
+    {
+        creditsPanel.SetActive(false);
+        menuPanel.SetActive(true);
+    }
+
     public void OpenCredits()
     {
-        
+        menuPanel.SetActive(false);
+        creditsPanel.SetActive(true);
     }
 
     public void QuitGame()
