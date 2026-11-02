@@ -1,0 +1,410 @@
+[
+  {
+    "fold": 1,
+    "train_records": 21,
+    "validation_records": 9,
+    "selected_features": [
+      "player_color",
+      "background_color",
+      "player_contrast"
+    ],
+    "class_counts": {
+      "LOW": 5,
+      "MEDIUM": 13,
+      "HIGH": 3
+    },
+    "thresholds": {
+      "completion_q1": 125.0,
+      "completion_q3": 158.5,
+      "errors_q1": 6.0,
+      "errors_q3": 8.0
+    },
+    "label_definition": "training_fold_quartiles",
+    "tuning": {
+      "max_depth": null,
+      "min_leaf": 1,
+      "status": "unpruned_fixed_method",
+      "candidates": [],
+      "note": "No pre-pruning depth or minimum-leaf tuning."
+    },
+    "tree": {
+      "feature": "player_color",
+      "threshold": 0.7825,
+      "gain": 0.534868761158112,
+      "gain_ratio": 0.5824580068021675,
+      "n": 21,
+      "left": {
+        "feature": "player_color",
+        "threshold": 0.755,
+        "gain": 0.1744546479149136,
+        "gain_ratio": 0.46993388074115194,
+        "n": 14,
+        "left": {
+          "feature": "player_contrast",
+          "threshold": 0.786,
+          "gain": 0.2373974097831018,
+          "gain_ratio": 0.6067765245284924,
+          "n": 13,
+          "left": {
+            "feature": "player_color",
+            "threshold": 0.5965,
+            "gain": 0.14339080881725613,
+            "gain_ratio": 0.15614881773355366,
+            "n": 12,
+            "left": {
+              "leaf": "MEDIUM",
+              "n": 8
+            },
+            "right": {
+              "feature": "player_color",
+              "threshold": 0.65,
+              "gain": 0.8112781244591328,
+              "gain_ratio": 1.0,
+              "n": 4,
+              "left": {
+                "leaf": "HIGH",
+                "n": 1
+              },
+              "right": {
+                "leaf": "MEDIUM",
+                "n": 3
+              }
+            }
+          },
+          "right": {
+            "leaf": "HIGH",
+            "n": 1
+          }
+        },
+        "right": {
+          "leaf": "HIGH",
+          "n": 1
+        }
+      },
+      "right": {
+        "feature": "background_color",
+        "threshold": 0.275,
+        "gain": 0.3059584928680418,
+        "gain_ratio": 0.517107603971795,
+        "n": 7,
+        "left": {
+          "leaf": "MEDIUM",
+          "n": 1
+        },
+        "right": {
+          "feature": "player_contrast",
+          "threshold": 0.61,
+          "gain": 0.3166890883150208,
+          "gain_ratio": 0.3448660840774643,
+          "n": 6,
+          "left": {
+            "feature": "player_color",
+            "threshold": 0.866,
+            "gain": 1.0,
+            "gain_ratio": 1.0,
+            "n": 2,
+            "left": {
+              "leaf": "LOW",
+              "n": 1
+            },
+            "right": {
+              "leaf": "MEDIUM",
+              "n": 1
+            }
+          },
+          "right": {
+            "leaf": "LOW",
+            "n": 4
+          }
+        }
+      }
+    }
+  },
+  {
+    "fold": 2,
+    "train_records": 23,
+    "validation_records": 7,
+    "selected_features": [
+      "background_color",
+      "obstacle_color",
+      "platform_color",
+      "platform_brightness",
+      "background_contrast",
+      "platform_contrast",
+      "obstacle_brightness",
+      "background_brightness",
+      "obstacle_contrast",
+      "player_color"
+    ],
+    "class_counts": {
+      "MEDIUM": 17,
+      "LOW": 3,
+      "HIGH": 3
+    },
+    "thresholds": {
+      "completion_q1": 126.0,
+      "completion_q3": 161.0,
+      "errors_q1": 4.5,
+      "errors_q3": 8.0
+    },
+    "label_definition": "training_fold_quartiles",
+    "tuning": {
+      "max_depth": null,
+      "min_leaf": 1,
+      "status": "unpruned_fixed_method",
+      "candidates": [],
+      "note": "No pre-pruning depth or minimum-leaf tuning."
+    },
+    "tree": {
+      "feature": "background_color",
+      "threshold": 0.725,
+      "gain": 0.5586293734521992,
+      "gain_ratio": 1.0,
+      "n": 23,
+      "left": {
+        "feature": "obstacle_color",
+        "threshold": 0.16,
+        "gain": 0.1486525820077827,
+        "gain_ratio": 0.5190438596301018,
+        "n": 20,
+        "left": {
+          "leaf": "HIGH",
+          "n": 1
+        },
+        "right": {
+          "feature": "background_color",
+          "threshold": 0.21000000000000002,
+          "gain": 0.22994744641573744,
+          "gain_ratio": 0.2765538538909833,
+          "n": 19,
+          "left": {
+            "feature": "background_color",
+            "threshold": 0.19,
+            "gain": 0.3219280948873623,
+            "gain_ratio": 0.4459281986214854,
+            "n": 5,
+            "left": {
+              "feature": "obstacle_color",
+              "threshold": 0.33499999999999996,
+              "gain": 0.8112781244591328,
+              "gain_ratio": 1.0,
+              "n": 4,
+              "left": {
+                "leaf": "MEDIUM",
+                "n": 3
+              },
+              "right": {
+                "leaf": "HIGH",
+                "n": 1
+              }
+            },
+            "right": {
+              "leaf": "HIGH",
+              "n": 1
+            }
+          },
+          "right": {
+            "leaf": "MEDIUM",
+            "n": 14
+          }
+        }
+      },
+      "right": {
+        "leaf": "LOW",
+        "n": 3
+      }
+    }
+  },
+  {
+    "fold": 3,
+    "train_records": 23,
+    "validation_records": 7,
+    "selected_features": [
+      "obstacle_color",
+      "background_color",
+      "platform_brightness",
+      "obstacle_brightness",
+      "obstacle_contrast",
+      "platform_contrast",
+      "platform_color",
+      "background_contrast",
+      "background_brightness",
+      "player_color",
+      "player_contrast"
+    ],
+    "class_counts": {
+      "MEDIUM": 18,
+      "LOW": 2,
+      "HIGH": 3
+    },
+    "thresholds": {
+      "completion_q1": 125.75,
+      "completion_q3": 164.25,
+      "errors_q1": 4.5,
+      "errors_q3": 8.0
+    },
+    "label_definition": "training_fold_quartiles",
+    "tuning": {
+      "max_depth": null,
+      "min_leaf": 1,
+      "status": "unpruned_fixed_method",
+      "candidates": [],
+      "note": "No pre-pruning depth or minimum-leaf tuning."
+    },
+    "tree": {
+      "feature": "obstacle_color",
+      "threshold": 0.7,
+      "gain": 0.4262286569981446,
+      "gain_ratio": 0.9999999999999993,
+      "n": 23,
+      "left": {
+        "feature": "obstacle_color",
+        "threshold": 0.195,
+        "gain": 0.3225312200363036,
+        "gain_ratio": 0.7108653406978385,
+        "n": 21,
+        "left": {
+          "leaf": "HIGH",
+          "n": 2
+        },
+        "right": {
+          "feature": "obstacle_color",
+          "threshold": 0.22,
+          "gain": 0.19220909102455275,
+          "gain_ratio": 0.3959312607042067,
+          "n": 19,
+          "left": {
+            "feature": "background_color",
+            "threshold": 0.185,
+            "gain": 1.0,
+            "gain_ratio": 1.0,
+            "n": 2,
+            "left": {
+              "leaf": "HIGH",
+              "n": 1
+            },
+            "right": {
+              "leaf": "MEDIUM",
+              "n": 1
+            }
+          },
+          "right": {
+            "leaf": "MEDIUM",
+            "n": 17
+          }
+        }
+      },
+      "right": {
+        "leaf": "LOW",
+        "n": 2
+      }
+    }
+  },
+  {
+    "fold": 4,
+    "train_records": 23,
+    "validation_records": 7,
+    "selected_features": [
+      "player_contrast",
+      "background_color",
+      "obstacle_color",
+      "platform_color",
+      "platform_brightness",
+      "obstacle_brightness",
+      "platform_contrast",
+      "background_contrast",
+      "player_color",
+      "background_brightness",
+      "obstacle_contrast"
+    ],
+    "class_counts": {
+      "MEDIUM": 16,
+      "LOW": 4,
+      "HIGH": 3
+    },
+    "thresholds": {
+      "completion_q1": 126.0,
+      "completion_q3": 161.0,
+      "errors_q1": 5.0,
+      "errors_q3": 8.0
+    },
+    "label_definition": "training_fold_quartiles",
+    "tuning": {
+      "max_depth": null,
+      "min_leaf": 1,
+      "status": "unpruned_fixed_method",
+      "candidates": [],
+      "note": "No pre-pruning depth or minimum-leaf tuning."
+    },
+    "tree": {
+      "feature": "player_contrast",
+      "threshold": 0.786,
+      "gain": 0.5207388444800278,
+      "gain_ratio": 0.6893775410484125,
+      "n": 23,
+      "left": {
+        "feature": "obstacle_color",
+        "threshold": 0.22,
+        "gain": 0.2025070034547547,
+        "gain_ratio": 0.31153848961275665,
+        "n": 18,
+        "left": {
+          "feature": "player_contrast",
+          "threshold": 0.755,
+          "gain": 0.9182958340544896,
+          "gain_ratio": 1.0,
+          "n": 3,
+          "left": {
+            "leaf": "HIGH",
+            "n": 2
+          },
+          "right": {
+            "leaf": "MEDIUM",
+            "n": 1
+          }
+        },
+        "right": {
+          "feature": "background_color",
+          "threshold": 0.2,
+          "gain": 0.13701850183231928,
+          "gain_ratio": 0.16377220826517488,
+          "n": 15,
+          "left": {
+            "feature": "obstacle_color",
+            "threshold": 0.33499999999999996,
+            "gain": 0.8112781244591328,
+            "gain_ratio": 1.0,
+            "n": 4,
+            "left": {
+              "leaf": "MEDIUM",
+              "n": 3
+            },
+            "right": {
+              "leaf": "HIGH",
+              "n": 1
+            }
+          },
+          "right": {
+            "leaf": "MEDIUM",
+            "n": 11
+          }
+        }
+      },
+      "right": {
+        "feature": "player_color",
+        "threshold": 0.5885,
+        "gain": 0.7219280948873623,
+        "gain_ratio": 1.0,
+        "n": 5,
+        "left": {
+          "leaf": "MEDIUM",
+          "n": 1
+        },
+        "right": {
+          "leaf": "LOW",
+          "n": 4
+        }
+      }
+    }
+  }
+]
