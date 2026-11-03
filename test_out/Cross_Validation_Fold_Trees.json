@@ -28,93 +28,203 @@
       "note": "No pre-pruning depth or minimum-leaf tuning."
     },
     "tree": {
+      "prediction": "MEDIUM",
+      "samples": 21,
+      "class_counts": {
+        "LOW": 5,
+        "MEDIUM": 13,
+        "HIGH": 3
+      },
+      "type": "split",
       "feature": "player_color",
       "threshold": 0.7825,
-      "gain": 0.534868761158112,
       "gain_ratio": 0.5824580068021675,
-      "n": 21,
+      "information_gain": 0.534868761158112,
       "left": {
+        "prediction": "MEDIUM",
+        "samples": 14,
+        "class_counts": {
+          "LOW": 0,
+          "MEDIUM": 11,
+          "HIGH": 3
+        },
+        "type": "split",
         "feature": "player_color",
         "threshold": 0.755,
-        "gain": 0.1744546479149136,
         "gain_ratio": 0.46993388074115194,
-        "n": 14,
+        "information_gain": 0.1744546479149136,
         "left": {
+          "prediction": "MEDIUM",
+          "samples": 13,
+          "class_counts": {
+            "LOW": 0,
+            "MEDIUM": 11,
+            "HIGH": 2
+          },
+          "type": "split",
           "feature": "player_contrast",
           "threshold": 0.786,
-          "gain": 0.2373974097831018,
           "gain_ratio": 0.6067765245284924,
-          "n": 13,
+          "information_gain": 0.2373974097831018,
           "left": {
+            "prediction": "MEDIUM",
+            "samples": 12,
+            "class_counts": {
+              "LOW": 0,
+              "MEDIUM": 11,
+              "HIGH": 1
+            },
+            "type": "split",
             "feature": "player_color",
             "threshold": 0.5965,
-            "gain": 0.14339080881725613,
             "gain_ratio": 0.15614881773355366,
-            "n": 12,
+            "information_gain": 0.14339080881725613,
             "left": {
-              "leaf": "MEDIUM",
-              "n": 8
+              "prediction": "MEDIUM",
+              "samples": 8,
+              "class_counts": {
+                "LOW": 0,
+                "MEDIUM": 8,
+                "HIGH": 0
+              },
+              "type": "leaf"
             },
             "right": {
+              "prediction": "MEDIUM",
+              "samples": 4,
+              "class_counts": {
+                "LOW": 0,
+                "MEDIUM": 3,
+                "HIGH": 1
+              },
+              "type": "split",
               "feature": "player_color",
               "threshold": 0.65,
-              "gain": 0.8112781244591328,
               "gain_ratio": 1.0,
-              "n": 4,
+              "information_gain": 0.8112781244591328,
               "left": {
-                "leaf": "HIGH",
-                "n": 1
+                "prediction": "HIGH",
+                "samples": 1,
+                "class_counts": {
+                  "LOW": 0,
+                  "MEDIUM": 0,
+                  "HIGH": 1
+                },
+                "type": "leaf"
               },
               "right": {
-                "leaf": "MEDIUM",
-                "n": 3
+                "prediction": "MEDIUM",
+                "samples": 3,
+                "class_counts": {
+                  "LOW": 0,
+                  "MEDIUM": 3,
+                  "HIGH": 0
+                },
+                "type": "leaf"
               }
             }
           },
           "right": {
-            "leaf": "HIGH",
-            "n": 1
+            "prediction": "HIGH",
+            "samples": 1,
+            "class_counts": {
+              "LOW": 0,
+              "MEDIUM": 0,
+              "HIGH": 1
+            },
+            "type": "leaf"
           }
         },
         "right": {
-          "leaf": "HIGH",
-          "n": 1
+          "prediction": "HIGH",
+          "samples": 1,
+          "class_counts": {
+            "LOW": 0,
+            "MEDIUM": 0,
+            "HIGH": 1
+          },
+          "type": "leaf"
         }
       },
       "right": {
+        "prediction": "LOW",
+        "samples": 7,
+        "class_counts": {
+          "LOW": 5,
+          "MEDIUM": 2,
+          "HIGH": 0
+        },
+        "type": "split",
         "feature": "background_color",
         "threshold": 0.275,
-        "gain": 0.3059584928680418,
         "gain_ratio": 0.517107603971795,
-        "n": 7,
+        "information_gain": 0.3059584928680418,
         "left": {
-          "leaf": "MEDIUM",
-          "n": 1
+          "prediction": "MEDIUM",
+          "samples": 1,
+          "class_counts": {
+            "LOW": 0,
+            "MEDIUM": 1,
+            "HIGH": 0
+          },
+          "type": "leaf"
         },
         "right": {
+          "prediction": "LOW",
+          "samples": 6,
+          "class_counts": {
+            "LOW": 5,
+            "MEDIUM": 1,
+            "HIGH": 0
+          },
+          "type": "split",
           "feature": "player_contrast",
           "threshold": 0.61,
-          "gain": 0.3166890883150208,
           "gain_ratio": 0.3448660840774643,
-          "n": 6,
+          "information_gain": 0.3166890883150208,
           "left": {
+            "prediction": "LOW",
+            "samples": 2,
+            "class_counts": {
+              "LOW": 1,
+              "MEDIUM": 1,
+              "HIGH": 0
+            },
+            "type": "split",
             "feature": "player_color",
             "threshold": 0.866,
-            "gain": 1.0,
             "gain_ratio": 1.0,
-            "n": 2,
+            "information_gain": 1.0,
             "left": {
-              "leaf": "LOW",
-              "n": 1
+              "prediction": "LOW",
+              "samples": 1,
+              "class_counts": {
+                "LOW": 1,
+                "MEDIUM": 0,
+                "HIGH": 0
+              },
+              "type": "leaf"
             },
             "right": {
-              "leaf": "MEDIUM",
-              "n": 1
+              "prediction": "MEDIUM",
+              "samples": 1,
+              "class_counts": {
+                "LOW": 0,
+                "MEDIUM": 1,
+                "HIGH": 0
+              },
+              "type": "leaf"
             }
           },
           "right": {
-            "leaf": "LOW",
-            "n": 4
+            "prediction": "LOW",
+            "samples": 4,
+            "class_counts": {
+              "LOW": 4,
+              "MEDIUM": 0,
+              "HIGH": 0
+            },
+            "type": "leaf"
           }
         }
       }
@@ -127,12 +237,12 @@
     "selected_features": [
       "background_color",
       "obstacle_color",
-      "platform_color",
-      "platform_brightness",
-      "background_contrast",
-      "platform_contrast",
       "obstacle_brightness",
+      "platform_color",
       "background_brightness",
+      "background_contrast",
+      "platform_brightness",
+      "platform_contrast",
       "obstacle_contrast",
       "player_color"
     ],
@@ -156,62 +266,133 @@
       "note": "No pre-pruning depth or minimum-leaf tuning."
     },
     "tree": {
+      "prediction": "MEDIUM",
+      "samples": 23,
+      "class_counts": {
+        "LOW": 3,
+        "MEDIUM": 17,
+        "HIGH": 3
+      },
+      "type": "split",
       "feature": "background_color",
       "threshold": 0.725,
-      "gain": 0.5586293734521992,
       "gain_ratio": 1.0,
-      "n": 23,
+      "information_gain": 0.5586293734521992,
       "left": {
+        "prediction": "MEDIUM",
+        "samples": 20,
+        "class_counts": {
+          "LOW": 0,
+          "MEDIUM": 17,
+          "HIGH": 3
+        },
+        "type": "split",
         "feature": "obstacle_color",
         "threshold": 0.16,
-        "gain": 0.1486525820077827,
         "gain_ratio": 0.5190438596301018,
-        "n": 20,
+        "information_gain": 0.1486525820077827,
         "left": {
-          "leaf": "HIGH",
-          "n": 1
+          "prediction": "HIGH",
+          "samples": 1,
+          "class_counts": {
+            "LOW": 0,
+            "MEDIUM": 0,
+            "HIGH": 1
+          },
+          "type": "leaf"
         },
         "right": {
+          "prediction": "MEDIUM",
+          "samples": 19,
+          "class_counts": {
+            "LOW": 0,
+            "MEDIUM": 17,
+            "HIGH": 2
+          },
+          "type": "split",
           "feature": "background_color",
           "threshold": 0.21000000000000002,
-          "gain": 0.22994744641573744,
           "gain_ratio": 0.2765538538909833,
-          "n": 19,
+          "information_gain": 0.22994744641573744,
           "left": {
+            "prediction": "MEDIUM",
+            "samples": 5,
+            "class_counts": {
+              "LOW": 0,
+              "MEDIUM": 3,
+              "HIGH": 2
+            },
+            "type": "split",
             "feature": "background_color",
             "threshold": 0.19,
-            "gain": 0.3219280948873623,
             "gain_ratio": 0.4459281986214854,
-            "n": 5,
+            "information_gain": 0.3219280948873623,
             "left": {
+              "prediction": "MEDIUM",
+              "samples": 4,
+              "class_counts": {
+                "LOW": 0,
+                "MEDIUM": 3,
+                "HIGH": 1
+              },
+              "type": "split",
               "feature": "obstacle_color",
               "threshold": 0.33499999999999996,
-              "gain": 0.8112781244591328,
               "gain_ratio": 1.0,
-              "n": 4,
+              "information_gain": 0.8112781244591328,
               "left": {
-                "leaf": "MEDIUM",
-                "n": 3
+                "prediction": "MEDIUM",
+                "samples": 3,
+                "class_counts": {
+                  "LOW": 0,
+                  "MEDIUM": 3,
+                  "HIGH": 0
+                },
+                "type": "leaf"
               },
               "right": {
-                "leaf": "HIGH",
-                "n": 1
+                "prediction": "HIGH",
+                "samples": 1,
+                "class_counts": {
+                  "LOW": 0,
+                  "MEDIUM": 0,
+                  "HIGH": 1
+                },
+                "type": "leaf"
               }
             },
             "right": {
-              "leaf": "HIGH",
-              "n": 1
+              "prediction": "HIGH",
+              "samples": 1,
+              "class_counts": {
+                "LOW": 0,
+                "MEDIUM": 0,
+                "HIGH": 1
+              },
+              "type": "leaf"
             }
           },
           "right": {
-            "leaf": "MEDIUM",
-            "n": 14
+            "prediction": "MEDIUM",
+            "samples": 14,
+            "class_counts": {
+              "LOW": 0,
+              "MEDIUM": 14,
+              "HIGH": 0
+            },
+            "type": "leaf"
           }
         }
       },
       "right": {
-        "leaf": "LOW",
-        "n": 3
+        "prediction": "LOW",
+        "samples": 3,
+        "class_counts": {
+          "LOW": 3,
+          "MEDIUM": 0,
+          "HIGH": 0
+        },
+        "type": "leaf"
       }
     }
   },
@@ -220,15 +401,15 @@
     "train_records": 23,
     "validation_records": 7,
     "selected_features": [
-      "obstacle_color",
       "background_color",
-      "platform_brightness",
+      "obstacle_color",
       "obstacle_brightness",
+      "platform_brightness",
+      "background_contrast",
       "obstacle_contrast",
+      "background_brightness",
       "platform_contrast",
       "platform_color",
-      "background_contrast",
-      "background_brightness",
       "player_color",
       "player_contrast"
     ],
@@ -252,51 +433,109 @@
       "note": "No pre-pruning depth or minimum-leaf tuning."
     },
     "tree": {
-      "feature": "obstacle_color",
-      "threshold": 0.7,
-      "gain": 0.4262286569981446,
+      "prediction": "MEDIUM",
+      "samples": 23,
+      "class_counts": {
+        "LOW": 2,
+        "MEDIUM": 18,
+        "HIGH": 3
+      },
+      "type": "split",
+      "feature": "background_color",
+      "threshold": 0.73,
       "gain_ratio": 0.9999999999999993,
-      "n": 23,
+      "information_gain": 0.4262286569981446,
       "left": {
+        "prediction": "MEDIUM",
+        "samples": 21,
+        "class_counts": {
+          "LOW": 0,
+          "MEDIUM": 18,
+          "HIGH": 3
+        },
+        "type": "split",
         "feature": "obstacle_color",
         "threshold": 0.195,
-        "gain": 0.3225312200363036,
         "gain_ratio": 0.7108653406978385,
-        "n": 21,
+        "information_gain": 0.3225312200363036,
         "left": {
-          "leaf": "HIGH",
-          "n": 2
+          "prediction": "HIGH",
+          "samples": 2,
+          "class_counts": {
+            "LOW": 0,
+            "MEDIUM": 0,
+            "HIGH": 2
+          },
+          "type": "leaf"
         },
         "right": {
+          "prediction": "MEDIUM",
+          "samples": 19,
+          "class_counts": {
+            "LOW": 0,
+            "MEDIUM": 18,
+            "HIGH": 1
+          },
+          "type": "split",
           "feature": "obstacle_color",
           "threshold": 0.22,
-          "gain": 0.19220909102455275,
           "gain_ratio": 0.3959312607042067,
-          "n": 19,
+          "information_gain": 0.19220909102455275,
           "left": {
+            "prediction": "MEDIUM",
+            "samples": 2,
+            "class_counts": {
+              "LOW": 0,
+              "MEDIUM": 1,
+              "HIGH": 1
+            },
+            "type": "split",
             "feature": "background_color",
             "threshold": 0.185,
-            "gain": 1.0,
             "gain_ratio": 1.0,
-            "n": 2,
+            "information_gain": 1.0,
             "left": {
-              "leaf": "HIGH",
-              "n": 1
+              "prediction": "HIGH",
+              "samples": 1,
+              "class_counts": {
+                "LOW": 0,
+                "MEDIUM": 0,
+                "HIGH": 1
+              },
+              "type": "leaf"
             },
             "right": {
-              "leaf": "MEDIUM",
-              "n": 1
+              "prediction": "MEDIUM",
+              "samples": 1,
+              "class_counts": {
+                "LOW": 0,
+                "MEDIUM": 1,
+                "HIGH": 0
+              },
+              "type": "leaf"
             }
           },
           "right": {
-            "leaf": "MEDIUM",
-            "n": 17
+            "prediction": "MEDIUM",
+            "samples": 17,
+            "class_counts": {
+              "LOW": 0,
+              "MEDIUM": 17,
+              "HIGH": 0
+            },
+            "type": "leaf"
           }
         }
       },
       "right": {
-        "leaf": "LOW",
-        "n": 2
+        "prediction": "LOW",
+        "samples": 2,
+        "class_counts": {
+          "LOW": 2,
+          "MEDIUM": 0,
+          "HIGH": 0
+        },
+        "type": "leaf"
       }
     }
   },
@@ -305,15 +544,15 @@
     "train_records": 23,
     "validation_records": 7,
     "selected_features": [
-      "player_contrast",
       "background_color",
+      "player_contrast",
       "obstacle_color",
       "platform_color",
-      "platform_brightness",
       "obstacle_brightness",
-      "platform_contrast",
-      "background_contrast",
       "player_color",
+      "platform_brightness",
+      "background_contrast",
+      "platform_contrast",
       "background_brightness",
       "obstacle_contrast"
     ],
@@ -337,72 +576,156 @@
       "note": "No pre-pruning depth or minimum-leaf tuning."
     },
     "tree": {
+      "prediction": "MEDIUM",
+      "samples": 23,
+      "class_counts": {
+        "LOW": 4,
+        "MEDIUM": 16,
+        "HIGH": 3
+      },
+      "type": "split",
       "feature": "player_contrast",
       "threshold": 0.786,
-      "gain": 0.5207388444800278,
       "gain_ratio": 0.6893775410484125,
-      "n": 23,
+      "information_gain": 0.5207388444800278,
       "left": {
+        "prediction": "MEDIUM",
+        "samples": 18,
+        "class_counts": {
+          "LOW": 0,
+          "MEDIUM": 15,
+          "HIGH": 3
+        },
+        "type": "split",
         "feature": "obstacle_color",
         "threshold": 0.22,
-        "gain": 0.2025070034547547,
         "gain_ratio": 0.31153848961275665,
-        "n": 18,
+        "information_gain": 0.2025070034547547,
         "left": {
+          "prediction": "HIGH",
+          "samples": 3,
+          "class_counts": {
+            "LOW": 0,
+            "MEDIUM": 1,
+            "HIGH": 2
+          },
+          "type": "split",
           "feature": "player_contrast",
           "threshold": 0.755,
-          "gain": 0.9182958340544896,
           "gain_ratio": 1.0,
-          "n": 3,
+          "information_gain": 0.9182958340544896,
           "left": {
-            "leaf": "HIGH",
-            "n": 2
+            "prediction": "HIGH",
+            "samples": 2,
+            "class_counts": {
+              "LOW": 0,
+              "MEDIUM": 0,
+              "HIGH": 2
+            },
+            "type": "leaf"
           },
           "right": {
-            "leaf": "MEDIUM",
-            "n": 1
+            "prediction": "MEDIUM",
+            "samples": 1,
+            "class_counts": {
+              "LOW": 0,
+              "MEDIUM": 1,
+              "HIGH": 0
+            },
+            "type": "leaf"
           }
         },
         "right": {
+          "prediction": "MEDIUM",
+          "samples": 15,
+          "class_counts": {
+            "LOW": 0,
+            "MEDIUM": 14,
+            "HIGH": 1
+          },
+          "type": "split",
           "feature": "background_color",
           "threshold": 0.2,
-          "gain": 0.13701850183231928,
           "gain_ratio": 0.16377220826517488,
-          "n": 15,
+          "information_gain": 0.13701850183231928,
           "left": {
+            "prediction": "MEDIUM",
+            "samples": 4,
+            "class_counts": {
+              "LOW": 0,
+              "MEDIUM": 3,
+              "HIGH": 1
+            },
+            "type": "split",
             "feature": "obstacle_color",
             "threshold": 0.33499999999999996,
-            "gain": 0.8112781244591328,
             "gain_ratio": 1.0,
-            "n": 4,
+            "information_gain": 0.8112781244591328,
             "left": {
-              "leaf": "MEDIUM",
-              "n": 3
+              "prediction": "MEDIUM",
+              "samples": 3,
+              "class_counts": {
+                "LOW": 0,
+                "MEDIUM": 3,
+                "HIGH": 0
+              },
+              "type": "leaf"
             },
             "right": {
-              "leaf": "HIGH",
-              "n": 1
+              "prediction": "HIGH",
+              "samples": 1,
+              "class_counts": {
+                "LOW": 0,
+                "MEDIUM": 0,
+                "HIGH": 1
+              },
+              "type": "leaf"
             }
           },
           "right": {
-            "leaf": "MEDIUM",
-            "n": 11
+            "prediction": "MEDIUM",
+            "samples": 11,
+            "class_counts": {
+              "LOW": 0,
+              "MEDIUM": 11,
+              "HIGH": 0
+            },
+            "type": "leaf"
           }
         }
       },
       "right": {
+        "prediction": "LOW",
+        "samples": 5,
+        "class_counts": {
+          "LOW": 4,
+          "MEDIUM": 1,
+          "HIGH": 0
+        },
+        "type": "split",
         "feature": "player_color",
         "threshold": 0.5885,
-        "gain": 0.7219280948873623,
         "gain_ratio": 1.0,
-        "n": 5,
+        "information_gain": 0.7219280948873623,
         "left": {
-          "leaf": "MEDIUM",
-          "n": 1
+          "prediction": "MEDIUM",
+          "samples": 1,
+          "class_counts": {
+            "LOW": 0,
+            "MEDIUM": 1,
+            "HIGH": 0
+          },
+          "type": "leaf"
         },
         "right": {
-          "leaf": "LOW",
-          "n": 4
+          "prediction": "LOW",
+          "samples": 4,
+          "class_counts": {
+            "LOW": 4,
+            "MEDIUM": 0,
+            "HIGH": 0
+          },
+          "type": "leaf"
         }
       }
     }

@@ -10,8 +10,6 @@
       "value": 0.81,
       "threshold": 0.73,
       "branch": "right",
-      "gain_ratio": 0.6549539030051209,
-      "node_training_count": 30,
       "comparison": ">",
       "condition_satisfied": "background_color (0.810000) > 0.730000"
     }
@@ -47,5 +45,5 @@
     "player_contrast": 1.6348,
     "player_brightness": 1.1992
   },
-  "caution": "The trace explains model behavior; it does not establish that the preset is optimal."
+  "caution": "The decision trace explains model behavior. It does not establish that the recommended preset is optimal."
 }

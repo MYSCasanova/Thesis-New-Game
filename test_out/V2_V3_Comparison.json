@@ -4,11 +4,11 @@
     "macro_f1": 0.4975845410628019,
     "balanced_accuracy": 0.4545454545454546
   },
-  "V3_Pearson_Report_ReliefF_C45": {
-    "accuracy": 0.7,
-    "macro_f1": 0.4975845410628019,
-    "balanced_accuracy": 0.4545454545454546
+  "V3_Pearson_Filter_ReliefF_C45": {
+    "accuracy": 0.6666666666666666,
+    "macro_f1": 0.48888888888888893,
+    "balanced_accuracy": 0.43939393939393945
   },
-  "predictions_and_selected_features_identical": true,
-  "interpretation": "Pearson provides correlation diagnostics only; no classification improvement is expected."
+  "predictions_and_selected_features_identical": false,
+  "interpretation": "Pearson redundancy filtering is fitted within training folds. Classification results may or may not differ from V2."
 }

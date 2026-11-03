@@ -174,9 +174,34 @@ public class S15_VisualReceiver : MonoBehaviour
                 settings.color = PlayerPrefs.GetFloat(tag + "_AIPresetV3_Color", DefaultColor);
                 break;
             default: // 0 = Default
-                settings.brightness = DefaultBrightness;
-                settings.contrast = DefaultContrast;
-                settings.color = DefaultColor;
+                switch (tag)
+                {
+                    case "Background":
+                        settings.brightness = 2f;
+                        settings.contrast = 0.8960935f;
+                        settings.color = 0f;
+                        break;
+                    case "Obstacle":
+                        settings.brightness = 1.290718f;
+                        settings.contrast = 0.8276349f;
+                        settings.color = 0f;
+                        break;
+                    case "Platform":
+                        settings.brightness = 0.5678623f;
+                        settings.contrast = 0.8216149f;
+                        settings.color = 0f;
+                        break;
+                    case "Player":
+                        settings.brightness = 0.9364931f;
+                        settings.contrast = 0.9023179f;
+                        settings.color = 0f;
+                        break;
+                    default:
+                        settings.brightness = DefaultBrightness;
+                        settings.contrast = DefaultContrast;
+                        settings.color = DefaultColor;
+                        break;
+                }
                 break;
         }
     }
