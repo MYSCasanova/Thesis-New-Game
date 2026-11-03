@@ -9,9 +9,22 @@ public class LivesUI : MonoBehaviour
 
     public void UpdateHearts(int currentLives)
     {
+        if (hearts == null)
+        {
+            Debug.LogError("LivesUI: Hearts array is missing!");
+            return;
+        }
+
         for (int i = 0; i < hearts.Length; i++)
         {
-            hearts[i].enabled = i < currentLives;
+            if (hearts[i] != null)
+            {
+                hearts[i].enabled = i < currentLives;
+            }
+            else
+            {
+                Debug.LogError("LivesUI: Heart at index " + i + " is missing!");
+            }
         }
     }
     // void Update()

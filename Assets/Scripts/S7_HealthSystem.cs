@@ -45,7 +45,14 @@ public class S7_HealthSystem : MonoBehaviour
     // Ensures Dev Mode checkbox works in both Editor and Build
     private bool IsDevModeActive
     {
-        get { return devMode; }
+        get
+        {
+    #if UNITY_EDITOR
+            return devMode;
+    #else
+            return false;
+    #endif
+        }
     }
 
     public int LoseLife(int damage)
@@ -77,11 +84,26 @@ public class S7_HealthSystem : MonoBehaviour
         
         // Beta Game: Lose lives normally
         currentLives -= damage;
-        livesUI.UpdateHearts(currentLives);
 
+        // Update hearts safely
+        if (livesUI != null)
+        {
+            livesUI.UpdateHearts(currentLives);
+        }
+        else
+        {
+            Debug.LogError("LivesUI reference is missing on Player!");
+        }
+
+        // Play hurt animation
         if (currentLives > 0 && animator != null)
         {
             animator.SetTrigger("Hurt");
+        }
+
+        // Play hurt sound safely
+        if (currentLives > 0 && S16_AudioManager.instance != null)
+        {
             S16_AudioManager.instance.PlaySFX("Hurt");
         }
 

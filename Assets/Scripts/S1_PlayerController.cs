@@ -115,7 +115,17 @@ public class S1_PlayerController : MonoBehaviour
                 Debug.Log($"Error Count: {gameplayData.errorCount}");
             }
 
-            GetComponent<S7_HealthSystem>().LoseLife(1);
+            S7_HealthSystem healthSystem = GetComponent<S7_HealthSystem>();
+
+            if (healthSystem != null)
+            {
+                healthSystem.LoseLife(1);
+            }
+            else
+            {
+                Debug.LogError("Player is missing S7_HealthSystem!");
+                isRespawning = false;
+            }
         }
 
         UpdateAnimation();

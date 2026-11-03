@@ -53,28 +53,52 @@ public class S18_LoadingManager : MonoBehaviour
 
         for (int i = 0; i < sceneNames.Length; i++)
         {
-            LoadSceneMode mode = (i == 0) ? LoadSceneMode.Single : LoadSceneMode.Additive;
-            
+            LoadSceneMode mode = (i == 0)
+                ? LoadSceneMode.Single
+                : LoadSceneMode.Additive;
+
             AsyncOperation op = SceneManager.LoadSceneAsync(sceneNames[i], mode);
-            op.allowSceneActivation = false; 
+            op.allowSceneActivation = false;
 
             while (op.progress < 0.9f)
             {
                 float sceneProgress = op.progress / 0.9f;
                 float overallProgress = (i + sceneProgress) / totalScenes;
-                
-                UpdateProgressBlocks(overallProgress); // Update the array
+
+                UpdateProgressBlocks(overallProgress);
 
                 yield return null;
             }
 
             op.allowSceneActivation = true;
-            
+
             while (!op.isDone)
             {
                 yield return null;
             }
+
+            Debug.Log("Successfully loaded scene: " + sceneNames[i]);
         }
+
+        // Set the LAST loaded scene as the active scene.
+        Scene gameplayScene = SceneManager.GetSceneByName(sceneNames[sceneNames.Length - 1]);
+
+        if (gameplayScene.IsValid() && gameplayScene.isLoaded)
+        {
+            SceneManager.SetActiveScene(gameplayScene);
+
+            Debug.Log("Active Scene Set To: " + SceneManager.GetActiveScene().name);
+        }
+        else
+        {
+            Debug.LogError("Could not set the gameplay scene as active!");
+        }
+
+        UpdateProgressBlocks(1f);
+
+        yield return new WaitForSecondsRealtime(0.4f);
+
+        loadingPanel.SetActive(false);
 
         UpdateProgressBlocks(1f); // Force 100%
 
