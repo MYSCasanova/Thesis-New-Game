@@ -71,9 +71,24 @@ public class S1_PlayerController : MonoBehaviour
         moveInput = Input.GetAxisRaw("Horizontal");
 
         // 1. Check if grounded (Left foot, Right foot, or both)
-        groundLeft = Physics2D.OverlapCircle(leftFoot.position, groundCheckRadius, groundLayer);
-        groundRight = Physics2D.OverlapCircle(rightFoot.position, groundCheckRadius, groundLayer);
+        Collider2D leftHit = Physics2D.OverlapCircle(leftFoot.position, groundCheckRadius, groundLayer);
+        Collider2D rightHit = Physics2D.OverlapCircle(rightFoot.position, groundCheckRadius, groundLayer);
+
+        groundLeft = leftHit != null;
+        groundRight = rightHit != null;
         isGrounded = groundLeft || groundRight;
+
+        // Activate the camera from the ground check, so it works even if we jump before a physical collision registers
+        Collider2D groundHit = leftHit != null ? leftHit : rightHit;
+        if (groundHit != null)
+        {
+            S3_Platform platform = groundHit.GetComponent<S3_Platform>();
+            if (platform != null && platform.floorNumber >= 3)
+            {
+                CameraFollow cam = Camera.main.GetComponent<CameraFollow>();
+                if (cam != null) cam.Activate();
+            }
+        }
 
         // 2. Jump Buffering / Auto Jump Queueing
         if (Input.GetButtonDown("Jump")) {
