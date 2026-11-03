@@ -48,6 +48,15 @@ public class S7_HealthSystem : MonoBehaviour
         if (isGameOver || isTakingDamage || devMode)
             return currentLives;
 
+        // ---> ADD THIS BLOCK START <---
+        // Completely bypass taking damage if the player is currently in the Boost phase
+        S1_PlayerController pc = GetComponent<S1_PlayerController>();
+        if (pc != null && pc.isAutoBouncing && !FellBelowCamera())
+        {
+            return currentLives;
+        }
+        // ---> ADD THIS BLOCK END <---
+
         isTakingDamage = true;
 
         // If the current scene is the tutorial, respawn the player without losing lives
@@ -126,6 +135,12 @@ public class S7_HealthSystem : MonoBehaviour
         }
 
         isTakingDamage = false;
+
+        // Stop the boost and visuals if revived/returned to checkpoint
+        if (comboSystem != null)
+        {
+            comboSystem.CancelBoost();
+        }
     }
 
     private IEnumerator RespawnAfterDelay()
@@ -161,11 +176,18 @@ public class S7_HealthSystem : MonoBehaviour
     
     public void Die()
     {
-        isGameOver = true; // Set the game over flag to true
-
-        // Stop player movement
+        // 1. Get the player controller once at the top
         S1_PlayerController playerController = GetComponent<S1_PlayerController>();
 
+        // 2. Prevent instant-death while boosting, EXCEPT if falling off-screen
+        if (playerController != null && playerController.isAutoBouncing && !FellBelowCamera())
+        {
+            return; 
+        }
+        
+        isGameOver = true; // Set the game over flag to true
+
+        // 3. Stop player movement
         if (playerController != null)
         {
             playerController.enabled = false;
@@ -232,4 +254,14 @@ public class S7_HealthSystem : MonoBehaviour
     {
         return currentLives;
     } 
+
+    private bool FellBelowCamera()
+    {
+        if (Camera.main != null)
+        {
+            float camBottom = Camera.main.transform.position.y - Camera.main.orthographicSize;
+            return transform.position.y < camBottom;
+        }
+        return false;
+    }
 }
