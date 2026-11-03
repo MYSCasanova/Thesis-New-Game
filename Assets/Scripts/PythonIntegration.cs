@@ -17,7 +17,7 @@ public class PythonIntegration : MonoBehaviour
     public int pipelineTimeoutSeconds = 180;
 
     [Header("V3 Output Ranges  (must match your slider ranges in S14_CategoryUI)")]
-    // Pipeline_V3 exports brightness/contrast on 0..2 and color on 0..360 (see run_inference()).
+    // Pipeline_V2 / V3 export brightness/contrast on 0..2 and color on 0..360 (see run_inference()).
     // Unity's color slider is also 0..360, so color passes through unchanged (identity mapping).
     // If you ever change the color slider range, edit colorMin/colorMax and the value is rescaled.
     public float brightnessMin = 0f;
@@ -29,19 +29,10 @@ public class PythonIntegration : MonoBehaviour
     public float v3ColorSourceMax = 360f;
 
     // ---------------------------------------------------------------------
-    // JSON models
+    // JSON models (shared by V2 and V3)
     // ---------------------------------------------------------------------
 
-    // Legacy V2 payload (unchanged)
-    [Serializable]
-    public class AIPrediction
-    {
-        public float background_brightness;
-        public float obstacle_contrast;
-        public float player_color;
-    }
-
-    // V3 payload: { "predicted_accessibility_level": "...", "recommended_settings": { 12 values } }
+    // V2 and V3 payload (identical format): { "predicted_accessibility_level": "...", "recommended_settings": { 12 values } }
     [Serializable]
     public class V3Settings
     {
@@ -100,12 +91,20 @@ public class PythonIntegration : MonoBehaviour
         }
         else
         {
-            // 2. Pipeline V2 (positional args, as before). Runs on a worker thread so Unity doesn't freeze.
+            // 2. Pipeline V2 = same code as V3 with Pearson OFF (default in Pipeline_V2.py).
+            //    Uses the same argparse flags as V3 and its own output folder so results never mix.
             string exeV2 = Path.Combine(Application.streamingAssetsPath, pipelineV2Exe);
-            string argsV2 = $"\"{baselinePath}\" \"{playerPath}\"";
-            Task<ProcessResult> taskV2 = Task.Run(() => RunProcess(exeV2, argsV2, null, pipelineTimeoutSeconds));
+            string outDirV2 = Path.Combine(Application.persistentDataPath, "PipelineV2_Outputs");
+            Directory.CreateDirectory(outDirV2);
+
+            string aiResultPathV2 = Path.Combine(outDirV2, "AI_RESULT.json");
+            if (File.Exists(aiResultPathV2)) File.Delete(aiResultPathV2);
+
+            string argsV2 = $"--mode all --baseline \"{baselinePath}\" --player \"{playerPath}\" " +
+                            $"--output-dir \"{outDirV2}\" --cv-folds 5";
+            Task<ProcessResult> taskV2 = Task.Run(() => RunProcess(exeV2, argsV2, outDirV2, pipelineTimeoutSeconds));
             while (!taskV2.IsCompleted) yield return null;
-            v2Ok = HandleResult(taskV2.Result, 2, null);
+            v2Ok = HandleResult(taskV2.Result, 2, aiResultPathV2);
 
             // 3. Pipeline V3 (argparse flags are REQUIRED; positional args are rejected).
             //    Outputs go to a writable folder, not the process's current directory.
@@ -168,9 +167,7 @@ public class PythonIntegration : MonoBehaviour
         }
         if (r.exitCode != 0) return false;
 
-        return version == 3
-            ? ParseAndApplyV3(r.stdout, aiResultFilePath)
-            : ParseAndApplyLegacy(r.stdout, version);
+        return ParseAndApply(r.stdout, aiResultFilePath, version);
     }
 
     // ---------------------------------------------------------------------
@@ -242,7 +239,7 @@ public class PythonIntegration : MonoBehaviour
     // ---------------------------------------------------------------------
     // V3 parsing: AI_RESULT.json file first, multi-line stdout block as fallback
     // ---------------------------------------------------------------------
-    private bool ParseAndApplyV3(string stdout, string aiResultFilePath)
+    private bool ParseAndApply(string stdout, string aiResultFilePath, int version)
     {
         try
         {
@@ -258,36 +255,39 @@ public class PythonIntegration : MonoBehaviour
 
             if (string.IsNullOrEmpty(json))
             {
-                Debug.LogError("Pipeline V3 finished but no AI_RESULT.json / AI_RESULT block was found.");
+                Debug.LogError($"Pipeline V{version} finished but no AI_RESULT.json / AI_RESULT block was found.");
                 return false;
             }
 
             AIResultV3 result = JsonUtility.FromJson<AIResultV3>(json);
             if (result == null || result.recommended_settings == null)
             {
-                Debug.LogError("Pipeline V3 result is missing 'recommended_settings'.");
+                Debug.LogError($"Pipeline V{version} result is missing 'recommended_settings'.");
                 return false;
             }
 
             V3Settings s = result.recommended_settings;
 
-            // Saved under the exact keys S13_ManualSettingsUI reads: {Tag}_AIPresetV3_{Brightness|Contrast|Color}
-            SaveV3("Background", s.background_brightness, s.background_contrast, s.background_color);
-            SaveV3("Obstacle", s.obstacle_brightness, s.obstacle_contrast, s.obstacle_color);
-            SaveV3("Platform", s.platform_brightness, s.platform_contrast, s.platform_color);
-            SaveV3("Player", s.player_brightness, s.player_contrast, s.player_color);
+            // Keys: {Tag}_AIPresetV{version}_{Brightness|Contrast|Color}
+            // For V2 this still includes the three legacy keys (Background brightness,
+            // Obstacle contrast, Player color) plus the other nine settings.
+            string suffix = "V" + version;
+            SaveSettings("Background", suffix, s.background_brightness, s.background_contrast, s.background_color);
+            SaveSettings("Obstacle", suffix, s.obstacle_brightness, s.obstacle_contrast, s.obstacle_color);
+            SaveSettings("Platform", suffix, s.platform_brightness, s.platform_contrast, s.platform_color);
+            SaveSettings("Player", suffix, s.player_brightness, s.player_contrast, s.player_color);
 
-            Debug.Log($"AI Preset V.A. #3 Saved! Predicted level: {result.predicted_accessibility_level}");
+            Debug.Log($"AI Preset V.A. #{version} Saved! Predicted level: {result.predicted_accessibility_level}");
             return true;
         }
         catch (Exception e)
         {
-            Debug.LogError("Error parsing AI results for V3: " + e.Message);
+            Debug.LogError($"Error parsing AI results for V{version}: " + e.Message);
             return false;
         }
     }
 
-    private void SaveV3(string tag, float brightness, float contrast, float colorDegrees)
+    private void SaveSettings(string tag, string suffix, float brightness, float contrast, float colorDegrees)
     {
         float b = Mathf.Clamp(brightness, brightnessMin, brightnessMax);
         float c = Mathf.Clamp(contrast, contrastMin, contrastMax);
@@ -296,9 +296,9 @@ public class PythonIntegration : MonoBehaviour
         float colorNormalized = Mathf.Clamp01(colorDegrees / Mathf.Max(0.0001f, v3ColorSourceMax));
         float col = Mathf.Lerp(colorMin, colorMax, colorNormalized);
 
-        PlayerPrefs.SetFloat($"{tag}_AIPresetV3_Brightness", b);
-        PlayerPrefs.SetFloat($"{tag}_AIPresetV3_Contrast", c);
-        PlayerPrefs.SetFloat($"{tag}_AIPresetV3_Color", col);
+        PlayerPrefs.SetFloat($"{tag}_AIPreset{suffix}_Brightness", b);
+        PlayerPrefs.SetFloat($"{tag}_AIPreset{suffix}_Contrast", c);
+        PlayerPrefs.SetFloat($"{tag}_AIPreset{suffix}_Color", col);
     }
 
     private static string ExtractJsonBlock(string text, string marker)
@@ -320,50 +320,5 @@ public class PythonIntegration : MonoBehaviour
             }
         }
         return null;
-    }
-
-    // ---------------------------------------------------------------------
-    // Legacy V2 parsing (behavior unchanged)
-    // ---------------------------------------------------------------------
-    private bool ParseAndApplyLegacy(string pythonOutput, int version)
-    {
-        try
-        {
-            string jsonString = "";
-            string[] lines = pythonOutput.Split('\n');
-            string targetPrefix = $"AI_RESULT_V{version}:";
-            string fallbackPrefix = "AI_RESULT:";
-
-            foreach (string line in lines)
-            {
-                if (line.TrimStart().StartsWith(targetPrefix))
-                {
-                    jsonString = line.Substring(line.IndexOf(targetPrefix) + targetPrefix.Length).Trim();
-                    break;
-                }
-                else if (line.TrimStart().StartsWith(fallbackPrefix))
-                {
-                    jsonString = line.Substring(line.IndexOf(fallbackPrefix) + fallbackPrefix.Length).Trim();
-                    break;
-                }
-            }
-
-            if (string.IsNullOrEmpty(jsonString)) return false;
-
-            AIPrediction prediction = JsonUtility.FromJson<AIPrediction>(jsonString);
-            string suffix = (version == 2) ? "V2" : "V3";
-
-            PlayerPrefs.SetFloat($"Background_AIPreset{suffix}_Brightness", prediction.background_brightness);
-            PlayerPrefs.SetFloat($"Obstacle_AIPreset{suffix}_Contrast", prediction.obstacle_contrast);
-            PlayerPrefs.SetFloat($"Player_AIPreset{suffix}_Color", prediction.player_color);
-
-            Debug.Log($"AI Preset V.A. #{version} Saved!");
-            return true;
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"Error parsing AI results for V{version}: " + e.Message);
-            return false;
-        }
     }
 }

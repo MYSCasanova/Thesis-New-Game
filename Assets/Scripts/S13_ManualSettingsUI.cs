@@ -134,9 +134,9 @@ public class S13_ManualSettingsUI : MonoBehaviour
                 LoadSettingsForMode(actualMode, tagToFind, currentSettings);
                 
                 // Visually update the sliders to reflect the newly loaded mode's values
-                uiElements.brightnessSlider.value = currentSettings.brightness;
-                uiElements.contrastSlider.value = currentSettings.contrast;
-                uiElements.colorSlider.value = currentSettings.color;
+                uiElements.brightnessSlider.SetValueWithoutNotify(currentSettings.brightness);
+                uiElements.contrastSlider.SetValueWithoutNotify(currentSettings.contrast);
+                uiElements.colorSlider.SetValueWithoutNotify(currentSettings.color);
 
                 UpdateVisuals(tagToFind, uiElements, currentSettings);
                 
@@ -158,9 +158,34 @@ public class S13_ManualSettingsUI : MonoBehaviour
     {
         if (mode == 0) // Default
         {
-            currentSettings.brightness = defaultBrightness;
-            currentSettings.contrast = defaultContrast;
-            currentSettings.color = defaultColor;
+            switch (tagToFind)
+            {
+                case "Background":
+                    currentSettings.brightness = 2f;
+                    currentSettings.contrast = 0.8960935f;
+                    currentSettings.color = 0f;
+                    break;
+                case "Obstacle":
+                    currentSettings.brightness = 1.290718f;
+                    currentSettings.contrast = 0.8276349f;
+                    currentSettings.color = 0f;
+                    break;
+                case "Platform":
+                    currentSettings.brightness = 0.5678623f;
+                    currentSettings.contrast = 0.8216149f;
+                    currentSettings.color = 0f;
+                    break;
+                case "Player":
+                    currentSettings.brightness = 0.9364931f;
+                    currentSettings.contrast = 0.9023179f;
+                    currentSettings.color = 0f;
+                    break;
+                default:
+                    currentSettings.brightness = defaultBrightness;
+                    currentSettings.contrast = defaultContrast;
+                    currentSettings.color = defaultColor;
+                    break;
+            }
         }
         else if (mode == 1) // Custom
         {
