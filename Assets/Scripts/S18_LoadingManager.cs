@@ -86,6 +86,21 @@ public class S18_LoadingManager : MonoBehaviour
             {
                 yield return null;
             }
+
+            Debug.Log("Successfully loaded scene: " + sceneNames[i]);
+        }
+
+        // ---> MERGED FROM BETA: Set the LAST loaded scene as the active scene.
+        Scene gameplayScene = SceneManager.GetSceneByName(sceneNames[sceneNames.Length - 1]);
+
+        if (gameplayScene.IsValid() && gameplayScene.isLoaded)
+        {
+            SceneManager.SetActiveScene(gameplayScene);
+            Debug.Log("Active Scene Set To: " + SceneManager.GetActiveScene().name);
+        }
+        else
+        {
+            Debug.LogError("Could not set the gameplay scene as active!");
         }
 
         UpdateProgressBlocks(1f); // Force 100%
@@ -127,6 +142,21 @@ public class S18_LoadingManager : MonoBehaviour
             {
                 yield return null;
             }
+
+            Debug.Log("Successfully loaded scene: " + sceneNames[i]);
+        }
+
+        // ---> MERGED FROM BETA: Set the LAST loaded scene as the active scene.
+        Scene gameplayScene = SceneManager.GetSceneByName(sceneNames[sceneNames.Length - 1]);
+
+        if (gameplayScene.IsValid() && gameplayScene.isLoaded)
+        {
+            SceneManager.SetActiveScene(gameplayScene);
+            Debug.Log("Active Scene Set To: " + SceneManager.GetActiveScene().name);
+        }
+        else
+        {
+            Debug.LogError("Could not set the gameplay scene as active!");
         }
 
         UpdateProgressBlocks(1f); // Force 100%

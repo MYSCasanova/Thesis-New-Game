@@ -42,10 +42,23 @@ public class S7_HealthSystem : MonoBehaviour
         }
     }
 
+    // Ensures Dev Mode checkbox works in both Editor and Build
+    private bool IsDevModeActive
+    {
+        get
+        {
+    #if UNITY_EDITOR
+            return devMode;
+    #else
+            return false;
+    #endif
+        }
+    }
+
     public int LoseLife(int damage)
     {
 
-        if (isGameOver || isTakingDamage || devMode)
+        if (isGameOver || isTakingDamage || IsDevModeActive)
             return currentLives;
 
         // ---> ADD THIS BLOCK START <---
@@ -59,8 +72,8 @@ public class S7_HealthSystem : MonoBehaviour
 
         isTakingDamage = true;
 
-        // If the current scene is the tutorial, respawn the player without losing lives
-        bool isTutorial = SceneManager.GetSceneByName("GYM_TutorialLevel").isLoaded;
+        // Check if the ACTIVE scene is the tutorial, rather than just loaded in memory
+        bool isTutorial = SceneManager.GetActiveScene().name == "GYM_TutorialLevel";
         Debug.Log("Is Tutorial: " + isTutorial);      
 
         if (isTutorial)
@@ -71,11 +84,26 @@ public class S7_HealthSystem : MonoBehaviour
         
         // Beta Game: Lose lives normally
         currentLives -= damage;
-        livesUI.UpdateHearts(currentLives);
 
+        // Update hearts safely
+        if (livesUI != null)
+        {
+            livesUI.UpdateHearts(currentLives);
+        }
+        else
+        {
+            Debug.LogError("LivesUI reference is missing on Player!");
+        }
+
+        // Play hurt animation
         if (currentLives > 0 && animator != null)
         {
             animator.SetTrigger("Hurt");
+        }
+
+        // Play hurt sound safely
+        if (currentLives > 0 && S16_AudioManager.instance != null)
+        {
             S16_AudioManager.instance.PlaySFX("Hurt");
         }
 
@@ -101,6 +129,7 @@ public class S7_HealthSystem : MonoBehaviour
             return;
         }
 
+        // 1. Get the CURRENT active checkpoint (fixes the issue of not progressing)
         Vector3 checkpointPosition = S6_Checkpoint.Instance.GetCheckpointPosition();
         transform.position = checkpointPosition;
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
@@ -120,6 +149,27 @@ public class S7_HealthSystem : MonoBehaviour
             if (cameraFollow != null)
             {
                 Vector3 cameraCheckpoint = S6_Checkpoint.Instance.GetCameraCheckpoint();
+                Vector3 initialPlayerPos = S6_Checkpoint.Instance.GetInitialPlayerCheckpoint();
+                
+                // 2. Are we at the Level 1 Start?
+                if (Vector3.Distance(checkpointPosition, initialPlayerPos) < 0.1f)
+                {
+                    // Use the exact initial camera framing so we don't see the blue void
+                    cameraCheckpoint = S6_Checkpoint.Instance.GetInitialCameraCheckpoint();
+                }
+                else
+                {
+                    // 3. We are at a NEW checkpoint. Apply a tiny safety net to prevent instant-death loops.
+                    float orthoSize = Camera.main.orthographicSize;
+                    float cameraBottom = cameraCheckpoint.y - orthoSize;
+                    
+                    // If the saved camera is so high that the player spawns off-screen, pull it down
+                    if (checkpointPosition.y < cameraBottom + 0.1f)
+                    {
+                        cameraCheckpoint.y = checkpointPosition.y + orthoSize - 0.1f;
+                    }
+                }
+                
                 cameraFollow.enabled = true;
                 cameraFollow.ResetCamera(cameraCheckpoint);
             }
