@@ -9,10 +9,7 @@ public class S6_Checkpoint : MonoBehaviour
 
     private static Vector3 initialPlayerCheckpoint;
     private static Vector3 initialCameraCheckpoint;
-
-    [Header("Camera Safety")]
-    [Tooltip("Ensures the player is at least this many units above the bottom of the screen when respawning at a checkpoint.")]
-    public float bottomBuffer = 2.5f;
+    [SerializeField] private float cameraPlayerOffset = 6.5f; 
 
     void Awake()
     {
@@ -21,43 +18,42 @@ public class S6_Checkpoint : MonoBehaviour
 
     void Start()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
 
-        if (player != null)
-        {
-            initialPlayerCheckpoint = player.transform.position;
-            checkpointPosition = initialPlayerCheckpoint;
-        }
+            if (player != null)
+            {
+                initialPlayerCheckpoint = player.transform.position;
+                checkpointPosition = initialPlayerCheckpoint;
+            }
 
-        if (Camera.main != null)
-        {
-            initialCameraCheckpoint = Camera.main.transform.position;
-            cameraCheckpoint = initialCameraCheckpoint;
-        }
+            if (Camera.main != null)
+            {
+                initialCameraCheckpoint = Camera.main.transform.position;
+                cameraCheckpoint = initialCameraCheckpoint;
+            }
     }
 
     public void SetCheckpoint(Vector3 newPosition)
+{
+    checkpointPosition = newPosition;
+
+    if (Camera.main != null)
     {
-        checkpointPosition = newPosition;
-
-        if (Camera.main != null)
+        // Use the original camera position for the starting checkpoint.
+        if (newPosition == initialPlayerCheckpoint)
         {
-            Camera cam = Camera.main;
-            Vector3 currentCamPos = cam.transform.position;
-            float orthoSize = cam.orthographicSize;
-
-            float cameraBottom = currentCamPos.y - orthoSize;
-
-            // If the camera had autonomously scrolled too high when the player touched the checkpoint,
-            // adjust the saved camera position down to guarantee a safe bottom buffer upon respawn.
-            if (newPosition.y < cameraBottom + bottomBuffer)
-            {
-                currentCamPos.y = newPosition.y + orthoSize - bottomBuffer;
-            }
-
-            cameraCheckpoint = currentCamPos;
+            cameraCheckpoint = initialCameraCheckpoint;
+        }
+        else
+        {
+            cameraCheckpoint = new Vector3(
+                Camera.main.transform.position.x,
+                newPosition.y + cameraPlayerOffset,
+                Camera.main.transform.position.z
+            );
         }
     }
+}
 
     public Vector3 GetCheckpointPosition()
     {
