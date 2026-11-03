@@ -68,6 +68,12 @@ public class S16_AudioManager : MonoBehaviour
         {
             _instance = this;
             DontDestroyOnLoad(gameObject);
+
+            if (bgmSource == null)
+            {
+                Debug.LogError("AudioManager: BGM Source is missing!");
+                return;
+            }
             
             // --- NEW LOGIC: Generate a clone AudioSource for crossfading ---
             bgmSource2 = gameObject.AddComponent<AudioSource>();
@@ -208,14 +214,21 @@ public class S16_AudioManager : MonoBehaviour
 
     public void PlaySFX(string name)
     {
+        if (sfxSounds == null || sfxSource == null)
+        {
+            Debug.LogError("AudioManager: SFX configuration is missing!");
+            return;
+        }
+
         Sound s = System.Array.Find(sfxSounds, x => x.name == name);
-        if (s != null)
+
+        if (s != null && s.clip != null)
         {
             sfxSource.PlayOneShot(s.clip);
         }
         else
         {
-            Debug.LogWarning("SFX not found: " + name);
+            Debug.LogWarning("SFX not found or clip missing: " + name);
         }
     }
 }

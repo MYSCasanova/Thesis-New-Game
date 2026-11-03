@@ -1,0 +1,288 @@
+{
+  "baseline_records": 30,
+  "exact_duplicate_rows": 0,
+  "thresholds": {
+    "completion_q1": 125.5,
+    "completion_q3": 162.25,
+    "errors_q1": 5.0,
+    "errors_q3": 8.0
+  },
+  "class_distribution": {
+    "MEDIUM": 21,
+    "LOW": 5,
+    "HIGH": 4
+  },
+  "selected_features": [
+    "background_color"
+  ],
+  "tree": {
+    "prediction": "MEDIUM",
+    "samples": 30,
+    "class_counts": {
+      "LOW": 5,
+      "MEDIUM": 21,
+      "HIGH": 4
+    },
+    "type": "split",
+    "feature": "background_color",
+    "threshold": 0.73,
+    "gain_ratio": 0.6549539030051209,
+    "information_gain": 0.3071704945135032,
+    "left": {
+      "prediction": "MEDIUM",
+      "samples": 27,
+      "class_counts": {
+        "LOW": 2,
+        "MEDIUM": 21,
+        "HIGH": 4
+      },
+      "type": "split",
+      "feature": "background_color",
+      "threshold": 0.21000000000000002,
+      "gain_ratio": 0.32931218139647583,
+      "information_gain": 0.30240600427978015,
+      "left": {
+        "prediction": "MEDIUM",
+        "samples": 9,
+        "class_counts": {
+          "LOW": 0,
+          "MEDIUM": 5,
+          "HIGH": 4
+        },
+        "type": "split",
+        "feature": "background_color",
+        "threshold": 0.19,
+        "gain_ratio": 0.2835328689073522,
+        "information_gain": 0.14269027946047552,
+        "left": {
+          "prediction": "MEDIUM",
+          "samples": 8,
+          "class_counts": {
+            "LOW": 0,
+            "MEDIUM": 5,
+            "HIGH": 3
+          },
+          "type": "split",
+          "feature": "background_color",
+          "threshold": 0.14,
+          "gain_ratio": 0.16991432212036853,
+          "information_gain": 0.09235938389499498,
+          "left": {
+            "prediction": "MEDIUM",
+            "samples": 1,
+            "class_counts": {
+              "LOW": 0,
+              "MEDIUM": 1,
+              "HIGH": 0
+            },
+            "type": "leaf"
+          },
+          "right": {
+            "prediction": "MEDIUM",
+            "samples": 7,
+            "class_counts": {
+              "LOW": 0,
+              "MEDIUM": 4,
+              "HIGH": 3
+            },
+            "type": "split",
+            "feature": "background_color",
+            "threshold": 0.16999999999999998,
+            "gain_ratio": 0.21647992526932214,
+            "information_gain": 0.12808527889139443,
+            "left": {
+              "prediction": "MEDIUM",
+              "samples": 6,
+              "class_counts": {
+                "LOW": 0,
+                "MEDIUM": 3,
+                "HIGH": 3
+              },
+              "type": "split",
+              "feature": "background_color",
+              "threshold": 0.155,
+              "gain_ratio": 0.2936429548646674,
+              "information_gain": 0.19087450462110944,
+              "left": {
+                "prediction": "MEDIUM",
+                "samples": 5,
+                "class_counts": {
+                  "LOW": 0,
+                  "MEDIUM": 3,
+                  "HIGH": 2
+                },
+                "type": "leaf"
+              },
+              "right": {
+                "prediction": "HIGH",
+                "samples": 1,
+                "class_counts": {
+                  "LOW": 0,
+                  "MEDIUM": 0,
+                  "HIGH": 1
+                },
+                "type": "leaf"
+              }
+            },
+            "right": {
+              "prediction": "MEDIUM",
+              "samples": 1,
+              "class_counts": {
+                "LOW": 0,
+                "MEDIUM": 1,
+                "HIGH": 0
+              },
+              "type": "leaf"
+            }
+          }
+        },
+        "right": {
+          "prediction": "HIGH",
+          "samples": 1,
+          "class_counts": {
+            "LOW": 0,
+            "MEDIUM": 0,
+            "HIGH": 1
+          },
+          "type": "leaf"
+        }
+      },
+      "right": {
+        "prediction": "MEDIUM",
+        "samples": 18,
+        "class_counts": {
+          "LOW": 2,
+          "MEDIUM": 16,
+          "HIGH": 0
+        },
+        "type": "split",
+        "feature": "background_color",
+        "threshold": 0.47,
+        "gain_ratio": 0.17384506536865896,
+        "information_gain": 0.16760033588862255,
+        "left": {
+          "prediction": "MEDIUM",
+          "samples": 11,
+          "class_counts": {
+            "LOW": 0,
+            "MEDIUM": 11,
+            "HIGH": 0
+          },
+          "type": "leaf"
+        },
+        "right": {
+          "prediction": "MEDIUM",
+          "samples": 7,
+          "class_counts": {
+            "LOW": 2,
+            "MEDIUM": 5,
+            "HIGH": 0
+          },
+          "type": "split",
+          "feature": "background_color",
+          "threshold": 0.5449999999999999,
+          "gain_ratio": 1.0,
+          "information_gain": 0.863120568566631,
+          "left": {
+            "prediction": "LOW",
+            "samples": 2,
+            "class_counts": {
+              "LOW": 2,
+              "MEDIUM": 0,
+              "HIGH": 0
+            },
+            "type": "leaf"
+          },
+          "right": {
+            "prediction": "MEDIUM",
+            "samples": 5,
+            "class_counts": {
+              "LOW": 0,
+              "MEDIUM": 5,
+              "HIGH": 0
+            },
+            "type": "leaf"
+          }
+        }
+      }
+    },
+    "right": {
+      "prediction": "LOW",
+      "samples": 3,
+      "class_counts": {
+        "LOW": 3,
+        "MEDIUM": 0,
+        "HIGH": 0
+      },
+      "type": "leaf"
+    }
+  },
+  "training_only_tuning": {
+    "max_depth": null,
+    "min_leaf": 1,
+    "status": "unpruned_fixed_method",
+    "candidates": [],
+    "note": "No pre-pruning depth or minimum-leaf tuning."
+  },
+  "cross_validation": {
+    "folds": 4,
+    "accuracy": 0.7,
+    "confusion_matrix": {
+      "LOW": {
+        "LOW": 2,
+        "MEDIUM": 0,
+        "HIGH": 0
+      },
+      "MEDIUM": {
+        "LOW": 1,
+        "MEDIUM": 19,
+        "HIGH": 4
+      },
+      "HIGH": {
+        "LOW": 1,
+        "MEDIUM": 3,
+        "HIGH": 0
+      }
+    },
+    "per_class": {
+      "LOW": {
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1": 0.6666666666666666,
+        "support": 4
+      },
+      "MEDIUM": {
+        "precision": 0.7916666666666666,
+        "recall": 0.8636363636363636,
+        "f1": 0.8260869565217391,
+        "support": 22
+      },
+      "HIGH": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 4
+      }
+    },
+    "macro_f1": 0.4975845410628019,
+    "balanced_accuracy": 0.4545454545454546,
+    "selection_frequency": {
+      "background_color": 4,
+      "background_contrast": 3,
+      "background_brightness": 3,
+      "obstacle_color": 3,
+      "obstacle_contrast": 3,
+      "obstacle_brightness": 3,
+      "platform_color": 3,
+      "platform_contrast": 3,
+      "platform_brightness": 3,
+      "player_color": 4,
+      "player_contrast": 3,
+      "player_brightness": 0
+    },
+    "note": null,
+    "evaluation_type": "outer_stratified_cross_validation_with_training_fold_thresholds"
+  },
+  "labeling_note": "Each validation fold uses quartile thresholds calculated from its training partition only. Consequently, validation class labels may differ between folds.",
+  "warning": "Verify dataset provenance. Synthetic demonstration data must not be reported as participant results."
+}

@@ -1,0 +1,4 @@
+background_color,background_contrast,background_brightness,obstacle_color,obstacle_contrast,obstacle_brightness,platform_color,platform_contrast,platform_brightness,player_color,player_contrast,player_brightness,completion_time,error_count
+1,1,0.93,1,0.91,1,1,1,1,202.81,1,1,333,41
+1.00,1.00,0.93,1.00,0.91,1.00,1.00,1.00,1.00,202.81,1.00,1.00,103.82,9
+245.52,1.36,1.38,234.00,1.32,1.31,222.48,1.26,1.25,302.47,1.63,1.20,105.50,11
