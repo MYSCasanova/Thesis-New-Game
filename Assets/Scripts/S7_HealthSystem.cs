@@ -48,6 +48,15 @@ public class S7_HealthSystem : MonoBehaviour
         if (isGameOver || isTakingDamage || devMode)
             return currentLives;
 
+        // ---> ADD THIS BLOCK START <---
+        // Completely bypass taking damage if the player is currently in the Boost phase
+        S1_PlayerController pc = GetComponent<S1_PlayerController>();
+        if (pc != null && pc.isAutoBouncing && !FellBelowCamera())
+        {
+            return currentLives;
+        }
+        // ---> ADD THIS BLOCK END <---
+
         isTakingDamage = true;
 
         // If the current scene is the tutorial, respawn the player without losing lives
@@ -126,6 +135,12 @@ public class S7_HealthSystem : MonoBehaviour
         }
 
         isTakingDamage = false;
+
+        // Stop the boost and visuals if revived/returned to checkpoint
+        if (comboSystem != null)
+        {
+            comboSystem.CancelBoost();
+        }
     }
 
     private IEnumerator RespawnAfterDelay()
@@ -148,19 +163,31 @@ public class S7_HealthSystem : MonoBehaviour
 
     public void SetGameOverPanel(string sceneName, GameObject panel)
     {
-        if (sceneName == "GYM_BetaGame")
+        switch (sceneName)
         {
-            betaGameOverPanel = panel;
+            case "GYM_BetaGame":
+            case "GYM_V2Game":
+            case "GYM_V3Game":
+            
+                betaGameOverPanel = panel;
+                break;
         }
     }
     
     public void Die()
     {
-        isGameOver = true; // Set the game over flag to true
-
-        // Stop player movement
+        // 1. Get the player controller once at the top
         S1_PlayerController playerController = GetComponent<S1_PlayerController>();
 
+        // 2. Prevent instant-death while boosting, EXCEPT if falling off-screen
+        if (playerController != null && playerController.isAutoBouncing && !FellBelowCamera())
+        {
+            return; 
+        }
+        
+        isGameOver = true; // Set the game over flag to true
+
+        // 3. Stop player movement
         if (playerController != null)
         {
             playerController.enabled = false;
@@ -173,47 +200,53 @@ public class S7_HealthSystem : MonoBehaviour
             rb.linearVelocity = Vector2.zero;
         }
 
-        Scene betaScene = SceneManager.GetSceneByName("GYM_BetaGame");
+        Scene activeScene = SceneManager.GetActiveScene();
 
-        // If the Beta Game is loaded, show its Game Over panel.
-        if (betaScene.isLoaded)
+        // If the Game is loaded, show its Game Over panel.
+        switch (activeScene.name)
         {
-            // Disable the CameraFollow script to stop camera movement when the panel appears
-            if (Camera.main != null)
-            {
-                CameraFollow cameraFollow = Camera.main.GetComponent<CameraFollow>();
-                if (cameraFollow != null)
-                {
-                    cameraFollow.enabled = false;
-                }
-            }
+            case "GYM_BetaGame":
+            case "GYM_V2Game":
+            case "GYM_V3Game":
 
-            // Show the Beta Game Over panel and display the final score
-            if (betaGameOverPanel != null)
-            {
-                betaGameOverPanel.SetActive(true);
-
-                // --- NEW BGM LOGIC ---
-                // Trigger the Game Over BGM right as the panel appears
-                if (S16_AudioManager.instance != null)
+                // Disable the CameraFollow script to stop camera movement when the panel appears
+                if (Camera.main != null)
                 {
-                    S16_AudioManager.instance.PlayBGM("Game Over");
-                    S16_AudioManager.instance.PlaySFX("Death");
+                    CameraFollow cameraFollow = Camera.main.GetComponent<CameraFollow>();
+                    if (cameraFollow != null)
+                    {
+                        cameraFollow.enabled = false;
+                    }
                 }
 
-                if(comboSystem != null && scoreText != null)
+                // Show the Beta Game Over panel and display the final score
+                if (betaGameOverPanel != null)
                 {
-                    scoreText.text = comboSystem.totalScore.ToString();
+                    betaGameOverPanel.SetActive(true);
+
+                    // --- NEW BGM LOGIC ---
+                    // Trigger the Game Over BGM right as the panel appears
+                    if (S16_AudioManager.instance != null)
+                    {
+                        S16_AudioManager.instance.PlayBGM("Game Over");
+                        S16_AudioManager.instance.PlaySFX("Death");
+                    }
+
+                    if(comboSystem != null && scoreText != null)
+                    {
+                        scoreText.text = comboSystem.totalScore.ToString();
+                    }
+                    else
+                    {
+                        Debug.LogError("ComboSystem or ScoreText is not assigned!");
+                    }
                 }
                 else
                 {
-                    Debug.LogError("ComboSystem or ScoreText is not assigned!");
+                    Debug.LogError("Beta Game Over panel has not been registered!");
                 }
-            }
-            else
-            {
-                Debug.LogError("Beta Game Over panel has not been registered!");
-            }
+
+                break;
         }
     }
 
@@ -221,4 +254,14 @@ public class S7_HealthSystem : MonoBehaviour
     {
         return currentLives;
     } 
+
+    private bool FellBelowCamera()
+    {
+        if (Camera.main != null)
+        {
+            float camBottom = Camera.main.transform.position.y - Camera.main.orthographicSize;
+            return transform.position.y < camBottom;
+        }
+        return false;
+    }
 }

@@ -77,13 +77,11 @@ public class S13_ManualSettingsUI : MonoBehaviour
             // Load initial values based on mode
             if (!isCustom)
             {
-                currentSettings.brightness = defaultBrightness;
-                currentSettings.contrast = defaultContrast;
-                currentSettings.color = defaultColor;
+                GetSpecificDefaults(tagToFind, out currentSettings.brightness, out currentSettings.contrast, out currentSettings.color);
             }
             else
             {
-                // FIX: Load saved custom visual values from PlayerPrefs
+                // Load saved custom visual values from PlayerPrefs
                 currentSettings.brightness = PlayerPrefs.GetFloat(tagToFind + "_Brightness", defaultBrightness);
                 currentSettings.contrast = PlayerPrefs.GetFloat(tagToFind + "_Contrast", defaultContrast);
                 currentSettings.color = PlayerPrefs.GetFloat(tagToFind + "_Color", defaultColor);
@@ -101,16 +99,17 @@ public class S13_ManualSettingsUI : MonoBehaviour
 
                 if (!customSelected) 
                 {
-                    uiElements.brightnessSlider.value = defaultBrightness;
-                    uiElements.contrastSlider.value = defaultContrast;
-                    uiElements.colorSlider.value = defaultColor;
+                    GetSpecificDefaults(tagToFind, out float defB, out float defC, out float defCol);
+                    uiElements.brightnessSlider.SetValueWithoutNotify(defB);
+                    uiElements.contrastSlider.SetValueWithoutNotify(defC);
+                    uiElements.colorSlider.SetValueWithoutNotify(defCol);
                 }
                 else
                 {
-                    // FIX: Restore saved custom values when switching back to Custom
-                    uiElements.brightnessSlider.value = PlayerPrefs.GetFloat(tagToFind + "_Brightness", defaultBrightness);
-                    uiElements.contrastSlider.value = PlayerPrefs.GetFloat(tagToFind + "_Contrast", defaultContrast);
-                    uiElements.colorSlider.value = PlayerPrefs.GetFloat(tagToFind + "_Color", defaultColor);
+                    // Restore saved custom values using SetValueWithoutNotify to prevent UI loops
+                    uiElements.brightnessSlider.SetValueWithoutNotify(PlayerPrefs.GetFloat(tagToFind + "_Brightness", defaultBrightness));
+                    uiElements.contrastSlider.SetValueWithoutNotify(PlayerPrefs.GetFloat(tagToFind + "_Contrast", defaultContrast));
+                    uiElements.colorSlider.SetValueWithoutNotify(PlayerPrefs.GetFloat(tagToFind + "_Color", defaultColor));
                 }
                 
                 // Apply defaults or loaded values immediately
@@ -120,29 +119,54 @@ public class S13_ManualSettingsUI : MonoBehaviour
             });
         }
 
-        // 4. Load the saved values into the sliders
-        uiElements.brightnessSlider.value = currentSettings.brightness;
-        uiElements.contrastSlider.value = currentSettings.contrast;
-        uiElements.colorSlider.value = currentSettings.color;
+        // 4. Load the saved values into the sliders without triggering the listener yet
+        uiElements.brightnessSlider.SetValueWithoutNotify(currentSettings.brightness);
+        uiElements.contrastSlider.SetValueWithoutNotify(currentSettings.contrast);
+        uiElements.colorSlider.SetValueWithoutNotify(currentSettings.color);
 
-        // 5. Add listeners to update settings when sliders are moved
-        // FIX: Pass the tagToFind parameter so it knows what PlayerPrefs key to save to
+        // 5. Add listeners to update settings when sliders are manually moved
         uiElements.brightnessSlider.onValueChanged.AddListener(val => UpdateVisuals(tagToFind, uiElements, currentSettings));
         uiElements.contrastSlider.onValueChanged.AddListener(val => UpdateVisuals(tagToFind, uiElements, currentSettings));
         uiElements.colorSlider.onValueChanged.AddListener(val => UpdateVisuals(tagToFind, uiElements, currentSettings));
     }
 
-    // FIX: Add 'string tagToFind' parameter to save values persistently
+    // Helper method to hold your specific tag-based default values
+    private void GetSpecificDefaults(string tagToFind, out float b, out float c, out float col)
+    {
+        switch (tagToFind)
+        {
+            case "Background":
+                b = 2f; c = 0.8960935f; col = 0f;
+                break;
+            case "Obstacle":
+                b = 1.290718f; c = 0.8276349f; col = 0f;
+                break;
+            case "Platform":
+                b = 0.5678623f; c = 0.8216149f; col = 0f;
+                break;
+            case "Player":
+                b = 0.9364931f; c = 0.9023179f; col = 0f;
+                break;
+            default:
+                b = defaultBrightness; c = defaultContrast; col = defaultColor;
+                break;
+        }
+    }
+
     private void UpdateVisuals(string tagToFind, S14_CategoryUI ui, VisualSettingsSO.CategorySettings currentSettings)
     {
         currentSettings.brightness = ui.brightnessSlider.value;
         currentSettings.contrast = ui.contrastSlider.value;
         currentSettings.color = ui.colorSlider.value;
 
-        // FIX: Save actual slider values to PlayerPrefs
-        PlayerPrefs.SetFloat(tagToFind + "_Brightness", currentSettings.brightness);
-        PlayerPrefs.SetFloat(tagToFind + "_Contrast", currentSettings.contrast);
-        PlayerPrefs.SetFloat(tagToFind + "_Color", currentSettings.color);
+        // ONLY save to PlayerPrefs if the user is actively in Custom mode.
+        // This prevents the "Default" preset from overwriting your custom saves!
+        if (PlayerPrefs.GetInt(tagToFind + "_GraphicsMode", 0) == 1)
+        {
+            PlayerPrefs.SetFloat(tagToFind + "_Brightness", currentSettings.brightness);
+            PlayerPrefs.SetFloat(tagToFind + "_Contrast", currentSettings.contrast);
+            PlayerPrefs.SetFloat(tagToFind + "_Color", currentSettings.color);
+        }
 
         settingsData.ApplyChanges(); 
     }
