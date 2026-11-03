@@ -9,6 +9,7 @@ public class S6_Checkpoint : MonoBehaviour
 
     private static Vector3 initialPlayerCheckpoint;
     private static Vector3 initialCameraCheckpoint;
+    [SerializeField] private float cameraPlayerOffset = 6.5f; 
 
     void Awake()
     {
@@ -33,15 +34,26 @@ public class S6_Checkpoint : MonoBehaviour
     }
 
     public void SetCheckpoint(Vector3 newPosition)
+{
+    checkpointPosition = newPosition;
+
+    if (Camera.main != null)
     {
-        checkpointPosition = newPosition;
-
-        if (Camera.main != null)
+        // Use the original camera position for the starting checkpoint.
+        if (newPosition == initialPlayerCheckpoint)
         {
-            cameraCheckpoint = Camera.main.transform.position;
+            cameraCheckpoint = initialCameraCheckpoint;
         }
-
+        else
+        {
+            cameraCheckpoint = new Vector3(
+                Camera.main.transform.position.x,
+                newPosition.y + cameraPlayerOffset,
+                Camera.main.transform.position.z
+            );
+        }
     }
+}
 
     public Vector3 GetCheckpointPosition()
     {
