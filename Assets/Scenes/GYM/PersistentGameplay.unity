@@ -163,6 +163,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8d06594af56146b5b19db6d99af5159, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::S6_Checkpoint
+  cameraPlayerOffset: 6.5
+  bottomBuffer: 2.5
 --- !u!1 &513597720
 GameObject:
   m_ObjectHideFlags: 0
@@ -1369,7 +1371,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8073202304184054286, guid: eab729db1c44ac74d9e4eef4b42a992b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -64.1
+      value: -64.1001
       objectReference: {fileID: 0}
     - target: {fileID: 8073202304184054286, guid: eab729db1c44ac74d9e4eef4b42a992b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

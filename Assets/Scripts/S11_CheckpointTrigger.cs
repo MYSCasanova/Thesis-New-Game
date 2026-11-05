@@ -1,7 +1,13 @@
 using UnityEngine;
+using System.Collections;
 
 public class S11_CheckpointTrigger : MonoBehaviour
 {
+    [Header("Checkpoint Feedback")]
+    public GameObject checkpointFeedback;
+    public float feedbackDuration = 2f;
+    private bool feedbackPlayed;
+
     [Header("Level Audio")]
     [Tooltip("Leave this blank if the BGM should not change here. Otherwise, type the exact name of the BGM (e.g., 'Level 2').")]
     public string levelBGMName = "";
@@ -109,6 +115,12 @@ public class S11_CheckpointTrigger : MonoBehaviour
         S6_Checkpoint.Instance.SetCheckpoint(player.transform.position);
         checkpointSaved = true;
 
+        if (!feedbackPlayed)
+        {
+            StartCoroutine(ShowCheckpointFeedback());
+            feedbackPlayed = true;
+        }
+
         // --- NEW BGM LOGIC ---
         // If a BGM name was typed into the inspector, tell the AudioManager to play it.
         // It won't restart if it's already playing.
@@ -142,5 +154,12 @@ public class S11_CheckpointTrigger : MonoBehaviour
         Vector2 closest = ground.ClosestPoint(footPos);
 
         return Vector2.Distance(footPos, closest) <= player.groundCheckRadius + footMargin;
+    }
+
+    private IEnumerator ShowCheckpointFeedback()
+    {
+        checkpointFeedback.SetActive(true);
+        yield return new WaitForSeconds(feedbackDuration);
+        checkpointFeedback.SetActive(false);
     }
 }
