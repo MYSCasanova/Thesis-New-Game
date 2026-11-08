@@ -7444,6 +7444,7 @@ MonoBehaviour:
   menuPanel: {fileID: 0}
   creditsPanel: {fileID: 0}
   leaderboardPanel: {fileID: 0}
+  v1Button: {fileID: 0}
 --- !u!1 &1103142373
 GameObject:
   m_ObjectHideFlags: 0
@@ -12284,7 +12285,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -8976767859033088317, guid: 8aa34e0c7df7e4cce90e7de521c9910c, type: 3}
+  m_Sprite: {fileID: -8556339233226027141, guid: d63f47daaaa722342ad416a1f9135973, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

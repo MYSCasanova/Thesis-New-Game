@@ -117,6 +117,10 @@ public class S13_ManualSettingsUI : MonoBehaviour
             uiElements.contrastSlider.interactable = isCustom;
             uiElements.colorSlider.interactable = isCustom;
 
+            // Auto-open the sliders panel on start if Custom was the saved mode
+            uiElements.slidersPanel.SetActive(isCustom);
+            LayoutRebuilder.ForceRebuildLayoutImmediate(uiElements.transform.parent.GetComponent<RectTransform>());
+
             // Load initial values based on mode
             LoadSettingsForMode(savedMode, tagToFind, currentSettings);
 
@@ -127,6 +131,10 @@ public class S13_ManualSettingsUI : MonoBehaviour
                 PlayerPrefs.SetInt(tagToFind + "_GraphicsMode", actualMode);
                 bool customSelected = (actualMode == 1);
                 
+                // Auto-open or close the sliders panel based on the dropdown selection
+                uiElements.slidersPanel.SetActive(customSelected);
+                LayoutRebuilder.ForceRebuildLayoutImmediate(uiElements.transform.parent.GetComponent<RectTransform>());
+
                 uiElements.brightnessSlider.interactable = customSelected;
                 uiElements.contrastSlider.interactable = customSelected;
                 uiElements.colorSlider.interactable = customSelected;
@@ -140,7 +148,7 @@ public class S13_ManualSettingsUI : MonoBehaviour
 
                 UpdateVisuals(tagToFind, uiElements, currentSettings);
                 
-                if (S16_AudioManager.instance != null) S16_AudioManager.instance.PlaySFX("UI Buttons Click");
+                if (S16_AudioManager.instance != null) S16_AudioManager.instance.PlaySFX("Click");
             });
         }
 
@@ -154,56 +162,63 @@ public class S13_ManualSettingsUI : MonoBehaviour
     }
 
     // Helper method to keep GenerateCategory clean
+    // Helper method to keep GenerateCategory clean
     private void LoadSettingsForMode(int mode, string tagToFind, VisualSettingsSO.CategorySettings currentSettings)
     {
+        // 1. Define the exact default values for the specific tag
+        float targetDefaultBrightness = defaultBrightness;
+        float targetDefaultContrast = defaultContrast;
+        float targetDefaultColor = defaultColor;
+
+        switch (tagToFind)
+        {
+            case "Background":
+                targetDefaultBrightness = 2f;
+                targetDefaultContrast = 0.8960935f;
+                targetDefaultColor = 0f;
+                break;
+            case "Obstacle":
+                targetDefaultBrightness = 1.290718f;
+                targetDefaultContrast = 0.8276349f;
+                targetDefaultColor = 0f;
+                break;
+            case "Platform":
+                targetDefaultBrightness = 0.5678623f;
+                targetDefaultContrast = 0.8216149f;
+                targetDefaultColor = 0f;
+                break;
+            case "Player":
+                targetDefaultBrightness = 0.9364931f;
+                targetDefaultContrast = 0.9023179f;
+                targetDefaultColor = 0f;
+                break;
+        }
+
+        // 2. Apply the settings based on the mode
         if (mode == 0) // Default
         {
-            switch (tagToFind)
-            {
-                case "Background":
-                    currentSettings.brightness = 2f;
-                    currentSettings.contrast = 0.8960935f;
-                    currentSettings.color = 0f;
-                    break;
-                case "Obstacle":
-                    currentSettings.brightness = 1.290718f;
-                    currentSettings.contrast = 0.8276349f;
-                    currentSettings.color = 0f;
-                    break;
-                case "Platform":
-                    currentSettings.brightness = 0.5678623f;
-                    currentSettings.contrast = 0.8216149f;
-                    currentSettings.color = 0f;
-                    break;
-                case "Player":
-                    currentSettings.brightness = 0.9364931f;
-                    currentSettings.contrast = 0.9023179f;
-                    currentSettings.color = 0f;
-                    break;
-                default:
-                    currentSettings.brightness = defaultBrightness;
-                    currentSettings.contrast = defaultContrast;
-                    currentSettings.color = defaultColor;
-                    break;
-            }
+            currentSettings.brightness = targetDefaultBrightness;
+            currentSettings.contrast = targetDefaultContrast;
+            currentSettings.color = targetDefaultColor;
         }
         else if (mode == 1) // Custom
         {
-            currentSettings.brightness = PlayerPrefs.GetFloat(tagToFind + "_Brightness", defaultBrightness);
-            currentSettings.contrast = PlayerPrefs.GetFloat(tagToFind + "_Contrast", defaultContrast);
-            currentSettings.color = PlayerPrefs.GetFloat(tagToFind + "_Color", defaultColor);
+            // The tag-specific defaults are used as fallbacks if PlayerPrefs are empty
+            currentSettings.brightness = PlayerPrefs.GetFloat(tagToFind + "_Brightness", targetDefaultBrightness);
+            currentSettings.contrast = PlayerPrefs.GetFloat(tagToFind + "_Contrast", targetDefaultContrast);
+            currentSettings.color = PlayerPrefs.GetFloat(tagToFind + "_Color", targetDefaultColor);
         }
         else if (mode == 2) // AIPreset #2
         {
-            currentSettings.brightness = PlayerPrefs.GetFloat(tagToFind + "_AIPresetV2_Brightness", defaultBrightness);
-            currentSettings.contrast = PlayerPrefs.GetFloat(tagToFind + "_AIPresetV2_Contrast", defaultContrast);
-            currentSettings.color = PlayerPrefs.GetFloat(tagToFind + "_AIPresetV2_Color", defaultColor);
+            currentSettings.brightness = PlayerPrefs.GetFloat(tagToFind + "_AIPresetV2_Brightness", targetDefaultBrightness);
+            currentSettings.contrast = PlayerPrefs.GetFloat(tagToFind + "_AIPresetV2_Contrast", targetDefaultContrast);
+            currentSettings.color = PlayerPrefs.GetFloat(tagToFind + "_AIPresetV2_Color", targetDefaultColor);
         }
         else if (mode == 3) // AIPreset #3
         {
-            currentSettings.brightness = PlayerPrefs.GetFloat(tagToFind + "_AIPresetV3_Brightness", defaultBrightness);
-            currentSettings.contrast = PlayerPrefs.GetFloat(tagToFind + "_AIPresetV3_Contrast", defaultContrast);
-            currentSettings.color = PlayerPrefs.GetFloat(tagToFind + "_AIPresetV3_Color", defaultColor);
+            currentSettings.brightness = PlayerPrefs.GetFloat(tagToFind + "_AIPresetV3_Brightness", targetDefaultBrightness);
+            currentSettings.contrast = PlayerPrefs.GetFloat(tagToFind + "_AIPresetV3_Contrast", targetDefaultContrast);
+            currentSettings.color = PlayerPrefs.GetFloat(tagToFind + "_AIPresetV3_Color", targetDefaultColor);
         }
     }
 
@@ -282,7 +297,7 @@ public class S13_ManualSettingsUI : MonoBehaviour
 
         resolutionDropdown.onValueChanged.AddListener(val => {
             ApplyVideoSettings(val, fullScreenToggle.isOn);
-            if (S16_AudioManager.instance != null) S16_AudioManager.instance.PlaySFX("UI Buttons Click");
+            if (S16_AudioManager.instance != null) S16_AudioManager.instance.PlaySFX("Click");
         });
         
         fullScreenToggle.onValueChanged.AddListener(delegate {
@@ -290,7 +305,7 @@ public class S13_ManualSettingsUI : MonoBehaviour
             {
                 windowedToggle.isOn = false;
                 ApplyVideoSettings(resolutionDropdown.value, true);
-                if (S16_AudioManager.instance != null) S16_AudioManager.instance.PlaySFX("UI Buttons Click");
+                if (S16_AudioManager.instance != null) S16_AudioManager.instance.PlaySFX("Click");
             }
         });
 
@@ -299,7 +314,7 @@ public class S13_ManualSettingsUI : MonoBehaviour
             {
                 fullScreenToggle.isOn = false;
                 ApplyVideoSettings(resolutionDropdown.value, false);
-                if (S16_AudioManager.instance != null) S16_AudioManager.instance.PlaySFX("UI Buttons Click");
+                if (S16_AudioManager.instance != null) S16_AudioManager.instance.PlaySFX("Click");
             }
         });
     }
@@ -339,7 +354,7 @@ public class S13_ManualSettingsUI : MonoBehaviour
         
         PlayerPrefs.Save();
         if (settingsData != null) settingsData.ApplyChanges();
-        if (S16_AudioManager.instance != null) S16_AudioManager.instance.PlaySFX("UI Buttons Click");
+        if (S16_AudioManager.instance != null) S16_AudioManager.instance.PlaySFX("Click");
         
         Debug.Log("All settings have been saved!");
     }
