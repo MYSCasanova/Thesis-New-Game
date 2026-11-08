@@ -23,6 +23,37 @@ public class WinningTrigger : MonoBehaviour
             gameplayData.CompleteGame();
         }
 
+        // Save leaderboard result
+        Debug.Log("WINNING TRIGGER REACHED");
+
+        LeaderboardTimer timer = FindFirstObjectByType<LeaderboardTimer>();
+        LeaderboardManager leaderboard = FindFirstObjectByType<LeaderboardManager>();
+
+        Debug.Log("Timer found: " + (timer != null));
+        Debug.Log("Leaderboard found: " + (leaderboard != null));
+
+        if (timer != null && leaderboard != null)
+        {
+            string playerName = PlayerPrefs.GetString("PlayerName", "Unknown Player");
+
+            string version = timer.GetCurrentVersion();
+            float completionTime = timer.GetCompletionTime();
+            int finalScore = comboSystem.totalScore;
+
+            Debug.Log("Player: " + playerName);
+            Debug.Log("Version: " + version);
+            Debug.Log("Score: " + finalScore);
+            Debug.Log("Time: " + completionTime);
+
+            leaderboard.SaveScore(version, playerName, finalScore, completionTime);
+
+            Debug.Log("Leaderboard result saved: " + version);
+        }
+        else
+        {
+            Debug.LogError("LeaderboardTimer or LeaderboardManager not found!");
+        }
+
         // Stop the player from moving or processing gameplay input.
         S1_PlayerController playerController = collision.GetComponent<S1_PlayerController>();
 

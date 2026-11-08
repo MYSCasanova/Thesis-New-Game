@@ -19,7 +19,7 @@ public class PlayerInfoManager : MonoBehaviour
         filePath = Path.Combine(Application.dataPath,"PlayerDetails.csv");
 
         //for debugging
-        PlayerPrefs.DeleteKey("PlayerInfoCompleted");
+       // PlayerPrefs.DeleteKey("PlayerInfoCompleted");
 
         bool completed = PlayerPrefs.GetInt("PlayerInfoCompleted", 0) == 1;
 

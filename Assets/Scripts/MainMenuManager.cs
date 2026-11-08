@@ -19,6 +19,8 @@ public class MainMenuManager : MonoBehaviour
     [Header("Panels")]
     public GameObject menuPanel;
     public GameObject creditsPanel;
+    public GameObject leaderboardPanel;
+    public GameObject v1Button;
 
     private void Start()
     {
@@ -135,6 +137,7 @@ public class MainMenuManager : MonoBehaviour
     public void BackToMainMenu()
     {
         creditsPanel.SetActive(false);
+        leaderboardPanel.SetActive(false);
         menuPanel.SetActive(true);
     }
 
@@ -143,6 +146,14 @@ public class MainMenuManager : MonoBehaviour
         menuPanel.SetActive(false);
         creditsPanel.SetActive(true);
     }
+
+    public void OpenLeaderboard()
+    {
+        menuPanel.SetActive(false);
+        leaderboardPanel.SetActive(true);
+        v1Button.GetComponent<LeaderboardButton>().ShowLeaderboard();
+    }
+
 
     public void QuitGame()
     {
