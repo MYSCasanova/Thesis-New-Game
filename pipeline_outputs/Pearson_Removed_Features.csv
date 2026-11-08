@@ -1,0 +1,8 @@
+Removed Feature,Retained Representative,Pearson r,Absolute r,Removed Variance,Retained Variance,Reason
+background_brightness,obstacle_contrast,0.8766066218706685,0.8766066218706685,0.03799034482758619,0.038896091954022986,Highly correlated with previously retained higher-variance feature
+obstacle_color,background_color,0.953566410798715,0.953566410798715,0.034140344827586204,0.04893436781609196,Highly correlated with previously retained higher-variance feature
+background_contrast,obstacle_contrast,0.975431600105218,0.975431600105218,0.03346034482758621,0.038896091954022986,Highly correlated with previously retained higher-variance feature
+obstacle_brightness,obstacle_contrast,0.927882296663378,0.927882296663378,0.032287816091954025,0.038896091954022986,Highly correlated with previously retained higher-variance feature
+platform_color,obstacle_contrast,0.8570782658731645,0.8570782658731645,0.031839195402298855,0.038896091954022986,Highly correlated with previously retained higher-variance feature
+platform_contrast,obstacle_contrast,0.9370781764853258,0.9370781764853258,0.029559655172413792,0.038896091954022986,Highly correlated with previously retained higher-variance feature
+platform_brightness,obstacle_contrast,0.933105918120029,0.933105918120029,0.029411609195402307,0.038896091954022986,Highly correlated with previously retained higher-variance feature

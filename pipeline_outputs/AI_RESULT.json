@@ -1,0 +1,26 @@
+{
+  "predicted_accessibility_level": "LOW",
+  "recommended_settings": {
+    "background_color": 245.52,
+    "background_contrast": 1.36,
+    "background_brightness": 1.38,
+    "obstacle_color": 234.0,
+    "obstacle_contrast": 1.324,
+    "obstacle_brightness": 1.308,
+    "platform_color": 222.48,
+    "platform_contrast": 1.26,
+    "platform_brightness": 1.248,
+    "player_color": 302.472,
+    "player_contrast": 1.6348,
+    "player_brightness": 1.1992
+  },
+  "selected_features": [
+    "background_color",
+    "player_color",
+    "player_contrast",
+    "obstacle_contrast"
+  ],
+  "player_attempt_index": 0,
+  "model_version": "V3_Pearson_ReliefF_C45",
+  "baseline_records_in_model": 30
+}

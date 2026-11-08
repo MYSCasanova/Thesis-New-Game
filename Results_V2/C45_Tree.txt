@@ -1,0 +1,25 @@
+IF background_color <= 0.730000:
+  IF background_color <= 0.210000:
+    IF background_color <= 0.190000:
+      IF background_color <= 0.140000:
+        PREDICT MEDIUM (n=1)
+      ELSE (background_color > 0.140000):
+        IF background_color <= 0.170000:
+          IF background_color <= 0.155000:
+            PREDICT MEDIUM (n=5)
+          ELSE (background_color > 0.155000):
+            PREDICT HIGH (n=1)
+        ELSE (background_color > 0.170000):
+          PREDICT MEDIUM (n=1)
+    ELSE (background_color > 0.190000):
+      PREDICT HIGH (n=1)
+  ELSE (background_color > 0.210000):
+    IF background_color <= 0.470000:
+      PREDICT MEDIUM (n=11)
+    ELSE (background_color > 0.470000):
+      IF background_color <= 0.545000:
+        PREDICT LOW (n=2)
+      ELSE (background_color > 0.545000):
+        PREDICT MEDIUM (n=5)
+ELSE (background_color > 0.730000):
+  PREDICT LOW (n=3)

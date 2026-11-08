@@ -1,0 +1,7 @@
+{
+  "max_depth": null,
+  "min_leaf": 1,
+  "status": "unpruned_fixed_method",
+  "candidates": [],
+  "note": "No pre-pruning depth or minimum-leaf tuning."
+}
