@@ -50,6 +50,8 @@ public class JumpTutorialManager : MonoBehaviour
     
     [Header("Video Setup")]
     public VideoPlayer videoPlayer;
+    public CanvasGroup videoCanvasGroup; // Add this line
+    public float crossfadeDuration = 0.5f; // Add this line
     public VideoClip[] tutorialVideos;   
     public GameObject completionPanel;   
 
@@ -64,6 +66,10 @@ public class JumpTutorialManager : MonoBehaviour
         S1_PlayerController.OnEdgeJumpAchieved += HandleEdgeJump;
         S1_PlayerController.OnDirectionChangeBoostAchieved += HandleDirectionBoost;
         S1_PlayerController.OnJumpBufferAchieved += HandleJumpBuffer;
+
+        // Add this check
+        if (videoPlayer != null)
+            videoPlayer.loopPointReached += OnVideoEnd;
     }
 
     void OnDisable()
@@ -75,15 +81,34 @@ public class JumpTutorialManager : MonoBehaviour
         S1_PlayerController.OnDirectionChangeBoostAchieved -= HandleDirectionBoost;
         S1_PlayerController.OnJumpBufferAchieved -= HandleJumpBuffer;
 
+        // Add this check
+        if (videoPlayer != null)
+            videoPlayer.loopPointReached -= OnVideoEnd;
+
         StopAllCoroutines();
     }
 
+    // --- NAMED EVENT HANDLERS ---
     void HandleShortJump() { StartCoroutine(WaitToCompleteTutorial(JumpType.Short)); }
     void HandleLongJump() { StartCoroutine(WaitToCompleteTutorial(JumpType.Long)); }
-    void HandleMomentumJump() { StartCoroutine(WaitToCompleteTutorial(JumpType.Momentum)); }
-    void HandleEdgeJump() { StartCoroutine(WaitToCompleteTutorial(JumpType.Edge)); }
-    void HandleDirectionBoost() { StartCoroutine(WaitToCompleteTutorial(JumpType.DirectionChange)); }
-    void HandleJumpBuffer() { StartCoroutine(WaitToCompleteTutorial(JumpType.Buffer)); }
+    
+    // For mid-air jumps, lock in the win immediately so they don't break if the player pauses mid-air
+    void HandleMomentumJump() { 
+        if (currentTask == JumpType.Momentum) InstantCompleteTask(JumpType.Momentum); 
+        StartCoroutine(WaitToCompleteTutorial(JumpType.Momentum)); 
+    }
+    void HandleEdgeJump() { 
+        if (currentTask == JumpType.Edge) InstantCompleteTask(JumpType.Edge);
+        StartCoroutine(WaitToCompleteTutorial(JumpType.Edge)); 
+    }
+    void HandleDirectionBoost() { 
+        if (currentTask == JumpType.DirectionChange) InstantCompleteTask(JumpType.DirectionChange);
+        StartCoroutine(WaitToCompleteTutorial(JumpType.DirectionChange)); 
+    }
+    void HandleJumpBuffer() { 
+        if (currentTask == JumpType.Buffer) InstantCompleteTask(JumpType.Buffer);
+        StartCoroutine(WaitToCompleteTutorial(JumpType.Buffer)); 
+    }
 
     void Start()
     {
@@ -170,7 +195,7 @@ public class JumpTutorialManager : MonoBehaviour
 
     private void ResetPlayerToSafeZone(S1_PlayerController player, Camera cam)
     {
-        // Teleport the player back to the initial spawn position instead of the last safe ground
+        // Teleport the player back to the initial spawn position
         player.transform.position = initialSpawnPosition;
         Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
         if (rb != null) rb.linearVelocity = Vector2.zero;
@@ -180,7 +205,10 @@ public class JumpTutorialManager : MonoBehaviour
         if (camFollow != null)
         {
             Vector3 targetCamPos = cam.transform.position;
-            targetCamPos.y = player.transform.position.y + 2f; 
+            
+            // Set the exact starting Y position for the camera
+            targetCamPos.y = -1.64697f; 
+            
             camFollow.ResetCamera(targetCamPos);
         }
     }
@@ -192,9 +220,7 @@ public class JumpTutorialManager : MonoBehaviour
         
         if (index < tutorialVideos.Length && tutorialVideos[index] != null)
         {
-            videoPlayer.gameObject.SetActive(true);
-            videoPlayer.clip = tutorialVideos[index];
-            videoPlayer.Play();
+            StartCoroutine(PlayVideoWithFade(index));
         }
 
         if (descriptionText != null)
@@ -225,6 +251,55 @@ public class JumpTutorialManager : MonoBehaviour
         }
 
         CloseMenu(); 
+    }
+
+    private IEnumerator PlayVideoWithFade(int index)
+    {
+        videoPlayer.gameObject.SetActive(true);
+        
+        // Start transparent
+        if (videoCanvasGroup != null) videoCanvasGroup.alpha = 0f;
+        
+        videoPlayer.clip = tutorialVideos[index];
+        videoPlayer.Play();
+
+        // Fade In
+        if (videoCanvasGroup != null)
+        {
+            float elapsed = 0f;
+            while (elapsed < crossfadeDuration)
+            {
+                videoCanvasGroup.alpha = Mathf.Lerp(0f, 1f, elapsed / crossfadeDuration);
+                elapsed += Time.unscaledDeltaTime;
+                yield return null;
+            }
+            videoCanvasGroup.alpha = 1f;
+        }
+    }
+
+    private void OnVideoEnd(VideoPlayer vp)
+    {
+        // Triggered automatically when the video reaches the end
+        StartCoroutine(EndVideoWithFade());
+    }
+
+    private IEnumerator EndVideoWithFade()
+    {
+        // Fade Out
+        if (videoCanvasGroup != null)
+        {
+            float elapsed = 0f;
+            while (elapsed < crossfadeDuration)
+            {
+                videoCanvasGroup.alpha = Mathf.Lerp(1f, 0f, elapsed / crossfadeDuration);
+                elapsed += Time.unscaledDeltaTime;
+                yield return null;
+            }
+            videoCanvasGroup.alpha = 0f;
+        }
+
+        // Turn off the object so the player can immediately try the jump
+        videoPlayer.gameObject.SetActive(false);
     }
 
     IEnumerator WaitToCompleteTutorial(JumpType completedType)
@@ -363,5 +438,12 @@ public class JumpTutorialManager : MonoBehaviour
         {
             S18_LoadingManager.Instance.LoadScenes("GYM_TutorialGallery");
         }
+    }
+
+    // Helper to lock in progress immediately for complex mid-air tasks
+    private void InstantCompleteTask(JumpType type)
+    {
+        if (type == JumpType.None) return;
+        completedJumps[(int)type] = true;
     }
 }
