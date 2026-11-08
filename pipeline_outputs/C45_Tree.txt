@@ -1,0 +1,34 @@
+IF background_color <= 0.730000:
+  IF player_contrast <= 0.893500:
+    IF obstacle_contrast <= 0.170000:
+      PREDICT HIGH (n=1)
+    ELSE (obstacle_contrast > 0.170000):
+      IF player_contrast <= 0.810500:
+        IF background_color <= 0.210000:
+          IF background_color <= 0.190000:
+            IF player_color <= 0.565000:
+              PREDICT MEDIUM (n=2)
+            ELSE (player_color > 0.565000):
+              IF player_color <= 0.650000:
+                PREDICT HIGH (n=1)
+              ELSE (player_color > 0.650000):
+                IF player_color <= 0.755000:
+                  PREDICT MEDIUM (n=2)
+                ELSE (player_color > 0.755000):
+                  IF player_color <= 0.790000:
+                    PREDICT HIGH (n=1)
+                  ELSE (player_color > 0.790000):
+                    PREDICT MEDIUM (n=1)
+          ELSE (background_color > 0.190000):
+            PREDICT HIGH (n=1)
+        ELSE (background_color > 0.210000):
+          PREDICT MEDIUM (n=15)
+      ELSE (player_contrast > 0.810500):
+        IF background_color <= 0.530000:
+          PREDICT LOW (n=1)
+        ELSE (background_color > 0.530000):
+          PREDICT MEDIUM (n=1)
+  ELSE (player_contrast > 0.893500):
+    PREDICT LOW (n=1)
+ELSE (background_color > 0.730000):
+  PREDICT LOW (n=3)

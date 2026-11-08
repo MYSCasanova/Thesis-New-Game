@@ -1,0 +1,435 @@
+{
+  "baseline_records": 30,
+  "exact_duplicate_rows": 0,
+  "thresholds": {
+    "completion_q1": 125.5,
+    "completion_q3": 162.25,
+    "errors_q1": 5.0,
+    "errors_q3": 8.0
+  },
+  "class_distribution": {
+    "MEDIUM": 21,
+    "LOW": 5,
+    "HIGH": 4
+  },
+  "pearson_retained_features": [
+    "background_color",
+    "obstacle_contrast",
+    "player_color",
+    "player_contrast",
+    "player_brightness"
+  ],
+  "pearson_removed_features": [
+    {
+      "Removed Feature": "background_brightness",
+      "Retained Representative": "obstacle_contrast",
+      "Pearson r": 0.8766066218706685,
+      "Absolute r": 0.8766066218706685,
+      "Removed Variance": 0.03799034482758619,
+      "Retained Variance": 0.038896091954022986,
+      "Reason": "Highly correlated with previously retained higher-variance feature"
+    },
+    {
+      "Removed Feature": "obstacle_color",
+      "Retained Representative": "background_color",
+      "Pearson r": 0.953566410798715,
+      "Absolute r": 0.953566410798715,
+      "Removed Variance": 0.034140344827586204,
+      "Retained Variance": 0.04893436781609196,
+      "Reason": "Highly correlated with previously retained higher-variance feature"
+    },
+    {
+      "Removed Feature": "background_contrast",
+      "Retained Representative": "obstacle_contrast",
+      "Pearson r": 0.975431600105218,
+      "Absolute r": 0.975431600105218,
+      "Removed Variance": 0.03346034482758621,
+      "Retained Variance": 0.038896091954022986,
+      "Reason": "Highly correlated with previously retained higher-variance feature"
+    },
+    {
+      "Removed Feature": "obstacle_brightness",
+      "Retained Representative": "obstacle_contrast",
+      "Pearson r": 0.927882296663378,
+      "Absolute r": 0.927882296663378,
+      "Removed Variance": 0.032287816091954025,
+      "Retained Variance": 0.038896091954022986,
+      "Reason": "Highly correlated with previously retained higher-variance feature"
+    },
+    {
+      "Removed Feature": "platform_color",
+      "Retained Representative": "obstacle_contrast",
+      "Pearson r": 0.8570782658731645,
+      "Absolute r": 0.8570782658731645,
+      "Removed Variance": 0.031839195402298855,
+      "Retained Variance": 0.038896091954022986,
+      "Reason": "Highly correlated with previously retained higher-variance feature"
+    },
+    {
+      "Removed Feature": "platform_contrast",
+      "Retained Representative": "obstacle_contrast",
+      "Pearson r": 0.9370781764853258,
+      "Absolute r": 0.9370781764853258,
+      "Removed Variance": 0.029559655172413792,
+      "Retained Variance": 0.038896091954022986,
+      "Reason": "Highly correlated with previously retained higher-variance feature"
+    },
+    {
+      "Removed Feature": "platform_brightness",
+      "Retained Representative": "obstacle_contrast",
+      "Pearson r": 0.933105918120029,
+      "Absolute r": 0.933105918120029,
+      "Removed Variance": 0.029411609195402307,
+      "Retained Variance": 0.038896091954022986,
+      "Reason": "Highly correlated with previously retained higher-variance feature"
+    }
+  ],
+  "selected_features": [
+    "background_color",
+    "player_color",
+    "player_contrast",
+    "obstacle_contrast"
+  ],
+  "tree": {
+    "prediction": "MEDIUM",
+    "samples": 30,
+    "class_counts": {
+      "LOW": 5,
+      "MEDIUM": 21,
+      "HIGH": 4
+    },
+    "type": "split",
+    "feature": "background_color",
+    "threshold": 0.73,
+    "gain_ratio": 0.6549539030051209,
+    "information_gain": 0.3071704945135032,
+    "left": {
+      "prediction": "MEDIUM",
+      "samples": 27,
+      "class_counts": {
+        "LOW": 2,
+        "MEDIUM": 21,
+        "HIGH": 4
+      },
+      "type": "split",
+      "feature": "player_contrast",
+      "threshold": 0.8935,
+      "gain_ratio": 0.6758787273202996,
+      "information_gain": 0.15446406987945394,
+      "left": {
+        "prediction": "MEDIUM",
+        "samples": 26,
+        "class_counts": {
+          "LOW": 1,
+          "MEDIUM": 21,
+          "HIGH": 4
+        },
+        "type": "split",
+        "feature": "obstacle_contrast",
+        "threshold": 0.16999999999999998,
+        "gain_ratio": 0.4693217207808868,
+        "information_gain": 0.11038136267168253,
+        "left": {
+          "prediction": "HIGH",
+          "samples": 1,
+          "class_counts": {
+            "LOW": 0,
+            "MEDIUM": 0,
+            "HIGH": 1
+          },
+          "type": "leaf"
+        },
+        "right": {
+          "prediction": "MEDIUM",
+          "samples": 25,
+          "class_counts": {
+            "LOW": 1,
+            "MEDIUM": 21,
+            "HIGH": 3
+          },
+          "type": "split",
+          "feature": "player_contrast",
+          "threshold": 0.8105,
+          "gain_ratio": 0.4231323626973737,
+          "information_gain": 0.17017503097800413,
+          "left": {
+            "prediction": "MEDIUM",
+            "samples": 23,
+            "class_counts": {
+              "LOW": 0,
+              "MEDIUM": 20,
+              "HIGH": 3
+            },
+            "type": "split",
+            "feature": "background_color",
+            "threshold": 0.21000000000000002,
+            "gain_ratio": 0.24316008601426198,
+            "information_gain": 0.22665232895655918,
+            "left": {
+              "prediction": "MEDIUM",
+              "samples": 8,
+              "class_counts": {
+                "LOW": 0,
+                "MEDIUM": 5,
+                "HIGH": 3
+              },
+              "type": "split",
+              "feature": "background_color",
+              "threshold": 0.19,
+              "gain_ratio": 0.36647633582613776,
+              "information_gain": 0.19920350542916287,
+              "left": {
+                "prediction": "MEDIUM",
+                "samples": 7,
+                "class_counts": {
+                  "LOW": 0,
+                  "MEDIUM": 5,
+                  "HIGH": 2
+                },
+                "type": "split",
+                "feature": "player_color",
+                "threshold": 0.565,
+                "gain_ratio": 0.19647826253528525,
+                "information_gain": 0.16958442967043919,
+                "left": {
+                  "prediction": "MEDIUM",
+                  "samples": 2,
+                  "class_counts": {
+                    "LOW": 0,
+                    "MEDIUM": 2,
+                    "HIGH": 0
+                  },
+                  "type": "leaf"
+                },
+                "right": {
+                  "prediction": "MEDIUM",
+                  "samples": 5,
+                  "class_counts": {
+                    "LOW": 0,
+                    "MEDIUM": 3,
+                    "HIGH": 2
+                  },
+                  "type": "split",
+                  "feature": "player_color",
+                  "threshold": 0.65,
+                  "gain_ratio": 0.4459281986214854,
+                  "information_gain": 0.3219280948873623,
+                  "left": {
+                    "prediction": "HIGH",
+                    "samples": 1,
+                    "class_counts": {
+                      "LOW": 0,
+                      "MEDIUM": 0,
+                      "HIGH": 1
+                    },
+                    "type": "leaf"
+                  },
+                  "right": {
+                    "prediction": "MEDIUM",
+                    "samples": 4,
+                    "class_counts": {
+                      "LOW": 0,
+                      "MEDIUM": 3,
+                      "HIGH": 1
+                    },
+                    "type": "split",
+                    "feature": "player_color",
+                    "threshold": 0.755,
+                    "gain_ratio": 0.31127812445913283,
+                    "information_gain": 0.31127812445913283,
+                    "left": {
+                      "prediction": "MEDIUM",
+                      "samples": 2,
+                      "class_counts": {
+                        "LOW": 0,
+                        "MEDIUM": 2,
+                        "HIGH": 0
+                      },
+                      "type": "leaf"
+                    },
+                    "right": {
+                      "prediction": "MEDIUM",
+                      "samples": 2,
+                      "class_counts": {
+                        "LOW": 0,
+                        "MEDIUM": 1,
+                        "HIGH": 1
+                      },
+                      "type": "split",
+                      "feature": "player_color",
+                      "threshold": 0.79,
+                      "gain_ratio": 1.0,
+                      "information_gain": 1.0,
+                      "left": {
+                        "prediction": "HIGH",
+                        "samples": 1,
+                        "class_counts": {
+                          "LOW": 0,
+                          "MEDIUM": 0,
+                          "HIGH": 1
+                        },
+                        "type": "leaf"
+                      },
+                      "right": {
+                        "prediction": "MEDIUM",
+                        "samples": 1,
+                        "class_counts": {
+                          "LOW": 0,
+                          "MEDIUM": 1,
+                          "HIGH": 0
+                        },
+                        "type": "leaf"
+                      }
+                    }
+                  }
+                }
+              },
+              "right": {
+                "prediction": "HIGH",
+                "samples": 1,
+                "class_counts": {
+                  "LOW": 0,
+                  "MEDIUM": 0,
+                  "HIGH": 1
+                },
+                "type": "leaf"
+              }
+            },
+            "right": {
+              "prediction": "MEDIUM",
+              "samples": 15,
+              "class_counts": {
+                "LOW": 0,
+                "MEDIUM": 15,
+                "HIGH": 0
+              },
+              "type": "leaf"
+            }
+          },
+          "right": {
+            "prediction": "LOW",
+            "samples": 2,
+            "class_counts": {
+              "LOW": 1,
+              "MEDIUM": 1,
+              "HIGH": 0
+            },
+            "type": "split",
+            "feature": "background_color",
+            "threshold": 0.53,
+            "gain_ratio": 1.0,
+            "information_gain": 1.0,
+            "left": {
+              "prediction": "LOW",
+              "samples": 1,
+              "class_counts": {
+                "LOW": 1,
+                "MEDIUM": 0,
+                "HIGH": 0
+              },
+              "type": "leaf"
+            },
+            "right": {
+              "prediction": "MEDIUM",
+              "samples": 1,
+              "class_counts": {
+                "LOW": 0,
+                "MEDIUM": 1,
+                "HIGH": 0
+              },
+              "type": "leaf"
+            }
+          }
+        }
+      },
+      "right": {
+        "prediction": "LOW",
+        "samples": 1,
+        "class_counts": {
+          "LOW": 1,
+          "MEDIUM": 0,
+          "HIGH": 0
+        },
+        "type": "leaf"
+      }
+    },
+    "right": {
+      "prediction": "LOW",
+      "samples": 3,
+      "class_counts": {
+        "LOW": 3,
+        "MEDIUM": 0,
+        "HIGH": 0
+      },
+      "type": "leaf"
+    }
+  },
+  "training_only_tuning": {
+    "max_depth": null,
+    "min_leaf": 1,
+    "status": "unpruned_fixed_method",
+    "candidates": [],
+    "note": "No pre-pruning depth or minimum-leaf tuning."
+  },
+  "cross_validation": {
+    "folds": 4,
+    "accuracy": 0.6666666666666666,
+    "confusion_matrix": {
+      "LOW": {
+        "LOW": 2,
+        "MEDIUM": 0,
+        "HIGH": 0
+      },
+      "MEDIUM": {
+        "LOW": 1,
+        "MEDIUM": 18,
+        "HIGH": 4
+      },
+      "HIGH": {
+        "LOW": 1,
+        "MEDIUM": 4,
+        "HIGH": 0
+      }
+    },
+    "per_class": {
+      "LOW": {
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1": 0.6666666666666666,
+        "support": 4
+      },
+      "MEDIUM": {
+        "precision": 0.782608695652174,
+        "recall": 0.8181818181818182,
+        "f1": 0.8,
+        "support": 22
+      },
+      "HIGH": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 4
+      }
+    },
+    "macro_f1": 0.48888888888888893,
+    "balanced_accuracy": 0.43939393939393945,
+    "selection_frequency": {
+      "background_color": 4,
+      "background_contrast": 0,
+      "background_brightness": 1,
+      "obstacle_color": 0,
+      "obstacle_contrast": 1,
+      "obstacle_brightness": 0,
+      "platform_color": 0,
+      "platform_contrast": 0,
+      "platform_brightness": 0,
+      "player_color": 3,
+      "player_contrast": 2,
+      "player_brightness": 0
+    },
+    "note": null,
+    "evaluation_type": "outer_stratified_cross_validation_with_training_fold_thresholds"
+  },
+  "labeling_note": "Each validation fold uses quartile thresholds calculated from its training partition only. Consequently, validation class labels may differ between folds.",
+  "warning": "Verify dataset provenance. Synthetic demonstration data must not be reported as participant results."
+}
