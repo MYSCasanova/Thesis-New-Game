@@ -36,7 +36,8 @@ public class TutorialGalleryManager : MonoBehaviour
         
         // // Use lambda expressions to pass the specific button and label
         // jumpTypesBtn.onClick.AddListener(() => OnUnavailableClicked(jumpTypesBtn, jumpComingSoonLabel));
-        // platformTypesBtn.onClick.AddListener(() => OnUnavailableClicked(platformTypesBtn, platformComingSoonLabel));
+        // Hook up the new platform types button
+        platformTypesBtn.onClick.AddListener(OnPlatformTypesClicked);
 
         UpdateUI();
     }
@@ -107,6 +108,11 @@ public class TutorialGalleryManager : MonoBehaviour
         // SceneTransition.cs will automatically detect when GYM_TutorialLevel finishes 
         // loading and will properly overlay the BasicUI on top of it.
         S18_LoadingManager.Instance.LoadScenes("PersistentGameplay", "GYM_TutorialLevel");
+    }
+    void OnPlatformTypesClicked()
+    {
+        Debug.Log("Loading Scene: Platform Types...");
+        S18_LoadingManager.Instance.LoadScenes("GYM_PlatformTypes");
     }
     public void ReturnToMainMenu()
     {

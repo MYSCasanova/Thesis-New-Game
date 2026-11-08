@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 
 public class S1_PlayerController : MonoBehaviour
@@ -55,11 +56,22 @@ public class S1_PlayerController : MonoBehaviour
 
     private Rigidbody2D rb;
     private float moveInput;
-    private bool isGrounded;
+    public bool isGrounded;
     private bool groundLeft;
     private bool groundRight;
     private bool isRespawning;
     private float fallDetectionDelay;
+
+    [Header("Tutorial Events")]
+    public static Action OnShortJumpAchieved;
+    public static Action OnLongJumpAchieved;
+    public static Action OnMomentumJumpAchieved;
+    public static Action OnEdgeJumpAchieved;
+    public static Action OnDirectionChangeBoostAchieved;
+    public static Action OnJumpBufferAchieved;
+
+    private bool isCurrentJumpShort = false;
+    private bool didJump = false;
 
     void Start()
     {
@@ -97,18 +109,45 @@ public class S1_PlayerController : MonoBehaviour
             jumpBufferCounter -= Time.deltaTime;
         }
 
-        // 3. Execute Jump (Manual or Auto-bounce) with COOLDOWN
+                // 3. Execute Jump (Manual or Auto-bounce) with COOLDOWN
         if (isGrounded && (jumpBufferCounter > 0f || isAutoBouncing) && Time.time > lastJumpTime + jumpCooldown)
         {
+            // NEW: If they buffered the jump (pressed before hitting the ground)
+            if (jumpBufferCounter > 0f && jumpBufferCounter < jumpBufferTime) 
+            {
+                OnJumpBufferAchieved?.Invoke(); 
+            }
+
             PerformJump();
             jumpBufferCounter = 0f;
-            lastJumpTime = Time.time; // Record the time of the jump
+            lastJumpTime = Time.time; 
         }
 
         // 4. Short Jump (Release Spacebar early)
         if (Input.GetButtonUp("Jump") && rb.linearVelocity.y > 0)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * shortJumpMultiplier);
+            
+            // NEW: Broadcast short jump
+            if (!isCurrentJumpShort)
+            {
+                isCurrentJumpShort = true;
+                OnShortJumpAchieved?.Invoke();
+            }
+        }
+
+        // NEW: Detect Long Jump (Reached apex, actually jumped, and didn't short jump)
+        if (didJump && rb.linearVelocity.y <= 0 && !isCurrentJumpShort)
+        {
+            OnLongJumpAchieved?.Invoke();
+            // DO NOT reset didJump here anymore. We wait until they land.
+        }
+
+        // Reset didJump ONLY when they land on the ground, so the tutorial 
+        // doesn't cut off mid-air.
+        if (isGrounded && rb.linearVelocity.y <= 0.1f) 
+        {
+            didJump = false;
         }
 
         // If the player is below the camera's bottom edge, trigger respawn logic
@@ -172,10 +211,12 @@ public class S1_PlayerController : MonoBehaviour
         // 6. Direction Change Boost in Air
         if (!isGrounded && moveInput != 0)
         {
-            // If pressing a direction opposite to current momentum
             if ((moveInput > 0 && rb.linearVelocity.x < -0.1f) || (moveInput < 0 && rb.linearVelocity.x > 0.1f))
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y + directionChangeBoost * Time.fixedDeltaTime);
+                
+                // NEW: Broadcast direction change
+                OnDirectionChangeBoostAchieved?.Invoke();
             }
         }
     }
@@ -202,36 +243,47 @@ public class S1_PlayerController : MonoBehaviour
         }
     }
 
-    private void PerformJump()
+        private void PerformJump()
     {   
+        didJump = true;               // NEW: Mark that a jump started
+        isCurrentJumpShort = false;   // NEW: Reset short jump status
+
         float currentJump = jumpForce;
 
-        if (isOnBouncy && !isAutoBouncing) // If the player is on a bouncy platform, increase jump height
+        if (isOnBouncy && !isAutoBouncing) 
         {
             currentJump *= bounceMultiplier; 
-            
-            // Play the Trampoline sound instead of the normal jump sound
             S16_AudioManager.instance.PlaySFX("Trampoline"); 
         }
         else 
         {
-            // The jump sound plays normally, but the cooldown prevents the ear-hurting spam!
             S16_AudioManager.instance.PlaySFX("Jump"); 
         }
 
         // 7. Momentum Boost (Running fast = higher jump)
         float speedBoost = Mathf.Abs(rb.linearVelocity.x) * momentumJumpBoost;
         currentJump += speedBoost;
+        
+        // NEW: If speed boost is high enough, it counts as a momentum jump
+        if (speedBoost > 1f) 
+        {
+            OnMomentumJumpAchieved?.Invoke();
+        }
 
         // 8. Edge Jump Logic (Only one foot is on the ground)
         if (groundLeft != groundRight)
         {
-            currentJump *= edgeJumpMultiplier; // Lower jump height
+            currentJump *= edgeJumpMultiplier; 
+            
+            // NEW: Broadcast edge jump
+            OnEdgeJumpAchieved?.Invoke(); 
         }
         
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, currentJump);
         MovePlayerToPersistentScene();
     }
+
+
 
     void OnCollisionEnter2D(Collision2D collision)
     {
