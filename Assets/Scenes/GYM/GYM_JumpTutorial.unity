@@ -304,6 +304,10 @@ MonoBehaviour:
   menuOnScreenPos: {x: 480, y: 0}
   menuOffScreenPos: {x: -484, y: 0}
   slideDuration: 0.25
+  menuTitle: {fileID: 174083438}
+  buttonCascadeDelay: 0.05
+  slideSpeed: 0.2
+  offScreenX: -1500
   jumpTypeButtons:
   - {fileID: 1574815805}
   - {fileID: 618296844}
@@ -1376,18 +1380,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 516007352}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2046502511}
   - {fileID: 1207593148}
-  m_Father: {fileID: 1366263821}
+  m_Father: {fileID: 2005587865}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 480, y: -643.38}
   m_SizeDelta: {x: 800, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &516007354
@@ -1760,18 +1764,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 618296842}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1231237010}
   - {fileID: 445742523}
-  m_Father: {fileID: 1366263821}
+  m_Father: {fileID: 2005587865}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 480, y: -436.62}
   m_SizeDelta: {x: 800, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &618296844
@@ -2662,18 +2666,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 893357838}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1850087056}
   - {fileID: 1754051842}
-  m_Father: {fileID: 1366263821}
+  m_Father: {fileID: 2005587865}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 480, y: -712.3}
   m_SizeDelta: {x: 800, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &893357840
@@ -3016,7 +3020,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1023493712}
-  - component: {fileID: 1023493713}
   - component: {fileID: 1023493711}
   - component: {fileID: 1023493710}
   - component: {fileID: 1023493709}
@@ -3103,8 +3106,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 929987231}
-  - {fileID: 2005587865}
   - {fileID: 1338768206}
+  - {fileID: 2005587865}
   - {fileID: 1856048767}
   - {fileID: 514158727}
   m_Father: {fileID: 0}
@@ -3114,47 +3117,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1023493713
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1023493708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0af99dd32788461cbd118a759643077, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::S9_TutorialManager
-  instructionText: {fileID: 1338768207}
-  tips:
-  - triggerFloor: 3
-    message: The camera continuously moves upward, so keep climbing!
-    displayTime: 3
-  - triggerFloor: 6
-    message: Keep an eye out for different platforms!
-    displayTime: 3
-  - triggerFloor: 13
-    message: Tap SPACE quickly to make a short jump
-    displayTime: 3
-  - triggerFloor: 14
-    message: Hold SPACE to jump higher
-    displayTime: 3
-  - triggerFloor: 15
-    message: Move before jumping for more height
-    displayTime: 3
-  - triggerFloor: 17
-    message: Aim for the center of the platform for a safe landing!
-    displayTime: 3
-  - triggerFloor: 19
-    message: Keep landing to build your combo
-    displayTime: 3
-  - triggerFloor: 21
-    message: And lastly, watch out for hazards!
-    displayTime: 3
-  - triggerFloor: 25
-    message: You're all set. Good Luck!
-    displayTime: 5
 --- !u!1001 &1026930741
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4193,7 +4155,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1338768206
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4313,83 +4275,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1338768205}
   m_CullTransparentMesh: 1
---- !u!1 &1366263820
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1366263821}
-  - component: {fileID: 1366263823}
-  - component: {fileID: 1366263824}
-  m_Layer: 5
-  m_Name: Vertical Group
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1366263821
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1366263820}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1574815804}
-  - {fileID: 618296843}
-  - {fileID: 1445338972}
-  - {fileID: 1697713316}
-  - {fileID: 516007353}
-  - {fileID: 893357839}
-  m_Father: {fileID: 2005587865}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 960, y: 1080}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &1366263823
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1366263820}
-  m_CullTransparentMesh: 1
---- !u!114 &1366263824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1366263820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.VerticalLayoutGroup
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 4
-  m_Spacing: 18.92
-  m_ChildForceExpandWidth: 0
-  m_ChildForceExpandHeight: 0
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
 --- !u!1001 &1373439608
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4628,18 +4513,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1445338971}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1171889726}
   - {fileID: 397997810}
-  m_Father: {fileID: 1366263821}
+  m_Father: {fileID: 2005587865}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 480, y: -505.54}
   m_SizeDelta: {x: 800, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1445338973
@@ -5018,18 +4903,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1574815803}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1550821871}
   - {fileID: 247095780}
-  m_Father: {fileID: 1366263821}
+  m_Father: {fileID: 2005587865}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 480, y: -367.7}
   m_SizeDelta: {x: 800, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1574815805
@@ -5367,18 +5252,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1697713315}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1935511791}
   - {fileID: 545772935}
-  m_Father: {fileID: 1366263821}
+  m_Father: {fileID: 2005587865}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 480, y: -574.46}
   m_SizeDelta: {x: 800, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1697713317
@@ -6973,7 +6858,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 174083438}
-  - {fileID: 1366263821}
+  - {fileID: 1574815804}
+  - {fileID: 618296843}
+  - {fileID: 1445338972}
+  - {fileID: 1697713316}
+  - {fileID: 516007353}
+  - {fileID: 893357839}
   - {fileID: 552795993}
   - {fileID: 730896675}
   m_Father: {fileID: 1023493712}
@@ -6981,7 +6871,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: -484, y: 0}
-  m_SizeDelta: {x: 960, y: 1080}
+  m_SizeDelta: {x: 962, y: 1082}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2005587866
 MonoBehaviour:
@@ -6996,7 +6886,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.8235294}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.84313726}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -7243,7 +7133,7 @@ GameObject:
   - component: {fileID: 2108497225}
   - component: {fileID: 2108497224}
   - component: {fileID: 2108497226}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Trigger
   m_TagString: Checkpoint
   m_Icon: {fileID: 0}

@@ -56,7 +56,7 @@ public class S1_PlayerController : MonoBehaviour
 
     private Rigidbody2D rb;
     private float moveInput;
-    private bool isGrounded;
+    public bool isGrounded;
     private bool groundLeft;
     private bool groundRight;
     private bool isRespawning;
@@ -140,11 +140,15 @@ public class S1_PlayerController : MonoBehaviour
         if (didJump && rb.linearVelocity.y <= 0 && !isCurrentJumpShort)
         {
             OnLongJumpAchieved?.Invoke();
-            didJump = false; // Reset so it only fires once per jump
+            // DO NOT reset didJump here anymore. We wait until they land.
         }
 
-        // NEW: Reset didJump if they land without jumping (e.g. falling off a ledge)
-        if (isGrounded) didJump = false;
+        // Reset didJump ONLY when they land on the ground, so the tutorial 
+        // doesn't cut off mid-air.
+        if (isGrounded && rb.linearVelocity.y <= 0.1f) 
+        {
+            didJump = false;
+        }
 
         // If the player is below the camera's bottom edge, trigger respawn logic
         float cameraBottomY = Camera.main.transform.position.y - (Camera.main.orthographicSize);
