@@ -135,6 +135,36 @@ public class SceneTransition : MonoBehaviour
         }
 
         gameUI.SetActive(true);
+
+        // Start the leaderboard timer for the loaded version.
+        LeaderboardTimer timer = FindFirstObjectByType<LeaderboardTimer>();
+
+        if (timer != null)
+        {
+            string version = "";
+
+            switch (betaScene.name)
+            {
+                case "GYM_BetaGame":
+                    version = "V1";
+                    break;
+
+                case "GYM_V2Game":
+                    version = "V2";
+                    break;
+
+                case "GYM_V3Game":
+                    version = "V3";
+                    break;
+            }
+
+            timer.StartTimer(version);
+        }
+        else
+        {
+            Debug.LogError("LeaderboardTimer not found in PersistentGameplay!");
+        }
+
         Debug.Log("Link to Game complete.");
     }
     public void ReturnToMainMenu()
