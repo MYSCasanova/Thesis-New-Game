@@ -26,6 +26,12 @@ public class MainMenuManager : MonoBehaviour
     {
         ApplySavedSettingsOnLoad();
         UpdateButtons();
+
+        // For debugging
+        // PlayerPrefs.DeleteKey("tutorialCompleted");
+        // PlayerPrefs.DeleteKey("v1Completed");
+        // PlayerPrefs.DeleteKey("v2Completed");
+        // PlayerPrefs.Save();
     }
 
     private void ApplySavedSettingsOnLoad()
