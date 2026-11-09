@@ -1341,7 +1341,7 @@ GameObject:
   - component: {fileID: 139117084}
   - component: {fileID: 139117086}
   m_Layer: 3
-  m_Name: Trigger
+  m_Name: Trigger (1)
   m_TagString: Checkpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2007,6 +2007,10 @@ PrefabInstance:
     - target: {fileID: 1649396461532278289, guid: 4563a437892414ffb8dfe2f39b45d18e, type: 3}
       propertyPath: m_Name
       value: CheckpointFlag (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4909381331128392921, guid: 4563a437892414ffb8dfe2f39b45d18e, type: 3}
+      propertyPath: m_Name
+      value: CheckpointFeedback (6)
       objectReference: {fileID: 0}
     - target: {fileID: 6181153469329776818, guid: 4563a437892414ffb8dfe2f39b45d18e, type: 3}
       propertyPath: m_LocalScale.x
@@ -5695,7 +5699,7 @@ GameObject:
   - component: {fileID: 783531581}
   - component: {fileID: 783531583}
   m_Layer: 3
-  m_Name: Trigger
+  m_Name: Trigger (2)
   m_TagString: Checkpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6521,7 +6525,7 @@ GameObject:
   - component: {fileID: 963147467}
   - component: {fileID: 963147469}
   m_Layer: 3
-  m_Name: Trigger
+  m_Name: Trigger (6)
   m_TagString: Checkpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7039,7 +7043,7 @@ GameObject:
   - component: {fileID: 1014504839}
   - component: {fileID: 1014504841}
   m_Layer: 3
-  m_Name: Trigger
+  m_Name: Trigger (5)
   m_TagString: Checkpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7432,6 +7436,8 @@ MonoBehaviour:
   v3Button: {fileID: 0}
   menuPanel: {fileID: 0}
   creditsPanel: {fileID: 0}
+  leaderboardPanel: {fileID: 0}
+  v1Button: {fileID: 0}
 --- !u!1 &1103142373
 GameObject:
   m_ObjectHideFlags: 0
@@ -8027,7 +8033,7 @@ GameObject:
   - component: {fileID: 1195930983}
   - component: {fileID: 1195930985}
   m_Layer: 3
-  m_Name: Trigger
+  m_Name: Trigger (4)
   m_TagString: Checkpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8444,6 +8450,10 @@ PrefabInstance:
     - target: {fileID: 1649396461532278289, guid: 4563a437892414ffb8dfe2f39b45d18e, type: 3}
       propertyPath: m_Name
       value: CheckpointFlag (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4909381331128392921, guid: 4563a437892414ffb8dfe2f39b45d18e, type: 3}
+      propertyPath: m_Name
+      value: CheckpointFeedback (4)
       objectReference: {fileID: 0}
     - target: {fileID: 6181153469329776818, guid: 4563a437892414ffb8dfe2f39b45d18e, type: 3}
       propertyPath: m_LocalScale.x
@@ -9107,7 +9117,7 @@ GameObject:
   - component: {fileID: 1382870559}
   - component: {fileID: 1382870561}
   m_Layer: 3
-  m_Name: Trigger
+  m_Name: Trigger (3)
   m_TagString: Checkpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9508,6 +9518,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CheckpointFlag (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 4909381331128392921, guid: 4563a437892414ffb8dfe2f39b45d18e, type: 3}
+      propertyPath: m_Name
+      value: CheckpointFeedback (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 6181153469329776818, guid: 4563a437892414ffb8dfe2f39b45d18e, type: 3}
       propertyPath: m_LocalScale.x
       value: -1.2928052
@@ -9586,6 +9600,10 @@ PrefabInstance:
     - target: {fileID: 1649396461532278289, guid: 4563a437892414ffb8dfe2f39b45d18e, type: 3}
       propertyPath: m_Name
       value: CheckpointFlag
+      objectReference: {fileID: 0}
+    - target: {fileID: 4909381331128392921, guid: 4563a437892414ffb8dfe2f39b45d18e, type: 3}
+      propertyPath: m_Name
+      value: CheckpointFeedback (2)
       objectReference: {fileID: 0}
     - target: {fileID: 6181153469329776818, guid: 4563a437892414ffb8dfe2f39b45d18e, type: 3}
       propertyPath: m_LocalScale.x
@@ -12618,6 +12636,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CheckpointFlag (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4909381331128392921, guid: 4563a437892414ffb8dfe2f39b45d18e, type: 3}
+      propertyPath: m_Name
+      value: CheckpointFeedback (3)
+      objectReference: {fileID: 0}
     - target: {fileID: 6181153469329776818, guid: 4563a437892414ffb8dfe2f39b45d18e, type: 3}
       propertyPath: m_LocalScale.x
       value: -1.2928052
@@ -13134,6 +13156,10 @@ PrefabInstance:
     - target: {fileID: 1649396461532278289, guid: 4563a437892414ffb8dfe2f39b45d18e, type: 3}
       propertyPath: m_Name
       value: CheckpointFlag (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4909381331128392921, guid: 4563a437892414ffb8dfe2f39b45d18e, type: 3}
+      propertyPath: m_Name
+      value: CheckpointFeedback (5)
       objectReference: {fileID: 0}
     - target: {fileID: 6181153469329776818, guid: 4563a437892414ffb8dfe2f39b45d18e, type: 3}
       propertyPath: m_LocalScale.x
