@@ -115,10 +115,13 @@ public class S11_CheckpointTrigger : MonoBehaviour
         S6_Checkpoint.Instance.SetCheckpoint(player.transform.position);
         checkpointSaved = true;
 
-        if (!feedbackPlayed)
+        if(checkpointFeedback != null)
         {
-            StartCoroutine(ShowCheckpointFeedback());
-            feedbackPlayed = true;
+            if (!feedbackPlayed)
+            {
+                StartCoroutine(ShowCheckpointFeedback());
+                feedbackPlayed = true;
+            }
         }
 
         // --- NEW BGM LOGIC ---
