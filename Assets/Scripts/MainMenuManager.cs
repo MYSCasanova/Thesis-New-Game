@@ -28,6 +28,7 @@ public class MainMenuManager : MonoBehaviour
         UpdateButtons();
 
         // For debugging
+        // PlayerPrefs.SetInt("tutorialCompleted", 1);
         // PlayerPrefs.DeleteKey("tutorialCompleted");
         // PlayerPrefs.DeleteKey("v1Completed");
         // PlayerPrefs.DeleteKey("v2Completed");
