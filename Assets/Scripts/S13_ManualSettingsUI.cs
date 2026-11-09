@@ -29,6 +29,14 @@ public class S13_ManualSettingsUI : MonoBehaviour
 
     private Resolution[] filteredResolutions; // Only stores 16:9 resolutions
     private float targetAspectRatio = 16f / 9f;
+
+    // REMOVE: private static bool isFirstBoot = true;
+    private static bool hasApplied = false;
+    private static int lastW, lastH;
+    private static FullScreenMode lastMode;
+
+    // Add this variable right above InitializeVideoSettings
+    private bool isInitializingUI = false;
     
     private void Start()
     {
@@ -259,62 +267,115 @@ public class S13_ManualSettingsUI : MonoBehaviour
     {
         if (resolutionDropdown == null || fullScreenToggle == null || windowedToggle == null) return;
 
-        Resolution[] allResolutions = Screen.resolutions;
-        System.Array.Reverse(allResolutions); 
+        // LOCK the UI to prevent Unity from firing "ghost" events when the Pause Menu opens
+        isInitializingUI = true; 
 
-        List<Resolution> ratioResolutions = new List<Resolution>();
-        List<string> options = new List<string>();
-
-        for (int i = 0; i < allResolutions.Length; i++)
+        Resolution[] hardwareResolutions = Screen.resolutions;
+        List<Resolution> resList = new List<Resolution>();
+        
+        // 1. Strictly use hardware-supported resolutions to prevent laptop screen dimming
+        for (int i = 0; i < hardwareResolutions.Length; i++)
         {
-            float ratio = (float)allResolutions[i].width / (float)allResolutions[i].height;
+            float ratio = (float)hardwareResolutions[i].width / (float)hardwareResolutions[i].height;
+            
             if (Mathf.Abs(ratio - targetAspectRatio) < 0.05f)
             {
-                string option = allResolutions[i].width + " x " + allResolutions[i].height;
-                if (!options.Contains(option))
+                int existingIndex = resList.FindIndex(r => r.width == hardwareResolutions[i].width && r.height == hardwareResolutions[i].height);
+                
+                if (existingIndex < 0)
                 {
-                    ratioResolutions.Add(allResolutions[i]);
-                    options.Add(option);
+                    resList.Add(hardwareResolutions[i]);
+                }
+                else
+                {
+                    // KEEP THE HIGHEST REFRESH RATE
+                    if (hardwareResolutions[i].refreshRateRatio.value > resList[existingIndex].refreshRateRatio.value)
+                    {
+                        resList[existingIndex] = hardwareResolutions[i];
+                    }
                 }
             }
         }
 
-        filteredResolutions = ratioResolutions.ToArray();
-        resolutionDropdown.ClearOptions();
-        resolutionDropdown.AddOptions(options);
+        resList.Sort((a, b) => (b.width * b.height).CompareTo(a.width * a.height));
+        filteredResolutions = resList.ToArray();
 
-        int savedResIndex = PlayerPrefs.GetInt("SavedResolution", 0); 
+        List<string> dropdownOptions = new List<string>();
+        int nativeDeviceIndex = 0;
+        int screenNativeWidth = Screen.currentResolution.width;
+        int screenNativeHeight = Screen.currentResolution.height;
+        float smallestDiff = float.MaxValue;
+
+        for (int i = 0; i < filteredResolutions.Length; i++)
+        {
+            dropdownOptions.Add($"{filteredResolutions[i].width} x {filteredResolutions[i].height}");
+
+            float diff = Mathf.Abs(filteredResolutions[i].width - screenNativeWidth) + Mathf.Abs(filteredResolutions[i].height - screenNativeHeight);
+            if (diff < smallestDiff)
+            {
+                smallestDiff = diff;
+                nativeDeviceIndex = i;
+            }
+        }
+
+        resolutionDropdown.ClearOptions();
+        resolutionDropdown.AddOptions(dropdownOptions);
+
+        int targetResolutionIndex = PlayerPrefs.GetInt("SavedResolution", -1);
+        if (targetResolutionIndex < 0 || targetResolutionIndex >= filteredResolutions.Length)
+        {
+            targetResolutionIndex = nativeDeviceIndex;
+            PlayerPrefs.SetInt("SavedResolution", targetResolutionIndex);
+        }
+
         bool isFullscreen = PlayerPrefs.GetInt("SavedFullscreen", 1) == 1;
 
-        if (savedResIndex >= filteredResolutions.Length) savedResIndex = 0;
-
-        resolutionDropdown.value = savedResIndex;
+        // Sync UI toggles quietly
+        resolutionDropdown.SetValueWithoutNotify(targetResolutionIndex);
         resolutionDropdown.RefreshShownValue();
-        fullScreenToggle.isOn = isFullscreen;
-        windowedToggle.isOn = !isFullscreen;
+        fullScreenToggle.SetIsOnWithoutNotify(isFullscreen);
+        windowedToggle.SetIsOnWithoutNotify(!isFullscreen);
 
-        ApplyVideoSettings(savedResIndex, isFullscreen);
+        if (!hasApplied)
+        {
+            ApplyVideoSettings(targetResolutionIndex, isFullscreen);
+        }
 
+        // UNLOCK the UI now that initialization is completely done
+        isInitializingUI = false;
+
+        // Event Listeners (Added 'isInitializingUI' checks to ignore Unity layout rebuilds)
         resolutionDropdown.onValueChanged.AddListener(val => {
+            if (isInitializingUI) return;
             ApplyVideoSettings(val, fullScreenToggle.isOn);
             if (S16_AudioManager.instance != null) S16_AudioManager.instance.PlaySFX("Click");
         });
         
-        fullScreenToggle.onValueChanged.AddListener(delegate {
-            if (fullScreenToggle.isOn)
+        fullScreenToggle.onValueChanged.AddListener(isOn => {
+            if (isInitializingUI) return;
+            if (isOn)
             {
-                windowedToggle.isOn = false;
+                windowedToggle.SetIsOnWithoutNotify(false);
                 ApplyVideoSettings(resolutionDropdown.value, true);
                 if (S16_AudioManager.instance != null) S16_AudioManager.instance.PlaySFX("Click");
             }
+            else if (!windowedToggle.isOn)
+            {
+                fullScreenToggle.SetIsOnWithoutNotify(true);
+            }
         });
 
-        windowedToggle.onValueChanged.AddListener(delegate {
-            if (windowedToggle.isOn)
+        windowedToggle.onValueChanged.AddListener(isOn => {
+            if (isInitializingUI) return;
+            if (isOn)
             {
-                fullScreenToggle.isOn = false;
+                fullScreenToggle.SetIsOnWithoutNotify(false);
                 ApplyVideoSettings(resolutionDropdown.value, false);
                 if (S16_AudioManager.instance != null) S16_AudioManager.instance.PlaySFX("Click");
+            }
+            else if (!fullScreenToggle.isOn)
+            {
+                windowedToggle.SetIsOnWithoutNotify(true);
             }
         });
     }
@@ -322,22 +383,36 @@ public class S13_ManualSettingsUI : MonoBehaviour
     private void ApplyVideoSettings(int resIndex, bool isFullscreen)
     {
         if (filteredResolutions == null || filteredResolutions.Length == 0) return;
-        
-        Resolution resolution = filteredResolutions[resIndex];
-        Screen.SetResolution(resolution.width, resolution.height, isFullscreen);
+        if (resIndex < 0 || resIndex >= filteredResolutions.Length) resIndex = 0;
+
+        Resolution res = filteredResolutions[resIndex];
+
+        // FullScreenWindow avoids the monitor mode switch that causes the dim/flash
+        FullScreenMode mode = isFullscreen ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed;
+
+        // Compare against what WE last applied, not Screen.*, which can differ in fullscreen
+        if (hasApplied && lastW == res.width && lastH == res.height && lastMode == mode) return;
+
+        Debug.Log($"[Video] Applying {res.width}x{res.height} {mode}\n{System.Environment.StackTrace}");
+
+        Screen.SetResolution(res.width, res.height, mode, res.refreshRateRatio);
+
+        hasApplied = true;
+        lastW = res.width;
+        lastH = res.height;
+        lastMode = mode;
     }
 
     public void SetResolution(int resolutionIndex)
     {
-        Resolution resolution = filteredResolutions[resolutionIndex];
-        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+        ApplyVideoSettings(resolutionIndex, fullScreenToggle.isOn);
     }
 
     public void SetFullscreen(bool isFullscreen)
     {
-        Screen.fullScreen = isFullscreen;
-        Resolution resolution = filteredResolutions[resolutionDropdown.value];
-        Screen.SetResolution(resolution.width, resolution.height, isFullscreen);
+        fullScreenToggle.isOn = isFullscreen;
+        windowedToggle.isOn = !isFullscreen;
+        ApplyVideoSettings(resolutionDropdown.value, isFullscreen);
     }
     
     // --- SAVE BUTTON LOGIC ---

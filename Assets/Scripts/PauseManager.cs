@@ -34,6 +34,8 @@ public class PauseManager : MonoBehaviour
                 PauseGame();
             }
         }
+        if (Input.GetKeyDown(KeyCode.F9))
+    ScreenCapture.CaptureScreenshot($"shot_{Screen.width}x{Screen.height}.png");
     }
 
     public void PauseGame()
