@@ -17,7 +17,8 @@ public class LogoAnimator : MonoBehaviour
     private RectTransform rectTransform;
     private Vector2 startPosition;
 
-    void Start()
+    // Change Start() to Awake() to grab components once
+    void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         logoImage = GetComponent<Image>();
@@ -25,11 +26,15 @@ public class LogoAnimator : MonoBehaviour
         
         startPosition = rectTransform.anchoredPosition;
 
-        // Automatically configure the Image for a left-to-right wipe
         logoImage.type = Image.Type.Filled;
         logoImage.fillMethod = Image.FillMethod.Horizontal;
         logoImage.fillOrigin = (int)Image.OriginHorizontal.Left;
+    }
 
+    void OnEnable()
+    {
+        // Stop any accidental duplicate coroutines, then start fresh
+        StopAllCoroutines();
         StartCoroutine(AnimationSequence());
     }
 
