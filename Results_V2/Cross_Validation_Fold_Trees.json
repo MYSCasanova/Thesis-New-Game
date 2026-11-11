@@ -53,6 +53,20 @@
         "threshold": 0.755,
         "gain_ratio": 0.46993388074115194,
         "information_gain": 0.1744546479149136,
+        "tied_candidates": [
+          {
+            "feature": "player_color",
+            "threshold": 0.755,
+            "gain_ratio": 0.46993388074115194,
+            "information_gain": 0.1744546479149136
+          },
+          {
+            "feature": "player_contrast",
+            "threshold": 0.786,
+            "gain_ratio": 0.46993388074115194,
+            "information_gain": 0.1744546479149136
+          }
+        ],
         "left": {
           "prediction": "MEDIUM",
           "samples": 13,
@@ -75,21 +89,25 @@
               "HIGH": 1
             },
             "type": "split",
-            "feature": "player_color",
-            "threshold": 0.5965,
+            "feature": "background_color",
+            "threshold": 0.16499999999999998,
             "gain_ratio": 0.15614881773355366,
             "information_gain": 0.14339080881725613,
-            "left": {
-              "prediction": "MEDIUM",
-              "samples": 8,
-              "class_counts": {
-                "LOW": 0,
-                "MEDIUM": 8,
-                "HIGH": 0
+            "tied_candidates": [
+              {
+                "feature": "background_color",
+                "threshold": 0.16499999999999998,
+                "gain_ratio": 0.15614881773355366,
+                "information_gain": 0.14339080881725613
               },
-              "type": "leaf"
-            },
-            "right": {
+              {
+                "feature": "player_color",
+                "threshold": 0.5965,
+                "gain_ratio": 0.15614881773355366,
+                "information_gain": 0.14339080881725613
+              }
+            ],
+            "left": {
               "prediction": "MEDIUM",
               "samples": 4,
               "class_counts": {
@@ -100,28 +118,76 @@
               "type": "split",
               "feature": "player_color",
               "threshold": 0.65,
-              "gain_ratio": 1.0,
-              "information_gain": 0.8112781244591328,
+              "gain_ratio": 0.31127812445913283,
+              "information_gain": 0.31127812445913283,
               "left": {
-                "prediction": "HIGH",
-                "samples": 1,
+                "prediction": "MEDIUM",
+                "samples": 2,
                 "class_counts": {
                   "LOW": 0,
-                  "MEDIUM": 0,
+                  "MEDIUM": 1,
                   "HIGH": 1
                 },
-                "type": "leaf"
+                "type": "split",
+                "feature": "background_color",
+                "threshold": 0.14,
+                "gain_ratio": 1.0,
+                "information_gain": 1.0,
+                "tied_candidates": [
+                  {
+                    "feature": "background_color",
+                    "threshold": 0.14,
+                    "gain_ratio": 1.0,
+                    "information_gain": 1.0
+                  },
+                  {
+                    "feature": "player_color",
+                    "threshold": 0.565,
+                    "gain_ratio": 1.0,
+                    "information_gain": 1.0
+                  }
+                ],
+                "left": {
+                  "prediction": "MEDIUM",
+                  "samples": 1,
+                  "class_counts": {
+                    "LOW": 0,
+                    "MEDIUM": 1,
+                    "HIGH": 0
+                  },
+                  "type": "leaf"
+                },
+                "right": {
+                  "prediction": "HIGH",
+                  "samples": 1,
+                  "class_counts": {
+                    "LOW": 0,
+                    "MEDIUM": 0,
+                    "HIGH": 1
+                  },
+                  "type": "leaf"
+                }
               },
               "right": {
                 "prediction": "MEDIUM",
-                "samples": 3,
+                "samples": 2,
                 "class_counts": {
                   "LOW": 0,
-                  "MEDIUM": 3,
+                  "MEDIUM": 2,
                   "HIGH": 0
                 },
                 "type": "leaf"
               }
+            },
+            "right": {
+              "prediction": "MEDIUM",
+              "samples": 8,
+              "class_counts": {
+                "LOW": 0,
+                "MEDIUM": 8,
+                "HIGH": 0
+              },
+              "type": "leaf"
             }
           },
           "right": {
@@ -191,10 +257,30 @@
               "HIGH": 0
             },
             "type": "split",
-            "feature": "player_color",
-            "threshold": 0.866,
+            "feature": "background_color",
+            "threshold": 0.42500000000000004,
             "gain_ratio": 1.0,
             "information_gain": 1.0,
+            "tied_candidates": [
+              {
+                "feature": "background_color",
+                "threshold": 0.42500000000000004,
+                "gain_ratio": 1.0,
+                "information_gain": 1.0
+              },
+              {
+                "feature": "player_color",
+                "threshold": 0.866,
+                "gain_ratio": 1.0,
+                "information_gain": 1.0
+              },
+              {
+                "feature": "player_contrast",
+                "threshold": 0.5045,
+                "gain_ratio": 1.0,
+                "information_gain": 1.0
+              }
+            ],
             "left": {
               "prediction": "LOW",
               "samples": 1,
@@ -228,7 +314,10 @@
           }
         }
       }
-    }
+    },
+    "validation_accuracy": 0.6666666666666666,
+    "training_majority_class": "MEDIUM",
+    "majority_baseline_accuracy": 0.6666666666666666
   },
   {
     "fold": 2,
@@ -274,10 +363,66 @@
         "HIGH": 3
       },
       "type": "split",
-      "feature": "background_color",
-      "threshold": 0.725,
+      "feature": "background_brightness",
+      "threshold": 0.7250000000000001,
       "gain_ratio": 1.0,
       "information_gain": 0.5586293734521992,
+      "tied_candidates": [
+        {
+          "feature": "background_brightness",
+          "threshold": 0.7250000000000001,
+          "gain_ratio": 1.0,
+          "information_gain": 0.5586293734521992
+        },
+        {
+          "feature": "background_color",
+          "threshold": 0.725,
+          "gain_ratio": 1.0,
+          "information_gain": 0.5586293734521992
+        },
+        {
+          "feature": "background_contrast",
+          "threshold": 0.725,
+          "gain_ratio": 1.0,
+          "information_gain": 0.5586293734521992
+        },
+        {
+          "feature": "obstacle_brightness",
+          "threshold": 0.6799999999999999,
+          "gain_ratio": 1.0,
+          "information_gain": 0.5586293734521992
+        },
+        {
+          "feature": "obstacle_color",
+          "threshold": 0.69,
+          "gain_ratio": 1.0,
+          "information_gain": 0.5586293734521992
+        },
+        {
+          "feature": "platform_brightness",
+          "threshold": 0.6699999999999999,
+          "gain_ratio": 1.0,
+          "information_gain": 0.5586293734521992
+        },
+        {
+          "feature": "platform_color",
+          "threshold": 0.675,
+          "gain_ratio": 1.0,
+          "information_gain": 0.5586293734521992
+        },
+        {
+          "feature": "platform_contrast",
+          "threshold": 0.655,
+          "gain_ratio": 1.0,
+          "information_gain": 0.5586293734521992
+        },
+        {
+          "feature": "player_color",
+          "threshold": 0.8965000000000001,
+          "gain_ratio": 1.0,
+          "information_gain": 0.5586293734521992
+        }
+      ],
       "left": {
         "prediction": "MEDIUM",
         "samples": 20,
@@ -287,10 +432,60 @@
           "HIGH": 3
         },
         "type": "split",
-        "feature": "obstacle_color",
-        "threshold": 0.16,
+        "feature": "background_brightness",
+        "threshold": 0.18,
         "gain_ratio": 0.5190438596301018,
         "information_gain": 0.1486525820077827,
+        "tied_candidates": [
+          {
+            "feature": "background_brightness",
+            "threshold": 0.18,
+            "gain_ratio": 0.5190438596301018,
+            "information_gain": 0.1486525820077827
+          },
+          {
+            "feature": "background_contrast",
+            "threshold": 0.19,
+            "gain_ratio": 0.5190438596301018,
+            "information_gain": 0.1486525820077827
+          },
+          {
+            "feature": "obstacle_brightness",
+            "threshold": 0.15000000000000002,
+            "gain_ratio": 0.5190438596301018,
+            "information_gain": 0.1486525820077827
+          },
+          {
+            "feature": "obstacle_color",
+            "threshold": 0.16,
+            "gain_ratio": 0.5190438596301018,
+            "information_gain": 0.1486525820077827
+          },
+          {
+            "feature": "obstacle_contrast",
+            "threshold": 0.16999999999999998,
+            "gain_ratio": 0.5190438596301018,
+            "information_gain": 0.1486525820077827
+          },
+          {
+            "feature": "platform_brightness",
+            "threshold": 0.15000000000000002,
+            "gain_ratio": 0.5190438596301018,
+            "information_gain": 0.1486525820077827
+          },
+          {
+            "feature": "platform_color",
+            "threshold": 0.14,
+            "gain_ratio": 0.5190438596301018,
+            "information_gain": 0.1486525820077827
+          },
+          {
+            "feature": "platform_contrast",
+            "threshold": 0.16,
+            "gain_ratio": 0.5190438596301018,
+            "information_gain": 0.1486525820077827
+          }
+        ],
         "left": {
           "prediction": "HIGH",
           "samples": 1,
@@ -327,6 +522,26 @@
             "threshold": 0.19,
             "gain_ratio": 0.4459281986214854,
             "information_gain": 0.3219280948873623,
+            "tied_candidates": [
+              {
+                "feature": "background_color",
+                "threshold": 0.19,
+                "gain_ratio": 0.4459281986214854,
+                "information_gain": 0.3219280948873623
+              },
+              {
+                "feature": "obstacle_color",
+                "threshold": 0.33499999999999996,
+                "gain_ratio": 0.4459281986214854,
+                "information_gain": 0.3219280948873623
+              },
+              {
+                "feature": "player_color",
+                "threshold": 0.3385,
+                "gain_ratio": 0.4459281986214854,
+                "information_gain": 0.3219280948873623
+              }
+            ],
             "left": {
               "prediction": "MEDIUM",
               "samples": 4,
@@ -394,7 +609,10 @@
         },
         "type": "leaf"
       }
-    }
+    },
+    "validation_accuracy": 0.8571428571428571,
+    "training_majority_class": "MEDIUM",
+    "majority_baseline_accuracy": 0.8571428571428571
   },
   {
     "fold": 3,
@@ -441,10 +659,72 @@
         "HIGH": 3
       },
       "type": "split",
-      "feature": "background_color",
-      "threshold": 0.73,
+      "feature": "background_brightness",
+      "threshold": 0.74,
       "gain_ratio": 0.9999999999999993,
       "information_gain": 0.4262286569981446,
+      "tied_candidates": [
+        {
+          "feature": "background_brightness",
+          "threshold": 0.74,
+          "gain_ratio": 0.9999999999999993,
+          "information_gain": 0.4262286569981446
+        },
+        {
+          "feature": "background_color",
+          "threshold": 0.73,
+          "gain_ratio": 0.9999999999999993,
+          "information_gain": 0.4262286569981446
+        },
+        {
+          "feature": "background_contrast",
+          "threshold": 0.735,
+          "gain_ratio": 0.9999999999999993,
+          "information_gain": 0.4262286569981446
+        },
+        {
+          "feature": "obstacle_brightness",
+          "threshold": 0.69,
+          "gain_ratio": 0.9999999999999993,
+          "information_gain": 0.4262286569981446
+        },
+        {
+          "feature": "obstacle_color",
+          "threshold": 0.7,
+          "gain_ratio": 0.9999999999999993,
+          "information_gain": 0.4262286569981446
+        },
+        {
+          "feature": "obstacle_contrast",
+          "threshold": 0.71,
+          "gain_ratio": 0.9999999999999993,
+          "information_gain": 0.4262286569981446
+        },
+        {
+          "feature": "platform_brightness",
+          "threshold": 0.6699999999999999,
+          "gain_ratio": 0.9999999999999993,
+          "information_gain": 0.4262286569981446
+        },
+        {
+          "feature": "platform_color",
+          "threshold": 0.675,
+          "gain_ratio": 0.9999999999999993,
+          "information_gain": 0.4262286569981446
+        },
+        {
+          "feature": "platform_contrast",
+          "threshold": 0.675,
+          "gain_ratio": 0.9999999999999993,
+          "information_gain": 0.4262286569981446
+        },
+        {
+          "feature": "player_color",
+          "threshold": 0.896,
+          "gain_ratio": 0.9999999999999993,
+          "information_gain": 0.4262286569981446
+        }
+      ],
       "left": {
         "prediction": "MEDIUM",
         "samples": 21,
@@ -454,10 +734,60 @@
           "HIGH": 3
         },
         "type": "split",
-        "feature": "obstacle_color",
-        "threshold": 0.195,
+        "feature": "background_brightness",
+        "threshold": 0.21000000000000002,
         "gain_ratio": 0.7108653406978385,
         "information_gain": 0.3225312200363036,
+        "tied_candidates": [
+          {
+            "feature": "background_brightness",
+            "threshold": 0.21000000000000002,
+            "gain_ratio": 0.7108653406978385,
+            "information_gain": 0.3225312200363036
+          },
+          {
+            "feature": "background_contrast",
+            "threshold": 0.22499999999999998,
+            "gain_ratio": 0.7108653406978385,
+            "information_gain": 0.3225312200363036
+          },
+          {
+            "feature": "obstacle_brightness",
+            "threshold": 0.195,
+            "gain_ratio": 0.7108653406978385,
+            "information_gain": 0.3225312200363036
+          },
+          {
+            "feature": "obstacle_color",
+            "threshold": 0.195,
+            "gain_ratio": 0.7108653406978385,
+            "information_gain": 0.3225312200363036
+          },
+          {
+            "feature": "obstacle_contrast",
+            "threshold": 0.195,
+            "gain_ratio": 0.7108653406978385,
+            "information_gain": 0.3225312200363036
+          },
+          {
+            "feature": "platform_brightness",
+            "threshold": 0.185,
+            "gain_ratio": 0.7108653406978385,
+            "information_gain": 0.3225312200363036
+          },
+          {
+            "feature": "platform_color",
+            "threshold": 0.175,
+            "gain_ratio": 0.7108653406978385,
+            "information_gain": 0.3225312200363036
+          },
+          {
+            "feature": "platform_contrast",
+            "threshold": 0.19,
+            "gain_ratio": 0.7108653406978385,
+            "information_gain": 0.3225312200363036
+          }
+        ],
         "left": {
           "prediction": "HIGH",
           "samples": 2,
@@ -490,27 +820,89 @@
               "HIGH": 1
             },
             "type": "split",
-            "feature": "background_color",
-            "threshold": 0.185,
+            "feature": "background_brightness",
+            "threshold": 0.44,
             "gain_ratio": 1.0,
             "information_gain": 1.0,
-            "left": {
-              "prediction": "HIGH",
-              "samples": 1,
-              "class_counts": {
-                "LOW": 0,
-                "MEDIUM": 0,
-                "HIGH": 1
+            "tied_candidates": [
+              {
+                "feature": "background_brightness",
+                "threshold": 0.44,
+                "gain_ratio": 1.0,
+                "information_gain": 1.0
               },
-              "type": "leaf"
-            },
-            "right": {
+              {
+                "feature": "background_color",
+                "threshold": 0.185,
+                "gain_ratio": 1.0,
+                "information_gain": 1.0
+              },
+              {
+                "feature": "background_contrast",
+                "threshold": 0.37,
+                "gain_ratio": 1.0,
+                "information_gain": 1.0
+              },
+              {
+                "feature": "obstacle_brightness",
+                "threshold": 0.36,
+                "gain_ratio": 1.0,
+                "information_gain": 1.0
+              },
+              {
+                "feature": "obstacle_contrast",
+                "threshold": 0.35,
+                "gain_ratio": 1.0,
+                "information_gain": 1.0
+              },
+              {
+                "feature": "platform_brightness",
+                "threshold": 0.355,
+                "gain_ratio": 1.0,
+                "information_gain": 1.0
+              },
+              {
+                "feature": "platform_color",
+                "threshold": 0.28500000000000003,
+                "gain_ratio": 1.0,
+                "information_gain": 1.0
+              },
+              {
+                "feature": "platform_contrast",
+                "threshold": 0.35,
+                "gain_ratio": 1.0,
+                "information_gain": 1.0
+              },
+              {
+                "feature": "player_color",
+                "threshold": 0.501,
+                "gain_ratio": 1.0,
+                "information_gain": 1.0
+              },
+              {
+                "feature": "player_contrast",
+                "threshold": 0.5105,
+                "gain_ratio": 1.0,
+                "information_gain": 1.0
+              }
+            ],
+            "left": {
               "prediction": "MEDIUM",
               "samples": 1,
               "class_counts": {
                 "LOW": 0,
                 "MEDIUM": 1,
                 "HIGH": 0
+              },
+              "type": "leaf"
+            },
+            "right": {
+              "prediction": "HIGH",
+              "samples": 1,
+              "class_counts": {
+                "LOW": 0,
+                "MEDIUM": 0,
+                "HIGH": 1
               },
               "type": "leaf"
             }
@@ -537,7 +929,10 @@
         },
         "type": "leaf"
       }
-    }
+    },
+    "validation_accuracy": 0.7142857142857143,
+    "training_majority_class": "MEDIUM",
+    "majority_baseline_accuracy": 0.7142857142857143
   },
   {
     "fold": 4,
@@ -610,27 +1005,77 @@
             "HIGH": 2
           },
           "type": "split",
-          "feature": "player_contrast",
-          "threshold": 0.755,
+          "feature": "background_contrast",
+          "threshold": 0.20500000000000002,
           "gain_ratio": 1.0,
           "information_gain": 0.9182958340544896,
-          "left": {
-            "prediction": "HIGH",
-            "samples": 2,
-            "class_counts": {
-              "LOW": 0,
-              "MEDIUM": 0,
-              "HIGH": 2
+          "tied_candidates": [
+            {
+              "feature": "background_contrast",
+              "threshold": 0.20500000000000002,
+              "gain_ratio": 1.0,
+              "information_gain": 0.9182958340544896
             },
-            "type": "leaf"
-          },
-          "right": {
+            {
+              "feature": "obstacle_brightness",
+              "threshold": 0.165,
+              "gain_ratio": 1.0,
+              "information_gain": 0.9182958340544896
+            },
+            {
+              "feature": "obstacle_color",
+              "threshold": 0.175,
+              "gain_ratio": 1.0,
+              "information_gain": 0.9182958340544896
+            },
+            {
+              "feature": "obstacle_contrast",
+              "threshold": 0.185,
+              "gain_ratio": 1.0,
+              "information_gain": 0.9182958340544896
+            },
+            {
+              "feature": "platform_brightness",
+              "threshold": 0.165,
+              "gain_ratio": 1.0,
+              "information_gain": 0.9182958340544896
+            },
+            {
+              "feature": "platform_color",
+              "threshold": 0.155,
+              "gain_ratio": 1.0,
+              "information_gain": 0.9182958340544896
+            },
+            {
+              "feature": "platform_contrast",
+              "threshold": 0.175,
+              "gain_ratio": 1.0,
+              "information_gain": 0.9182958340544896
+            },
+            {
+              "feature": "player_contrast",
+              "threshold": 0.755,
+              "gain_ratio": 1.0,
+              "information_gain": 0.9182958340544896
+            }
+          ],
+          "left": {
             "prediction": "MEDIUM",
             "samples": 1,
             "class_counts": {
               "LOW": 0,
               "MEDIUM": 1,
               "HIGH": 0
+            },
+            "type": "leaf"
+          },
+          "right": {
+            "prediction": "HIGH",
+            "samples": 2,
+            "class_counts": {
+              "LOW": 0,
+              "MEDIUM": 0,
+              "HIGH": 2
             },
             "type": "leaf"
           }
@@ -661,6 +1106,26 @@
             "threshold": 0.33499999999999996,
             "gain_ratio": 1.0,
             "information_gain": 0.8112781244591328,
+            "tied_candidates": [
+              {
+                "feature": "obstacle_color",
+                "threshold": 0.33499999999999996,
+                "gain_ratio": 1.0,
+                "information_gain": 0.8112781244591328
+              },
+              {
+                "feature": "platform_color",
+                "threshold": 0.31,
+                "gain_ratio": 1.0,
+                "information_gain": 0.8112781244591328
+              },
+              {
+                "feature": "player_color",
+                "threshold": 0.65,
+                "gain_ratio": 1.0,
+                "information_gain": 0.8112781244591328
+              }
+            ],
             "left": {
               "prediction": "MEDIUM",
               "samples": 3,
@@ -728,6 +1193,9 @@
           "type": "leaf"
         }
       }
-    }
+    },
+    "validation_accuracy": 0.5714285714285714,
+    "training_majority_class": "MEDIUM",
+    "majority_baseline_accuracy": 0.7142857142857143
   }
 ]

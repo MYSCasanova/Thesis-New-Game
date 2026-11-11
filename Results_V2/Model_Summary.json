@@ -67,6 +67,20 @@
           "threshold": 0.14,
           "gain_ratio": 0.16991432212036853,
           "information_gain": 0.09235938389499498,
+          "tied_candidates": [
+            {
+              "feature": "background_color",
+              "threshold": 0.14,
+              "gain_ratio": 0.16991432212036853,
+              "information_gain": 0.09235938389499498
+            },
+            {
+              "feature": "background_color",
+              "threshold": 0.16999999999999998,
+              "gain_ratio": 0.16991432212036853,
+              "information_gain": 0.09235938389499498
+            }
+          ],
           "left": {
             "prediction": "MEDIUM",
             "samples": 1,
@@ -280,6 +294,13 @@
       "player_contrast": 3,
       "player_brightness": 0
     },
+    "fold_accuracies": [
+      0.6666666666666666,
+      0.8571428571428571,
+      0.7142857142857143,
+      0.5714285714285714
+    ],
+    "majority_class_accuracy": 0.7333333333333333,
     "note": null,
     "evaluation_type": "outer_stratified_cross_validation_with_training_fold_thresholds"
   },
