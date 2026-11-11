@@ -599,7 +599,8 @@ def majority_class(labels):
 def best_gain_ratio_split(
     X,
     labels,
-    min_leaf=1
+    min_leaf=1,
+    feature_names=None
 ):
     """
     Find the best numeric split using
@@ -610,6 +611,16 @@ def best_gain_ratio_split(
 
     A split is accepted only when both
     child nodes meet the minimum leaf size.
+
+    TIE-BREAK RULE (deterministic):
+    When two or more candidate splits have
+    the same gain ratio (within 1e-12), the
+    split with the smallest (feature name,
+    threshold) pair is selected. The result
+    therefore does not depend on the column
+    order of X. All tied candidates are
+    returned under "tied_candidates" so they
+    can be logged in the model output.
     """
 
     X = np.asarray(X, dtype=float)
@@ -619,10 +630,9 @@ def best_gain_ratio_split(
 
     parent_entropy = entropy(labels)
 
-    best = None
-    best_ratio = -np.inf
-
     epsilon = 1e-12
+
+    candidates = []
 
     for feature_index in range(n_features):
 
@@ -689,25 +699,96 @@ def best_gain_ratio_split(
                 / split_information
             )
 
-            if (
-                information_gain > epsilon
-                and gain_ratio > best_ratio + epsilon
-            ):
+            if information_gain > epsilon:
 
-                best_ratio = gain_ratio
-
-                best = {
+                candidates.append({
                     "feature_index": feature_index,
                     "threshold": float(threshold),
                     "gain_ratio": float(gain_ratio),
                     "information_gain": float(
                         information_gain
-                    ),
-                    "left_mask": left_mask,
-                    "right_mask": right_mask
-                }
+                    )
+                })
+
+    if not candidates:
+        return None
+
+    highest_ratio = max(
+        candidate["gain_ratio"]
+        for candidate in candidates
+    )
+
+    tied = [
+        candidate
+        for candidate in candidates
+        if candidate["gain_ratio"]
+        >= highest_ratio - epsilon
+    ]
+
+    def feature_label(candidate):
+        if feature_names is None:
+            return ""
+        return str(
+            feature_names[
+                candidate["feature_index"]
+            ]
+        )
+
+    tied.sort(
+        key=lambda candidate: (
+            feature_label(candidate),
+            candidate["threshold"],
+            candidate["feature_index"]
+        )
+    )
+
+    chosen = tied[0]
+
+    chosen_values = X[
+        :,
+        chosen["feature_index"]
+    ]
+
+    left_mask = (
+        chosen_values <= chosen["threshold"]
+    )
+
+    right_mask = ~left_mask
+
+    best = {
+        "feature_index": chosen["feature_index"],
+        "threshold": chosen["threshold"],
+        "gain_ratio": chosen["gain_ratio"],
+        "information_gain": chosen[
+            "information_gain"
+        ],
+        "left_mask": left_mask,
+        "right_mask": right_mask
+    }
+
+    if len(tied) > 1:
+
+        best["tied_candidates"] = [
+            {
+                "feature": feature_label(
+                    candidate
+                ),
+                "threshold": candidate[
+                    "threshold"
+                ],
+                "gain_ratio": candidate[
+                    "gain_ratio"
+                ],
+                "information_gain": candidate[
+                    "information_gain"
+                ]
+            }
+            for candidate in tied
+        ]
 
     return best
+
+
 
 
 def train_c45(
@@ -766,8 +847,10 @@ def train_c45(
     split = best_gain_ratio_split(
         X,
         labels,
-        min_leaf=min_leaf
+        min_leaf=min_leaf,
+        feature_names=feature_names
     )
+
 
     if split is None:
         node["type"] = "leaf"
@@ -796,6 +879,12 @@ def train_c45(
             "information_gain"
         ]
     })
+
+    if "tied_candidates" in split:
+        node["tied_candidates"] = split[
+            "tied_candidates"
+        ]
+
 
     node["left"] = train_c45(
         X[left_mask],
@@ -1064,8 +1153,12 @@ def fit_pipeline(
         "selected": selected,
         "tree": tree,
         "presets": presets,
-        "class_counts": dict(counts)
+        "class_counts": {
+            str(cls): int(count)
+            for cls, count in counts.items()
+        }
     }
+
 
 # ============================================================
 # PHASE 7 — CROSS-VALIDATION AND MODEL EVALUATION
@@ -1430,8 +1523,70 @@ def cross_validate(
             })
 
     # --------------------------------------------------------
+    # PER-FOLD ACCURACY AND MAJORITY-CLASS BASELINE
+    # --------------------------------------------------------
+    # The baseline predicts, for every validation record in a
+    # fold, the majority class of that fold's TRAINING labels.
+
+    fold_accuracies = []
+    baseline_correct = 0
+
+    for fold_info in fold_summaries:
+
+        fold_records = [
+            record
+            for record in records
+            if record["fold"] == fold_info["fold"]
+        ]
+
+        fold_accuracy = float(
+            np.mean([
+                record["correct"]
+                for record in fold_records
+            ])
+        )
+
+        training_majority = max(
+            CLASSES,
+            key=lambda cls: fold_info[
+                "class_counts"
+            ].get(cls, 0)
+        )
+
+        fold_baseline_correct = sum(
+            record["actual"] == training_majority
+            for record in fold_records
+        )
+
+        baseline_correct += fold_baseline_correct
+
+        fold_info["validation_accuracy"] = (
+            fold_accuracy
+        )
+
+        fold_info["training_majority_class"] = (
+            training_majority
+        )
+
+        fold_info["majority_baseline_accuracy"] = (
+            float(
+                fold_baseline_correct
+                / len(fold_records)
+            )
+        )
+
+        fold_accuracies.append(
+            fold_accuracy
+        )
+
+    majority_class_accuracy = float(
+        baseline_correct / len(actual)
+    )
+
+    # --------------------------------------------------------
     # COMPUTE CLASSIFICATION METRICS
     # --------------------------------------------------------
+
 
     matrix, metrics, macro_f1 = score_predictions(
         actual,
@@ -1475,8 +1630,13 @@ def cross_validate(
         "balanced_accuracy": balanced_accuracy,
         "record_predictions": records,
         "fold_diagnostics": fold_summaries,
-        "selection_frequency": stability
+        "selection_frequency": stability,
+        "fold_accuracies": fold_accuracies,
+        "majority_class_accuracy": (
+            majority_class_accuracy
+        )
     }
+
 
 
 # ============================================================
@@ -1533,7 +1693,8 @@ def save_model(
         "tree_stopping": {
             "max_depth": None,
             "min_leaf": 1,
-            "min_gain": 1e-9,
+            "min_gain": 1e-12,
+            "min_split_information": 1e-12,
             "post_pruning": False
         },
 
@@ -1924,6 +2085,12 @@ def run_training(
             ),
             "selection_frequency": cv.get(
                 "selection_frequency"
+            ),
+            "fold_accuracies": cv.get(
+                "fold_accuracies"
+            ),
+            "majority_class_accuracy": cv.get(
+                "majority_class_accuracy"
             ),
             "note": cv.get("note"),
             "evaluation_type": (
