@@ -39,6 +39,9 @@ public class JumpTutorialManager : MonoBehaviour
     private bool isMenuOpen = false;
     private Coroutine slideCoroutine;
 
+    [Header("Jump Type UI Button")]
+    [SerializeField] private Button jumpPanel;
+
     [Header("Menu Buttons")]
     public Button[] jumpTypeButtons; 
     public GameObject[] buttonCheckmarks; 
@@ -163,6 +166,12 @@ public class JumpTutorialManager : MonoBehaviour
             initialSpawnPosition = player.transform.position; // Store the very first spawn location
         }
 
+        // ADD THIS HERE INSTEAD OF UPDATE:
+        if (jumpPanel != null)
+        {
+            jumpPanel.onClick.AddListener(ToggleMenu);
+        }
+
         leftMenuPanel.anchoredPosition = menuOffScreenPos;
         OpenMenu();
     }
@@ -190,6 +199,18 @@ public class JumpTutorialManager : MonoBehaviour
                     ResetPlayerToSafeZone(player, cam);
                 }
             }
+        }
+    }
+
+    public void ToggleMenu()
+    {
+        if (isMenuOpen) 
+        {
+            CloseMenu();
+        }
+        else 
+        {
+            OpenMenu();
         }
     }
 

@@ -177,6 +177,7 @@ public class MainMenuManager : MonoBehaviour
     public void CloseSettings()
     {
         // Unpause the game
+        Time.timeScale = 1f; 
         SceneManager.UnloadSceneAsync("GYM_ManualSettings");
     }
 

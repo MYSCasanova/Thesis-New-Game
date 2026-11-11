@@ -103,12 +103,12 @@ TextureImporter:
       name: Booster Button_0
       rect:
         serializedVersion: 2
-        x: 214
-        y: 114
-        width: 835
-        height: 835
+        x: 162
+        y: 38
+        width: 941
+        height: 941
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: ccaaf205a7223384699bd5bebdd12e97
     internalID: 0
     vertices: []
     indices: 

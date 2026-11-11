@@ -109,12 +109,12 @@ TextureImporter:
       name: Booster Bar and Button v1_0
       rect:
         serializedVersion: 2
-        x: 1652
-        y: 2652
-        width: 1354
-        height: 1355
+        x: 1634
+        y: 2582
+        width: 1560
+        height: 1560
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -136,7 +136,7 @@ TextureImporter:
         width: 4000
         height: 349
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -158,7 +158,7 @@ TextureImporter:
         width: 4507
         height: 972
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -175,7 +175,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 36f14a67260b1ea42a0530a8ec3327e1
     internalID: 0
     vertices: []
     indices: 
