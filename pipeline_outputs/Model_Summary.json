@@ -27,7 +27,8 @@
       "Absolute r": 0.8766066218706685,
       "Removed Variance": 0.03799034482758619,
       "Retained Variance": 0.038896091954022986,
-      "Reason": "Highly correlated with previously retained higher-variance feature"
+      "Reason": "Highly correlated with previously retained higher-variance feature",
+      "All Conflicting Retained Features": "obstacle_contrast (r=0.8766)"
     },
     {
       "Removed Feature": "obstacle_color",
@@ -36,7 +37,8 @@
       "Absolute r": 0.953566410798715,
       "Removed Variance": 0.034140344827586204,
       "Retained Variance": 0.04893436781609196,
-      "Reason": "Highly correlated with previously retained higher-variance feature"
+      "Reason": "Highly correlated with previously retained higher-variance feature",
+      "All Conflicting Retained Features": "background_color (r=0.9536)"
     },
     {
       "Removed Feature": "background_contrast",
@@ -45,7 +47,8 @@
       "Absolute r": 0.975431600105218,
       "Removed Variance": 0.03346034482758621,
       "Retained Variance": 0.038896091954022986,
-      "Reason": "Highly correlated with previously retained higher-variance feature"
+      "Reason": "Highly correlated with previously retained higher-variance feature",
+      "All Conflicting Retained Features": "obstacle_contrast (r=0.9754)"
     },
     {
       "Removed Feature": "obstacle_brightness",
@@ -54,7 +57,8 @@
       "Absolute r": 0.927882296663378,
       "Removed Variance": 0.032287816091954025,
       "Retained Variance": 0.038896091954022986,
-      "Reason": "Highly correlated with previously retained higher-variance feature"
+      "Reason": "Highly correlated with previously retained higher-variance feature",
+      "All Conflicting Retained Features": "obstacle_contrast (r=0.9279)"
     },
     {
       "Removed Feature": "platform_color",
@@ -63,7 +67,8 @@
       "Absolute r": 0.8570782658731645,
       "Removed Variance": 0.031839195402298855,
       "Retained Variance": 0.038896091954022986,
-      "Reason": "Highly correlated with previously retained higher-variance feature"
+      "Reason": "Highly correlated with previously retained higher-variance feature",
+      "All Conflicting Retained Features": "obstacle_contrast (r=0.8571)"
     },
     {
       "Removed Feature": "platform_contrast",
@@ -72,7 +77,8 @@
       "Absolute r": 0.9370781764853258,
       "Removed Variance": 0.029559655172413792,
       "Retained Variance": 0.038896091954022986,
-      "Reason": "Highly correlated with previously retained higher-variance feature"
+      "Reason": "Highly correlated with previously retained higher-variance feature",
+      "All Conflicting Retained Features": "obstacle_contrast (r=0.9371)"
     },
     {
       "Removed Feature": "platform_brightness",
@@ -81,7 +87,8 @@
       "Absolute r": 0.933105918120029,
       "Removed Variance": 0.029411609195402307,
       "Retained Variance": 0.038896091954022986,
-      "Reason": "Highly correlated with previously retained higher-variance feature"
+      "Reason": "Highly correlated with previously retained higher-variance feature",
+      "All Conflicting Retained Features": "obstacle_contrast (r=0.9331)"
     }
   ],
   "selected_features": [
@@ -103,6 +110,20 @@
     "threshold": 0.73,
     "gain_ratio": 0.6549539030051209,
     "information_gain": 0.3071704945135032,
+    "tied_candidates": [
+      {
+        "feature": "background_color",
+        "threshold": 0.73,
+        "gain_ratio": 0.6549539030051209,
+        "information_gain": 0.3071704945135032
+      },
+      {
+        "feature": "player_color",
+        "threshold": 0.8965000000000001,
+        "gain_ratio": 0.6549539030051209,
+        "information_gain": 0.3071704945135032
+      }
+    ],
     "left": {
       "prediction": "MEDIUM",
       "samples": 27,
@@ -178,6 +199,20 @@
               "threshold": 0.19,
               "gain_ratio": 0.36647633582613776,
               "information_gain": 0.19920350542916287,
+              "tied_candidates": [
+                {
+                  "feature": "background_color",
+                  "threshold": 0.19,
+                  "gain_ratio": 0.36647633582613776,
+                  "information_gain": 0.19920350542916287
+                },
+                {
+                  "feature": "player_color",
+                  "threshold": 0.3385,
+                  "gain_ratio": 0.36647633582613776,
+                  "information_gain": 0.19920350542916287
+                }
+              ],
               "left": {
                 "prediction": "MEDIUM",
                 "samples": 7,
@@ -319,6 +354,32 @@
             "threshold": 0.53,
             "gain_ratio": 1.0,
             "information_gain": 1.0,
+            "tied_candidates": [
+              {
+                "feature": "background_color",
+                "threshold": 0.53,
+                "gain_ratio": 1.0,
+                "information_gain": 1.0
+              },
+              {
+                "feature": "obstacle_contrast",
+                "threshold": 0.515,
+                "gain_ratio": 1.0,
+                "information_gain": 1.0
+              },
+              {
+                "feature": "player_color",
+                "threshold": 0.633,
+                "gain_ratio": 1.0,
+                "information_gain": 1.0
+              },
+              {
+                "feature": "player_contrast",
+                "threshold": 0.868,
+                "gain_ratio": 1.0,
+                "information_gain": 1.0
+              }
+            ],
             "left": {
               "prediction": "LOW",
               "samples": 1,
@@ -427,6 +488,13 @@
       "player_contrast": 2,
       "player_brightness": 0
     },
+    "fold_accuracies": [
+      0.6666666666666666,
+      0.8571428571428571,
+      0.7142857142857143,
+      0.42857142857142855
+    ],
+    "majority_class_accuracy": 0.7333333333333333,
     "note": null,
     "evaluation_type": "outer_stratified_cross_validation_with_training_fold_thresholds"
   },
