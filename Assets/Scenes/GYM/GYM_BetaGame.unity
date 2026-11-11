@@ -15388,9 +15388,6 @@ MonoBehaviour:
   - {fileID: 1660985850}
   - {fileID: 1640726472}
   - {fileID: 1462633664}
-  multiplierPopup: {fileID: 496763112}
-  popupDuration: 5
-  maxPopupScale: 1.5
 --- !u!222 &2588768010080173506
 CanvasRenderer:
   m_ObjectHideFlags: 0
