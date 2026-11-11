@@ -184,7 +184,8 @@ MonoBehaviour:
   isIcy: 0
   isBouncy: 0
   isBreaking: 1
-  breakDelay: 0.8
+  crackDelay: 0.8
+  breakDelay: 1.5
   fallSpeed: 5
   destroyDelay: 1.5
 --- !u!61 &9197969921820955133

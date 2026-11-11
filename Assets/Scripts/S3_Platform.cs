@@ -25,6 +25,7 @@ public class S3_Platform : MonoBehaviour
 
     [Header("Breaking Platform")]
     public bool isBreaking; //If platform is breaking, it will break after the player stands on it
+    public float crackDelay = 1f;
     public float breakDelay = 2f; // Delay before the platform breaks after the player stands on it
     private bool isPlayerOnPlatform; // Tracks if the player is currently on the platform
     private float breakTimer; // Timer to track how long the player has been on the platform
@@ -38,6 +39,7 @@ public class S3_Platform : MonoBehaviour
     private Vector3 startPosition;
     private Animator animator;
     private bool hasBroken = false;
+    private bool isCracked = false;
 
     private static List<S3_Platform> allPlatforms = new List<S3_Platform>();
 
@@ -65,10 +67,21 @@ public class S3_Platform : MonoBehaviour
     {
         MovePlatform();
 
-        if(isBreaking && isPlayerOnPlatform && !hasBroken) // Only start the timer if the platform is a breaking type and the player is on it and it hasnt broken yet
+        if (isBreaking && isPlayerOnPlatform && !hasBroken)
         {
             breakTimer += Time.deltaTime;
-            if(breakTimer >= breakDelay)
+
+            if (!isCracked && breakTimer >= crackDelay)
+            {
+                isCracked = true;
+
+                if (animator != null)
+                {
+                    animator.SetTrigger("Crack");
+                }
+            }
+
+            if (isCracked && breakTimer >= crackDelay + breakDelay)
             {
                 BreakPlatform();
             }
@@ -174,6 +187,7 @@ public class S3_Platform : MonoBehaviour
         // Reset breaking-platform variables
         hasBroken = false;
         isPlayerOnPlatform = false;
+        isCracked = false;
         breakTimer = 0f;
 
         // Re-enable the platform collider
@@ -182,6 +196,7 @@ public class S3_Platform : MonoBehaviour
         // Reset the breaking animation
         if (animator != null)
         {
+            animator.ResetTrigger("Crack");
             animator.ResetTrigger("Break");
             animator.Play("IdleBreakingPlatform", 0, 0f);
         }
