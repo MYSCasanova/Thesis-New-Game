@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement; 
+using UnityEngine.EventSystems; // Add this namespace
 
 public class S13_ManualSettingsUI : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class S13_ManualSettingsUI : MonoBehaviour
     [Header("Graphics UI Generation")]
     public Transform graphicsContentParent;
     public GameObject categoryPrefab;
+
+    // Add this list to track disabled EventSystems
+    private List<GameObject> disabledEventSystems = new List<GameObject>();
 
     [Header("Default Graphics Values")]
     public float defaultBrightness = 1f; 
@@ -37,7 +41,33 @@ public class S13_ManualSettingsUI : MonoBehaviour
 
     // Add this variable right above InitializeVideoSettings
     private bool isInitializingUI = false;
-    
+    private void Awake()
+    {
+        // Find all active EventSystems across all loaded scenes
+        EventSystem[] eventSystems = FindObjectsOfType<EventSystem>();
+
+        foreach (EventSystem es in eventSystems)
+        {
+            // If the EventSystem does not belong to the Manual Settings scene, disable it
+            if (es.gameObject.scene != this.gameObject.scene)
+            {
+                es.gameObject.SetActive(false);
+                disabledEventSystems.Add(es.gameObject);
+            }
+        }
+    }
+
+    private void OnDestroy()
+    {
+        // Re-enable the original EventSystems (like the one in PersistentGameplay) when this scene closes
+        foreach (GameObject esObj in disabledEventSystems)
+        {
+            if (esObj != null)
+            {
+                esObj.SetActive(true);
+            }
+        }
+    }
     private void Start()
     {
         // Clear existing UI elements
