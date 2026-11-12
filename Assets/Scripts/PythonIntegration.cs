@@ -10,8 +10,8 @@ using Debug = UnityEngine.Debug;
 public class PythonIntegration : MonoBehaviour
 {
     [Header("Script Settings")]
-    public string pipelineV2Exe = "Pipeline_V2.exe";
-    public string pipelineV3Exe = "Pipeline_V3.exe";
+    public string pipelineV2Exe = "Pipeline_V2";
+    public string pipelineV3Exe = "Pipeline_V3";
 
     [Tooltip("Kill a pipeline process that runs longer than this many seconds.")]
     public int pipelineTimeoutSeconds = 180;
@@ -78,7 +78,7 @@ public class PythonIntegration : MonoBehaviour
         yield return null;
 
         // CSV locations are unchanged
-        string baselinePath = Path.Combine(Application.dataPath, "VisualAccessibility_Baseline.csv");
+        string baselinePath = Path.Combine(Application.streamingAssetsPath, "VisualAccessibility_Baseline.csv");
         string playerPath = Path.Combine(Application.dataPath, "VisualAccessibility_Player.csv");
 
         bool v2Ok = false;
@@ -93,7 +93,7 @@ public class PythonIntegration : MonoBehaviour
         {
             // 2. Pipeline V2 = same code as V3 with Pearson OFF (default in Pipeline_V2.py).
             //    Uses the same argparse flags as V3 and its own output folder so results never mix.
-            string exeV2 = Path.Combine(Application.streamingAssetsPath, pipelineV2Exe);
+            string exeV2 = Path.Combine(Application.streamingAssetsPath, "Pipeline_V2");
             string outDirV2 = Path.Combine(Application.persistentDataPath, "PipelineV2_Outputs");
             Directory.CreateDirectory(outDirV2);
 
@@ -108,7 +108,7 @@ public class PythonIntegration : MonoBehaviour
 
             // 3. Pipeline V3 (argparse flags are REQUIRED; positional args are rejected).
             //    Outputs go to a writable folder, not the process's current directory.
-            string exeV3 = Path.Combine(Application.streamingAssetsPath, pipelineV3Exe);
+            string exeV3 = Path.Combine(Application.streamingAssetsPath, "Pipeline_V3");
             string outDirV3 = Path.Combine(Application.persistentDataPath, "PipelineV3_Outputs");
             Directory.CreateDirectory(outDirV3);
 
