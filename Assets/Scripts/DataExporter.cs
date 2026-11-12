@@ -54,7 +54,10 @@ public class DataExporter : MonoBehaviour
                          $"{completionTime.ToString("F2")},{errorCount}";
 
         //string filePath = Path.Combine(Application.dataPath, "VisualAccessibility_Player.csv");
-        string filePath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop), "VisualAccessibility_Player.csv");
+        string dataFolder = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop), "Data");
+        Directory.CreateDirectory(dataFolder);
+
+        string filePath = Path.Combine(dataFolder, "VisualAccessibility_Player.csv");
         
         if (!File.Exists(filePath))
         {
@@ -125,7 +128,10 @@ public class DataExporter : MonoBehaviour
                         $"{gameplayData.completionTime:F2},{gameplayData.errorCount}";
 
         //string filePath = Path.Combine(Application.dataPath, fileName); 
-        string filePath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop), fileName);
+        string dataFolder = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop), "Data");
+        Directory.CreateDirectory(dataFolder);
+
+        string filePath = Path.Combine(dataFolder, fileName);
 
         if (!File.Exists(filePath))
         {
