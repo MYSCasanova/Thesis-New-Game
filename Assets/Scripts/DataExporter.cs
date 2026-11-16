@@ -117,11 +117,11 @@ public class DataExporter : MonoBehaviour
                         "player_color,player_contrast,player_brightness," +
                         "completion_time,error_count";
 
-        string dataRow = $"{bg.color:F2},{bg.contrast:F2},{bg.brightness:F2}," +
-                        $"{ob.color:F2},{ob.contrast:F2},{ob.brightness:F2}," +
-                        $"{pt.color:F2},{pt.contrast:F2},{pt.brightness:F2}," +
-                        $"{pl.color:F2},{pl.contrast:F2},{pl.brightness:F2}," +
-                        $"{gameplayData.completionTime:F2},{gameplayData.errorCount}";
+        string dataRow = $"{Normalize(bg.color, 360f)},{Normalize(bg.contrast, 2f)},{Normalize(bg.brightness, 2f)}," +
+                 $"{Normalize(ob.color, 360f)},{Normalize(ob.contrast, 2f)},{Normalize(ob.brightness, 2f)}," +
+                 $"{Normalize(pt.color, 360f)},{Normalize(pt.contrast, 2f)},{Normalize(pt.brightness, 2f)}," +
+                 $"{Normalize(pl.color, 360f)},{Normalize(pl.contrast, 2f)},{Normalize(pl.brightness, 2f)}," +
+                 $"{gameplayData.completionTime:F2},{gameplayData.errorCount}";
 
         string filePath = Path.Combine(Application.dataPath, fileName); 
 

@@ -9,17 +9,12 @@ public class S17_GameplayData : MonoBehaviour
     private bool gameTimerStarted = false;
     private bool gameCompleted = false;
 
-    // --- ADD THIS ---
     private void Awake()
     {
-        // Detach from parent to ensure this is a root object, 
-        // because DontDestroyOnLoad only works on root GameObjects.
-        transform.SetParent(null); 
+        ResetGameData();
 
-        // Keeps this specific GameObject alive across all scenes
-        DontDestroyOnLoad(this.gameObject); 
+        Debug.Log("Gameplay Data Manager Initialized: " + gameObject.scene.name);
     }
-    // ----------------
 
     public void StartGameTimer()
     {
@@ -28,7 +23,7 @@ public class S17_GameplayData : MonoBehaviour
         gameStartTime = Time.time;
         gameTimerStarted = true;
 
-        Debug.Log("Game timer started.");
+        Debug.Log("TIMER STARTED: " + gameObject.scene.name);
     }
 
     public void CompleteGame()
@@ -36,8 +31,21 @@ public class S17_GameplayData : MonoBehaviour
         if (!gameTimerStarted || gameCompleted) return;
 
         completionTime = Time.time - gameStartTime;
+        gameTimerStarted = false;
         gameCompleted = true;
 
-        Debug.Log($"Game completed in {completionTime} seconds with {errorCount} errors.");
+        Debug.Log("TIMER COMPLETED: " + gameObject.scene.name +
+                  " | Completion Time: " + completionTime.ToString("F2") +
+                  " | Errors: " + errorCount);
+    }
+
+    public void ResetGameData()
+    {
+        completionTime = 0f;
+        errorCount = 0;
+        gameStartTime = 0f;
+
+        gameTimerStarted = false;
+        gameCompleted = false;
     }
 }
