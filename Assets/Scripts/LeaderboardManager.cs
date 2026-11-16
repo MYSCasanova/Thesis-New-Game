@@ -32,34 +32,22 @@ public class LeaderboardManager : MonoBehaviour
         Instance = this;
     }
 
+    
     public void SaveScore(string version, string playerName, int score, float time)
     {
         string key = "Leaderboard_" + version;
 
         LeaderboardData data = LoadData(key);
 
-        // Find this player's existing record.
-        LeaderboardRecord existing = data.entries.Find(
-            entry => entry.playerName == playerName
-        );
-
-        if (existing == null)
+        // Always create a new entry for every completed run.
+        data.entries.Add(new LeaderboardRecord
         {
-            data.entries.Add(new LeaderboardRecord
-            {
-                playerName = playerName,
-                score = score,
-                completionTime = time
-            });
-        }
-        else if (score > existing.score ||
-                (score == existing.score && time < existing.completionTime))
-        {
-            existing.score = score;
-            existing.completionTime = time;
-        }
+            playerName = playerName,
+            score = score,
+            completionTime = time
+        });
 
-        // Highest score first, then fastest time.
+        // Highest score first, then fastest completion time.
         data.entries = data.entries
             .OrderByDescending(entry => entry.score)
             .ThenBy(entry => entry.completionTime)
@@ -67,7 +55,13 @@ public class LeaderboardManager : MonoBehaviour
 
         PlayerPrefs.SetString(key, JsonUtility.ToJson(data));
         PlayerPrefs.Save();
+
+        Debug.Log("New leaderboard entry saved for " + version +
+                " | Player: " + playerName +
+                " | Score: " + score +
+                " | Time: " + time.ToString("F2"));
     }
+
 
     LeaderboardData LoadData(string key)
     {

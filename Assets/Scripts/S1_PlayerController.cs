@@ -72,6 +72,7 @@ public class S1_PlayerController : MonoBehaviour
 
     private bool isCurrentJumpShort = false;
     private bool didJump = false;
+    private bool hasStartedTimers = false;
 
     void Start()
     {
@@ -316,16 +317,57 @@ public class S1_PlayerController : MonoBehaviour
                 isOnIcy = landedPlatform.isIcy; // Update icy state based on the platform we landed on
                 isOnBouncy = landedPlatform.isBouncy; // Update bouncy state based on the platform we landed on
 
-                // Start the completion timer when landing on floor 1
-                if (landedFloor == 1)
-                {
-                    S17_GameplayData gameplayData = FindFirstObjectByType<S17_GameplayData>();
+            // Start both timers on the first landing on floor 1
+            if (landedFloor == 1 && !hasStartedTimers)
+            {
+                hasStartedTimers = true;
 
-                    if (gameplayData != null)
+                // Start gameplay timer
+                S17_GameplayData gameplayData = FindFirstObjectByType<S17_GameplayData>();
+
+                if (gameplayData != null)
+                {
+                    gameplayData.StartGameTimer();
+                }
+                else
+                {
+                    Debug.LogError("S17_GameplayData not found!");
+                }
+
+                // Start leaderboard timer
+                LeaderboardTimer leaderboardTimer = FindFirstObjectByType<LeaderboardTimer>();
+
+                if (leaderboardTimer != null)
+                {
+                    string version = "";
+
+                    switch (SceneManager.GetActiveScene().name)
                     {
-                        gameplayData.StartGameTimer();
+                        case "GYM_BetaGame":
+                            version = "V1";
+                            break;
+
+                        case "GYM_V2Game":
+                            version = "V2";
+                            break;
+
+                        case "GYM_V3Game":
+                            version = "V3";
+                            break;
+                    }
+
+                    if (!string.IsNullOrEmpty(version))
+                    {
+                        leaderboardTimer.StartTimer(version);
                     }
                 }
+                else
+                {
+                    Debug.LogError("LeaderboardTimer not found!");
+                }
+
+                Debug.Log("Both gameplay timers started!");
+            }
 
                 if (landedPlatform.direction != S3_Platform.MovementDirection.Static &&
                 landedPlatform.direction != S3_Platform.MovementDirection.Falling) //Attach player to platform ONLY if it's moving
@@ -449,6 +491,7 @@ public class S1_PlayerController : MonoBehaviour
         isOnIcy = false;
         isOnBouncy = false;
         fallDetectionDelay = 1f;
+        hasStartedTimers = false;
 
         if (comboSystem != null)
         {
