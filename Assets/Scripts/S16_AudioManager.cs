@@ -201,7 +201,8 @@ public class S16_AudioManager : MonoBehaviour
         for (float t = 0; t < safeDuration; t += Time.unscaledDeltaTime)
         {
             fadingOut.volume = Mathf.Lerp(startVolumeOut, 0f, t / safeDuration);
-            fadingIn.volume = Mathf.Lerp(0f, 1f, t / safeDuration);
+            // Change the target volume here to 0.8f
+            fadingIn.volume = Mathf.Lerp(0f, 0.8f, t / safeDuration); 
             yield return null;
         }
 
@@ -209,7 +210,8 @@ public class S16_AudioManager : MonoBehaviour
         fadingOut.volume = 0f;
         fadingOut.Stop(); // Stop the old track completely
         
-        fadingIn.volume = 1f;
+        // Change the final snap volume here to 0.8f
+        fadingIn.volume = 0.8f; 
     }
 
     public void PlaySFX(string name)

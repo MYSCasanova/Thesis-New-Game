@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement; 
+using UnityEngine.EventSystems; // Add this namespace
 
 public class S13_ManualSettingsUI : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class S13_ManualSettingsUI : MonoBehaviour
     [Header("Graphics UI Generation")]
     public Transform graphicsContentParent;
     public GameObject categoryPrefab;
+
+    // Add this list to track disabled EventSystems
+    private List<GameObject> disabledEventSystems = new List<GameObject>();
 
     [Header("Default Graphics Values")]
     public float defaultBrightness = 1f; 
@@ -37,7 +41,33 @@ public class S13_ManualSettingsUI : MonoBehaviour
 
     // Add this variable right above InitializeVideoSettings
     private bool isInitializingUI = false;
-    
+    private void Awake()
+    {
+        // Find all active EventSystems across all loaded scenes
+        EventSystem[] eventSystems = FindObjectsOfType<EventSystem>();
+
+        foreach (EventSystem es in eventSystems)
+        {
+            // If the EventSystem does not belong to the Manual Settings scene, disable it
+            if (es.gameObject.scene != this.gameObject.scene)
+            {
+                es.gameObject.SetActive(false);
+                disabledEventSystems.Add(es.gameObject);
+            }
+        }
+    }
+
+    private void OnDestroy()
+    {
+        // Re-enable the original EventSystems (like the one in PersistentGameplay) when this scene closes
+        foreach (GameObject esObj in disabledEventSystems)
+        {
+            if (esObj != null)
+            {
+                esObj.SetActive(true);
+            }
+        }
+    }
     private void Start()
     {
         // Clear existing UI elements
@@ -83,7 +113,8 @@ public class S13_ManualSettingsUI : MonoBehaviour
                 options.Add("AIPreset #3");
                 validModes.Add(3);
             }
-            else if (sceneName == "GYM_BetaGame")
+            // ADDED: GYM_JumpTutorial alongside BetaGame and TutorialLevel
+            else if (sceneName == "GYM_BetaGame" || sceneName == "GYM_TutorialLevel" || sceneName == "GYM_JumpTutorial")
             {
                 options.Add("Default");
                 options.Add("Custom");
@@ -105,13 +136,29 @@ public class S13_ManualSettingsUI : MonoBehaviour
 
             uiElements.modeDropdown.AddOptions(options);
 
-            // 2. CHECK SAVED MODE AND FORCE OVERRIDE IF NOT ALLOWED IN THIS SCENE
+            // 2. CHECK SAVED MODE AND RESTORE CUSTOM PREFS IF COMING FROM V2/V3
             int savedMode = PlayerPrefs.GetInt(tagToFind + "_GraphicsMode", 0);
             
             if (!validModes.Contains(savedMode))
             {
-                savedMode = validModes[0]; // Force to the first allowed preset for this scene
+                // Grab their last manual setting (0 or 1). If they set Custom before V2/V3, it restores it here.
+                int lastManualMode = PlayerPrefs.GetInt(tagToFind + "_LastManualMode", 0);
+                
+                if (validModes.Contains(lastManualMode))
+                {
+                    savedMode = lastManualMode;
+                }
+                else
+                {
+                    savedMode = validModes[0]; // Force to the first allowed preset for this scene
+                }
+
                 PlayerPrefs.SetInt(tagToFind + "_GraphicsMode", savedMode);
+            }
+            else if (savedMode == 0 || savedMode == 1)
+            {
+                // Ensure their manual preference is tracked on load just in case
+                PlayerPrefs.SetInt(tagToFind + "_LastManualMode", savedMode);
             }
 
             // Sync the dropdown UI visually to the correct index in our filtered list
@@ -137,6 +184,14 @@ public class S13_ManualSettingsUI : MonoBehaviour
                 
                 int actualMode = validModes[valIndex];
                 PlayerPrefs.SetInt(tagToFind + "_GraphicsMode", actualMode);
+
+                // Track their manual choice so it doesn't get lost when visiting AI scenes
+                if (actualMode == 0 || actualMode == 1)
+                {
+                    PlayerPrefs.SetInt(tagToFind + "_LastManualMode", actualMode);
+                }
+
+                PlayerPrefs.Save(); 
                 bool customSelected = (actualMode == 1);
                 
                 // Auto-open or close the sliders panel based on the dropdown selection
@@ -242,6 +297,7 @@ public class S13_ManualSettingsUI : MonoBehaviour
             PlayerPrefs.SetFloat(tagToFind + "_Brightness", currentSettings.brightness);
             PlayerPrefs.SetFloat(tagToFind + "_Contrast", currentSettings.contrast);
             PlayerPrefs.SetFloat(tagToFind + "_Color", currentSettings.color);
+            PlayerPrefs.Save(); // <--- ADD THIS LINE
         }
 
         settingsData.ApplyChanges(); 
