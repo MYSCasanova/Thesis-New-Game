@@ -41,14 +41,20 @@ public class S3_Platform : MonoBehaviour
     private bool hasBroken = false;
     private bool isCracked = false;
 
-    private static List<S3_Platform> allPlatforms = new List<S3_Platform>();
+    // private static List<S3_Platform> allPlatforms = new List<S3_Platform>();
+
+    // 1. Change from List to HashSet for O(1) instant lookups
+    private static HashSet<S3_Platform> allPlatforms = new HashSet<S3_Platform>();
 
     private void Awake()
     {
-        if (!allPlatforms.Contains(this))
-        {
-            allPlatforms.Add(this);
-        }
+        // 2. HashSet automatically prevents duplicates, eliminating the slow .Contains() check
+        allPlatforms.Add(this);
+    }
+
+    private void OnDestroy()
+    {
+        allPlatforms.Remove(this);
     }
 
     void Start()
@@ -159,11 +165,6 @@ public class S3_Platform : MonoBehaviour
     private void DestroyPlatform()
     {
         gameObject.SetActive(false);
-    }
-
-    private void OnDestroy()
-    {
-        allPlatforms.Remove(this);
     }
 
     public static void ResetAllPlatforms()

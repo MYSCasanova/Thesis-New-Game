@@ -6,7 +6,7 @@ public class SceneTransition : MonoBehaviour
 {
     public static bool isFromGallery = false;
 
-    private void Start()
+    private void OnEnable()
     {
         // Only run logic if we are the persistent base scene
         if (gameObject.scene.name == "PersistentGameplay")
@@ -16,9 +16,9 @@ public class SceneTransition : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
-        // Clean up the listener
+        // Clean up the listener instantly when disabled
         SceneManager.sceneLoaded -= OnAdditiveSceneLoaded;
     }
 
