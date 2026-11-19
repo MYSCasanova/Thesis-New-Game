@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using System.Globalization;
 using Debug = UnityEngine.Debug;
 
 public class PythonIntegration : MonoBehaviour
@@ -57,6 +58,7 @@ public class PythonIntegration : MonoBehaviour
         public string stdout = "";
         public string stderr = "";
         public string launchError = "";
+        public double elapsedSeconds = -1;
     }
 
     // ---------------------------------------------------------------------
@@ -84,6 +86,9 @@ public class PythonIntegration : MonoBehaviour
         bool v2Ok = false;
         bool v3Ok = false;
 
+        double v2Seconds = -1;
+        double v3Seconds = -1;
+
         if (!File.Exists(baselinePath) || !File.Exists(playerPath))
         {
             Debug.LogError($"Pipeline CSV missing. Baseline exists: {File.Exists(baselinePath)} ({baselinePath}), " +
@@ -104,6 +109,7 @@ public class PythonIntegration : MonoBehaviour
                             $"--output-dir \"{outDirV2}\" --cv-folds 5";
             Task<ProcessResult> taskV2 = Task.Run(() => RunProcess(exeV2, argsV2, outDirV2, pipelineTimeoutSeconds));
             while (!taskV2.IsCompleted) yield return null;
+            v2Seconds = taskV2.Result.elapsedSeconds;
             v2Ok = HandleResult(taskV2.Result, 2, aiResultPathV2);
 
             // 3. Pipeline V3 (argparse flags are REQUIRED; positional args are rejected).
@@ -120,7 +126,10 @@ public class PythonIntegration : MonoBehaviour
                             $"--output-dir \"{outDirV3}\" --cv-folds 5";
             Task<ProcessResult> taskV3 = Task.Run(() => RunProcess(exeV3, argsV3, outDirV3, pipelineTimeoutSeconds));
             while (!taskV3.IsCompleted) yield return null;
+            v3Seconds = taskV3.Result.elapsedSeconds;
             v3Ok = HandleResult(taskV3.Result, 3, aiResultPath);
+
+            LogExecutionTimes(v2Ok ? v2Seconds : -1, v3Ok ? v3Seconds : -1);
         }
 
         // 4. Default the graphics mode to the newest preset that actually succeeded
@@ -141,6 +150,28 @@ public class PythonIntegration : MonoBehaviour
             S18_LoadingManager.Instance.LoadScenesFromProgress(0.5f, "GYM_MainMenu");
         else
             UnityEngine.SceneManagement.SceneManager.LoadScene("GYM_MainMenu");
+    }
+
+    private void LogExecutionTimes(double v2Seconds, double v3Seconds)
+    {
+        try
+        {
+            string path = Path.Combine(Application.dataPath, "Pipeline_ExecutionTimes.csv");
+            string v2 = v2Seconds >= 0 ? v2Seconds.ToString("F3", CultureInfo.InvariantCulture) : "NA";
+            string v3 = v3Seconds >= 0 ? v3Seconds.ToString("F3", CultureInfo.InvariantCulture) : "NA";
+            string row = v2 + "," + v3 + "\n";
+
+            if (!File.Exists(path))
+                File.WriteAllText(path, "Pipeline V2 Execution Time (s),Pipeline V3 Execution Time (s)\n" + row);
+            else
+                File.AppendAllText(path, row);
+
+            Debug.Log($"Logged execution times -> V2: {v2}s, V3: {v3}s ({path})");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Failed to write execution time CSV: " + e.Message);
+        }
     }
 
     // ---------------------------------------------------------------------
@@ -203,6 +234,7 @@ public class PythonIntegration : MonoBehaviour
 
         var stdout = new StringBuilder();
         var stderr = new StringBuilder();
+        var stopwatch = Stopwatch.StartNew();
 
         try
         {
@@ -230,7 +262,9 @@ public class PythonIntegration : MonoBehaviour
         {
             result.launchError = e.Message;
         }
-
+        
+        stopwatch.Stop();
+        result.elapsedSeconds = stopwatch.Elapsed.TotalSeconds;
         lock (stdout) result.stdout = stdout.ToString();
         lock (stderr) result.stderr = stderr.ToString();
         return result;
