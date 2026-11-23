@@ -21,6 +21,18 @@ public class WinningTrigger : MonoBehaviour
         if (gameplayData != null)
         {
             gameplayData.CompleteGame();
+
+            // Save gameplay data only for V1
+            if (gameObject.scene.name == "GYM_BetaGame")
+            {
+                PlayerPrefs.SetFloat("V1_CompletionTime", gameplayData.completionTime);
+                PlayerPrefs.SetInt("V1_ErrorCount", gameplayData.errorCount);
+                PlayerPrefs.Save();
+
+                Debug.Log("V1 Gameplay Data Saved: " +
+                        gameplayData.completionTime + " | " +
+                        gameplayData.errorCount);
+            }
         }
 
         // Save leaderboard result

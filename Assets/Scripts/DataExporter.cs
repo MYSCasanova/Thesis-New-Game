@@ -13,6 +13,7 @@ public class DataExporter : MonoBehaviour
     public Slider contrastSlider;
     public Slider brightnessSlider;
 
+    // FOR V1 GAMEPLAY DATA EXPORT
     public void ExportToCSV()
     {
         if (settingsData == null || colorSlider == null || contrastSlider == null || brightnessSlider == null)
@@ -32,26 +33,9 @@ public class DataExporter : MonoBehaviour
         var pt = settingsData.platformSettings;
         var pl = settingsData.playerSettings;
 
-        float completionTime = 0f;
-        int errorCount = 0;
 
-        S17_GameplayData activeGameplayData = Object.FindFirstObjectByType<S17_GameplayData>(FindObjectsInactive.Include);
-        if (activeGameplayData != null)
-        {
-            completionTime = activeGameplayData.completionTime;
-            errorCount = activeGameplayData.errorCount;
-            Destroy(activeGameplayData.gameObject);
-        }
-
-        Debug.Log("Active Scene: " + SceneManager.GetActiveScene().name);
-        Debug.Log("Gameplay Data Found: " + (activeGameplayData != null));
-
-        if (activeGameplayData != null)
-        {
-            Debug.Log("Gameplay Data Scene: " + activeGameplayData.gameObject.scene.name);
-            Debug.Log("Completion Time Before Export: " + activeGameplayData.completionTime);
-            Debug.Log("Error Count Before Export: " + activeGameplayData.errorCount);
-        }
+        float completionTime = PlayerPrefs.GetFloat("V1_CompletionTime", 0f);
+        int errorCount = PlayerPrefs.GetInt("V1_ErrorCount", 0);
 
         float maxColor = colorSlider.maxValue;
         float maxContrast = contrastSlider.maxValue;
@@ -83,6 +67,7 @@ public class DataExporter : MonoBehaviour
         // SceneManager.LoadScene("GYM_MainMenu", LoadSceneMode.Single);
     }
 
+    // FOR V2 AND V3 GAMEPLAY DATA EXPORT
     public void ExportGameplayToCSV()
     {
         string sceneName = SceneManager.GetActiveScene().name;
