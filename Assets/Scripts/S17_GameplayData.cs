@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class S17_GameplayData : MonoBehaviour
 {
-    public float completionTime = 0f;
-    public int errorCount = 0;
+    public float completionTime ;
+    public int errorCount;
 
     private float gameStartTime;
     private bool gameTimerStarted = false;
