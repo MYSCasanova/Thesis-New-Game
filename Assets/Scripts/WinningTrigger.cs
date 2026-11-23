@@ -24,13 +24,13 @@ public class WinningTrigger : MonoBehaviour
         }
 
         // Save leaderboard result
-        Debug.Log("WINNING TRIGGER REACHED");
+        // Debug.Log("WINNING TRIGGER REACHED");
 
         LeaderboardTimer timer = FindFirstObjectByType<LeaderboardTimer>();
         LeaderboardManager leaderboard = FindFirstObjectByType<LeaderboardManager>();
 
-        Debug.Log("Timer found: " + (timer != null));
-        Debug.Log("Leaderboard found: " + (leaderboard != null));
+        // Debug.Log("Timer found: " + (timer != null));
+        // Debug.Log("Leaderboard found: " + (leaderboard != null));
 
         if (timer != null && leaderboard != null)
         {
@@ -40,10 +40,10 @@ public class WinningTrigger : MonoBehaviour
             float completionTime = timer.GetCompletionTime();
             int finalScore = comboSystem.totalScore;
 
-            Debug.Log("Player: " + playerName);
-            Debug.Log("Version: " + version);
-            Debug.Log("Score: " + finalScore);
-            Debug.Log("Time: " + completionTime);
+            // Debug.Log("Player: " + playerName);
+            // Debug.Log("Version: " + version);
+            // Debug.Log("Score: " + finalScore);
+            // Debug.Log("Time: " + completionTime);
 
             leaderboard.SaveScore(version, playerName, finalScore, completionTime);
 

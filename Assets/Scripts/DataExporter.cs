@@ -43,6 +43,16 @@ public class DataExporter : MonoBehaviour
             Destroy(activeGameplayData.gameObject);
         }
 
+        Debug.Log("Active Scene: " + SceneManager.GetActiveScene().name);
+        Debug.Log("Gameplay Data Found: " + (activeGameplayData != null));
+
+        if (activeGameplayData != null)
+        {
+            Debug.Log("Gameplay Data Scene: " + activeGameplayData.gameObject.scene.name);
+            Debug.Log("Completion Time Before Export: " + activeGameplayData.completionTime);
+            Debug.Log("Error Count Before Export: " + activeGameplayData.errorCount);
+        }
+
         float maxColor = colorSlider.maxValue;
         float maxContrast = contrastSlider.maxValue;
         float maxBrightness = brightnessSlider.maxValue;

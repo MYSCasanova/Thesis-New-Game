@@ -91,25 +91,69 @@ public class MainMenuManager : MonoBehaviour
     {
         if (category == null) return;
         
-        int mode = PlayerPrefs.GetInt(tag + "_GraphicsMode", 0);
-        if (mode == 1) // Custom Mode
+        // 1. Match the exact default values from S13_ManualSettingsUI
+        float targetDefaultBrightness = 1f;
+        float targetDefaultContrast = 1f;
+        float targetDefaultColor = 1f;
+
+        switch (tag)
         {
-            // Default assumes a value of 1f. Match this to your defaultBrightness if different.
-            category.brightness = PlayerPrefs.GetFloat(tag + "_Brightness", 1f); 
-            category.contrast = PlayerPrefs.GetFloat(tag + "_Contrast", 1f);
-            category.color = PlayerPrefs.GetFloat(tag + "_Color", 1f);
+            case "Background":
+                targetDefaultBrightness = 2f;
+                targetDefaultContrast = 0.8960935f;
+                targetDefaultColor = 0f;
+                break;
+            case "Obstacle":
+                targetDefaultBrightness = 1.290718f;
+                targetDefaultContrast = 0.8276349f;
+                targetDefaultColor = 0f;
+                break;
+            case "Platform":
+                targetDefaultBrightness = 0.5678623f;
+                targetDefaultContrast = 0.8216149f;
+                targetDefaultColor = 0f;
+                break;
+            case "Player":
+                targetDefaultBrightness = 0.9364931f;
+                targetDefaultContrast = 0.9023179f;
+                targetDefaultColor = 0f;
+                break;
         }
-        else // Default Mode
+
+        int mode = PlayerPrefs.GetInt(tag + "_GraphicsMode", 0);
+        
+        // 2. Safely load values based on the saved mode
+        if (mode == 0) // Default
         {
-            category.brightness = 1f;
-            category.contrast = 1f;
-            category.color = 1f;
+            category.brightness = targetDefaultBrightness;
+            category.contrast = targetDefaultContrast;
+            category.color = targetDefaultColor;
+        }
+        else if (mode == 1) // Custom Mode
+        {
+            category.brightness = PlayerPrefs.GetFloat(tag + "_Brightness", targetDefaultBrightness); 
+            category.contrast = PlayerPrefs.GetFloat(tag + "_Contrast", targetDefaultContrast);
+            category.color = PlayerPrefs.GetFloat(tag + "_Color", targetDefaultColor);
+        }
+        else if (mode == 2) // AIPreset #2
+        {
+            category.brightness = PlayerPrefs.GetFloat(tag + "_AIPresetV2_Brightness", targetDefaultBrightness);
+            category.contrast = PlayerPrefs.GetFloat(tag + "_AIPresetV2_Contrast", targetDefaultContrast);
+            category.color = PlayerPrefs.GetFloat(tag + "_AIPresetV2_Color", targetDefaultColor);
+        }
+        else if (mode == 3) // AIPreset #3
+        {
+            category.brightness = PlayerPrefs.GetFloat(tag + "_AIPresetV3_Brightness", targetDefaultBrightness);
+            category.contrast = PlayerPrefs.GetFloat(tag + "_AIPresetV3_Contrast", targetDefaultContrast);
+            category.color = PlayerPrefs.GetFloat(tag + "_AIPresetV3_Color", targetDefaultColor);
         }
     }
 
     public void PlayBeta()
     {
-        // Check if they need the tutorial or the real game, then load both flawlessly
+        // Restore to their Custom/Default settings before loading Beta/Tutorial
+        RestoreManualGraphicsModes();
+
         if (PlayerPrefs.GetInt("tutorialCompleted", 0) == 1)
         {
             S18_LoadingManager.Instance.LoadScenes("PersistentGameplay", "GYM_BetaGame");
@@ -124,6 +168,8 @@ public class MainMenuManager : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("v1Completed", 0) == 1)
         {
+            // Force AIPreset #2 before loading
+            ForceGraphicsMode(2);
             S18_LoadingManager.Instance.LoadScenes("PersistentGameplay", "GYM_V2Game");
         }
     }
@@ -132,13 +178,71 @@ public class MainMenuManager : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("v2Completed", 0) == 1)
         {
+            // Force AIPreset #3 before loading
+            ForceGraphicsMode(3);
             S18_LoadingManager.Instance.LoadScenes("PersistentGameplay", "GYM_V3Game");
         }
     }
 
     public void OpenTutorialGallery()
     {
+        // Restore manual modes so any tutorial levels entered from the gallery use Custom/Default
+        RestoreManualGraphicsModes(); 
         SceneManager.LoadScene("GYM_TutorialGallery", LoadSceneMode.Single);
+    }
+
+    private void RestoreManualGraphicsModes()
+    {
+        string[] tags = { "Background", "Obstacle", "Platform", "Player" };
+        foreach (string tag in tags)
+        {
+            // Fetch what they had set before playing V2/V3 (Default=0, Custom=1)
+            int lastManualMode = PlayerPrefs.GetInt(tag + "_LastManualMode", 0);
+            
+            // Failsafe: if it's not 0 or 1, force it to 0
+            if (lastManualMode != 0 && lastManualMode != 1) lastManualMode = 0; 
+            
+            PlayerPrefs.SetInt(tag + "_GraphicsMode", lastManualMode);
+        }
+        PlayerPrefs.Save();
+
+        // Immediately apply the restored settings to the VisualSettingsSO
+        if (settingsData != null)
+        {
+            LoadVisualCategory(settingsData.backgroundSettings, "Background");
+            LoadVisualCategory(settingsData.obstacleSettings, "Obstacle");
+            LoadVisualCategory(settingsData.platformSettings, "Platform");
+            LoadVisualCategory(settingsData.playerSettings, "Player");
+            settingsData.ApplyChanges();
+        }
+    }
+
+    private void ForceGraphicsMode(int targetMode)
+    {
+        string[] tags = { "Background", "Obstacle", "Platform", "Player" };
+        foreach (string tag in tags)
+        {
+            int currentMode = PlayerPrefs.GetInt(tag + "_GraphicsMode", 0);
+            
+            // Backup their manual choice if they are currently using Default/Custom
+            if (currentMode == 0 || currentMode == 1)
+            {
+                PlayerPrefs.SetInt(tag + "_LastManualMode", currentMode);
+            }
+
+            PlayerPrefs.SetInt(tag + "_GraphicsMode", targetMode);
+        }
+        PlayerPrefs.Save();
+
+        // Immediately apply the AI preset settings to the VisualSettingsSO
+        if (settingsData != null)
+        {
+            LoadVisualCategory(settingsData.backgroundSettings, "Background");
+            LoadVisualCategory(settingsData.obstacleSettings, "Obstacle");
+            LoadVisualCategory(settingsData.platformSettings, "Platform");
+            LoadVisualCategory(settingsData.playerSettings, "Player");
+            settingsData.ApplyChanges();
+        }
     }
 
     public void BackToMainMenu()
@@ -176,7 +280,13 @@ public class MainMenuManager : MonoBehaviour
 
     public void CloseSettings()
     {
-        // Unpause the game
+        // Only unpause if the player is in the Main Menu.
+        // If in-game, leave time at 0 so the Pause Panel remains properly paused.
+        if (SceneManager.GetActiveScene().name == "GYM_MainMenu")
+        {
+            Time.timeScale = 1f;
+        }
+        
         SceneManager.UnloadSceneAsync("GYM_ManualSettings");
     }
 
