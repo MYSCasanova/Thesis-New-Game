@@ -48,4 +48,13 @@ public class S17_GameplayData : MonoBehaviour
         gameTimerStarted = false;
         gameCompleted = false;
     }
+
+    public void SaveV1GameplayData()
+    {
+        PlayerPrefs.SetFloat("V1_CompletionTime", completionTime);
+        PlayerPrefs.SetInt("V1_ErrorCount", errorCount);
+        PlayerPrefs.Save();
+
+        Debug.Log("V1 Data Saved: " + completionTime + " | " + errorCount);
+    }
 }
