@@ -2068,6 +2068,60 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 634876986}
   m_CullTransparentMesh: 1
+--- !u!1 &651046114
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 651046115}
+  - component: {fileID: 651046116}
+  m_Layer: 0
+  m_Name: Python Integration
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &651046115
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651046114}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1089790319}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &651046116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651046114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f72b84317897ce1459857201f4c81368, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PythonIntegration
+  pipelineV2Exe: Pipeline_V2.exe
+  pipelineV3Exe: Pipeline_V3.exe
+  pipelineTimeoutSeconds: 180
+  brightnessMin: 0
+  brightnessMax: 2
+  contrastMin: 0
+  contrastMax: 2
+  colorMin: 0
+  colorMax: 360
+  v3ColorSourceMax: 360
 --- !u!1 &655319595
 GameObject:
   m_ObjectHideFlags: 0
@@ -4144,7 +4198,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1089790319}
   - component: {fileID: 1089790320}
-  - component: {fileID: 1089790321}
   m_Layer: 0
   m_Name: --- SCRIPT MANAGER ---
   m_TagString: Untagged
@@ -4164,7 +4217,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 651046115}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1089790320
@@ -4183,28 +4237,6 @@ MonoBehaviour:
   colorSlider: {fileID: 2089788276}
   contrastSlider: {fileID: 322891047}
   brightnessSlider: {fileID: 810434045}
---- !u!114 &1089790321
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1089790318}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f72b84317897ce1459857201f4c81368, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PythonIntegration
-  pipelineV2Exe: Pipeline_V2.exe
-  pipelineV3Exe: Pipeline_V3.exe
-  pipelineTimeoutSeconds: 180
-  brightnessMin: 0
-  brightnessMax: 2
-  contrastMin: 0
-  contrastMax: 2
-  colorMin: 0
-  colorMax: 360
-  v3ColorSourceMax: 360
 --- !u!1 &1097130592
 GameObject:
   m_ObjectHideFlags: 0
@@ -6399,7 +6431,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1089790321}
+      - m_Target: {fileID: 651046116}
         m_TargetAssemblyTypeName: PythonIntegration, Assembly-CSharp
         m_MethodName: CallPythonScript
         m_Mode: 1

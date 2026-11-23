@@ -32,15 +32,23 @@ public class DataExporter : MonoBehaviour
         var pt = settingsData.platformSettings;
         var pl = settingsData.playerSettings;
 
-        float completionTime = 0f;
-        int errorCount = 0;
+        float completionTime = PlayerPrefs.GetFloat("V1_CompletionTime", 0f);
+        int errorCount = PlayerPrefs.GetInt("V1_ErrorCount", 0);
 
-        S17_GameplayData activeGameplayData = Object.FindFirstObjectByType<S17_GameplayData>(FindObjectsInactive.Include);
+        S17_GameplayData activeGameplayData = S17_GameplayData.Instance != null
+            ? S17_GameplayData.Instance
+            : Object.FindFirstObjectByType<S17_GameplayData>(FindObjectsInactive.Include);
+
         if (activeGameplayData != null)
         {
+            activeGameplayData.CompleteGame();
             completionTime = activeGameplayData.completionTime;
             errorCount = activeGameplayData.errorCount;
-            Destroy(activeGameplayData.gameObject);
+            activeGameplayData.ResetGameData();
+        }
+        else
+        {
+            Debug.LogError("ExportToCSV: S17_GameplayData was NOT found! Exporting 0s.");
         }
 
         float maxColor = colorSlider.maxValue;
@@ -75,26 +83,19 @@ public class DataExporter : MonoBehaviour
 
     public void ExportGameplayToCSV()
     {
-        string sceneName = SceneManager.GetActiveScene().name;
         string fileName;
 
-        if (sceneName == "GYM_V2Game")
+        if (SceneManager.GetSceneByName("GYM_V2Game").isLoaded)
         {
             fileName = "V2_Player.csv";
         }
-        else if (sceneName == "GYM_V3Game")
+        else if (SceneManager.GetSceneByName("GYM_V3Game").isLoaded)
         {
             fileName = "V3_Player.csv";
         }
         else
         {
             Debug.LogError("This is not a V2 or V3 game scene!");
-            return;
-        }
-
-        if (settingsData == null)
-        {
-            Debug.LogError("Global VisualSettingsSO is not assigned!");
             return;
         }
 
@@ -105,6 +106,8 @@ public class DataExporter : MonoBehaviour
             Debug.LogError("Gameplay data not found!");
             return;
         }
+
+        gameplayData.CompleteGame(); // <-- ADD THIS LINE
 
         var bg = settingsData.backgroundSettings;
         var ob = settingsData.obstacleSettings;
@@ -133,6 +136,8 @@ public class DataExporter : MonoBehaviour
         {
             File.AppendAllText(filePath, dataRow + "\n");
         }
+
+        gameplayData.ResetGameData(); // <-- ADD THIS LINE
 
         Debug.Log("Gameplay data exported to " + fileName);
 

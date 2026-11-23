@@ -317,31 +317,12 @@ public class S1_PlayerController : MonoBehaviour
                 isOnIcy = landedPlatform.isIcy; // Update icy state based on the platform we landed on
                 isOnBouncy = landedPlatform.isBouncy; // Update bouncy state based on the platform we landed on
 
-            // Start both timers on the first landing on floor 1
-            if (landedFloor == 1 && !hasStartedTimers)
-            {
-                hasStartedTimers = true;
-
-                // Start gameplay timer
-                S17_GameplayData gameplayData = FindFirstObjectByType<S17_GameplayData>();
-
-                if (gameplayData != null)
-                {
-                    gameplayData.StartGameTimer();
-                }
-                else
-                {
-                    Debug.LogError("S17_GameplayData not found!");
-                }
-
-                // Start leaderboard timer
-                LeaderboardTimer leaderboardTimer = FindFirstObjectByType<LeaderboardTimer>();
-
-                if (leaderboardTimer != null)
+                // Start both timers on the first landing on floor 1 (skip Tutorial)
+                if (landedFloor == 1 && !hasStartedTimers)
                 {
                     string version = "";
 
-                    switch (SceneManager.GetActiveScene().name)
+                    switch (collision.gameObject.scene.name)
                     {
                         case "GYM_BetaGame":
                             version = "V1";
@@ -356,18 +337,40 @@ public class S1_PlayerController : MonoBehaviour
                             break;
                     }
 
-                    if (!string.IsNullOrEmpty(version))
+                    // Skip timers completely if we are in Tutorial or another non-ranked scene
+                    if (string.IsNullOrEmpty(version))
+                    {
+                        return;
+                    }
+
+                    hasStartedTimers = true;
+
+                    // Start gameplay timer
+                    S17_GameplayData gameplayData = FindFirstObjectByType<S17_GameplayData>();
+
+                    if (gameplayData != null)
+                    {
+                        gameplayData.StartGameTimer();
+                    }
+                    else
+                    {
+                        Debug.LogError("S17_GameplayData not found!");
+                    }
+
+                    // Start leaderboard timer
+                    LeaderboardTimer leaderboardTimer = FindFirstObjectByType<LeaderboardTimer>();
+
+                    if (leaderboardTimer != null)
                     {
                         leaderboardTimer.StartTimer(version);
                     }
-                }
-                else
-                {
-                    Debug.LogError("LeaderboardTimer not found!");
-                }
+                    else
+                    {
+                        Debug.LogError("LeaderboardTimer not found!");
+                    }
 
-                Debug.Log("Both gameplay timers started!");
-            }
+                    Debug.Log("Both gameplay timers started for " + version + "!");
+                }
 
                 if (landedPlatform.direction != S3_Platform.MovementDirection.Static &&
                 landedPlatform.direction != S3_Platform.MovementDirection.Falling) //Attach player to platform ONLY if it's moving

@@ -71,6 +71,7 @@ public class PythonIntegration : MonoBehaviour
 
     private IEnumerator RunPipelinesAndLoad()
     {
+        Debug.Log("[PythonIntegration] CallPythonScript triggered! Checking CSV paths..."); // <-- ADD THIS
         // 1. Show loading screen at 50% before heavy work starts
         if (S18_LoadingManager.Instance != null && S18_LoadingManager.Instance.loadingPanel != null)
         {
@@ -79,8 +80,8 @@ public class PythonIntegration : MonoBehaviour
         }
         yield return null;
 
-        // CSV locations are unchanged
-        string baselinePath = Path.Combine(Application.dataPath, "VisualAccessibility_Baseline.csv");
+        // Baseline is bundled automatically via Assets/StreamingAssets
+        string baselinePath = Path.Combine(Application.streamingAssetsPath, "VisualAccessibility_Baseline.csv");
         string playerPath = Path.Combine(Application.dataPath, "VisualAccessibility_Player.csv");
 
         bool v2Ok = false;
